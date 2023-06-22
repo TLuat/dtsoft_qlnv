@@ -13,7 +13,7 @@ include "classes/nhansu.php";
             <div class="flex">
                 <div class="shadow-md bg-white p-2 rounded-lg">
                     <label for="countries" class="block mb-2 text-base font-medium text-gray-900">Chọn bộ phận</label>
-                    <select id="filter-select1" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select id="filter-select1" class="bg-gray-500 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected value="">-- Tất cả --</option>
                         <option value="Kinh doanh">Kinh doanh</option>
                         <option value="TKBT">TKBT</option>
@@ -23,7 +23,7 @@ include "classes/nhansu.php";
                 </div>
                 <div class="ml-5 shadow-md bg-white p-2 rounded-lg">
                     <label class="block mb-2 text-base font-medium text-gray-900">Chọn khu vực</label>
-                    <select id="filter-select2" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select id="filter-select2" class="bg-gray-500 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="">-- Tất cả --</option>
                         <option value="Cần Thơ">Cần Thơ</option>
                         <option value="Nha Trang">Nha Trang</option>
@@ -31,7 +31,7 @@ include "classes/nhansu.php";
                 </div>
                 <div class="ml-5 shadow-md bg-white p-2 rounded-lg">
                     <label class="block mb-2 text-base font-medium text-gray-900">Chọn Trạng Thái đánh giá</label>
-                    <select id="filter-select3" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select id="filter-select3" class="bg-gray-500 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="">-- Tất cả --</option>
                         <option value="Đã đánh giá">Đã đánh giá</option>
                         <option value="Chưa đánh giá">Chưa đánh giá</option>
@@ -43,7 +43,7 @@ include "classes/nhansu.php";
     <div class="mb-4">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-gray-500 dark:text-gray-400" id="myTable">
-                <thead class="text-xs text-white uppercase bg-gray-50 dark:bg-gray-700">
+                <thead class="text-xs text-white uppercase bg-gray-700">
                     <tr>
                         <th class="px-3 py-3">
                             Mã kế hoạch
@@ -71,27 +71,29 @@ include "classes/nhansu.php";
                 <tbody class="text-black text-center">
 
                     <?php
-                    $sql = "SELECT * FROM kehoachgiaoviec ORDER BY makehoach LIMIT 5";
+                    $sql = "SELECT * FROM kehoachgiaoviec ORDER BY id_kehoachgiaoviec LIMIT 5";
                     $result = mysqli_query($ketnoi, $sql);
                     $stt = 0;
 
                     while ($row = mysqli_fetch_array($result)) {
                         $stt++;
 
-                        $makehoach = $row["makehoach"];
-                        $thoigianbatdau = $row["thoigianbatdau"];
-                        $thoigianketthucdukien = $row["thoigiandukien"];
-                        $thoigianketthuc = $row["thoigianketthuc"];
-                        $mabophan = $row["mabophan"];
-                        $makhuvuc = $row["makhuvuc"];
-                        $madanhgia = $row["makhuvuc"];
+                        $id_kehoachgiaoviec = $row["id_kehoachgiaoviec"];
+                        $ngaybatdau = $row["ngaybatdau"];
+                        $ngayktdukien = $row["ngayktdukien"];
+                        $ngayktthucte = $row["ngayktthucte"];
+                        $id_bophan = $row["id_bophan"];
+                        $madanhgia = $row["id_khuvuc"];
+                        $id_khuvuc = $row["id_khuvuc"];
+                        $trangthai = $row["trangthai"];
 
-                        $sql_bophan = "SELECT `tenbophan` FROM `bophan` WHERE `mabophan` = '" . $mabophan . "'";
+                        $sql_bophan = "SELECT `tenbophan`,`id_khuvuc` FROM `bophan` WHERE `id_bophan` = '" . $id_bophan . "'";
                         $result_bophan = mysqli_query($ketnoi, $sql_bophan);
                         $row_bophan = mysqli_fetch_array($result_bophan);
                         $tenbophan = $row_bophan["tenbophan"];
+                        
 
-                        $sql_khuvuc = "SELECT `tenkhuvuc` FROM `khuvuc` WHERE `makhuvuc` = '" . $makhuvuc . "'";
+                        $sql_khuvuc = "SELECT `tenkhuvuc` FROM `khuvuc` WHERE `id_khuvuc` = '" . $id_khuvuc . "'";
                         $result_khuvuc = mysqli_query($ketnoi, $sql_khuvuc);
                         $row_khuvuc = mysqli_fetch_array($result_khuvuc);
                         $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
@@ -100,7 +102,7 @@ include "classes/nhansu.php";
                     ?>
                         <tr class="bg-white border-b dark:border-gray-700 hover:bg-gray-50">
                             <td scope="row" class="px-3 py-4 text-black">
-                                <?php echo $makehoach ?>
+                                <?php echo $id_kehoachgiaoviec ?>
                             </td>
                             <td class="px-3 py-4 font-medium whitespace-nowrap">
                                 <?php echo $tenbophan ?>
@@ -109,16 +111,22 @@ include "classes/nhansu.php";
                                 <?php echo $tenkhuvuc ?>
                             </td>
                             <td class="px-3 py-4 font-medium whitespace-nowrap">
-                                <?php echo $thoigianketthucdukien ?>
+                                <?php echo $ngayktdukien ?>
                             </td>
                             <td class="px-3 py-4 font-medium whitespace-nowrap">
                                 Đã hoàn thành
                             </td>
                             <td class="px-3 py-4 font-medium whitespace-nowrap text-center">
-                                Chưa đánh giá
+                                <?php 
+                                    if ($trangthai=='-- Chọn đánh giá --' or $trangthai=='') {
+                                        echo 'Chưa đánh giá';
+                                    } 
+                                    else echo $trangthai;
+                    
+                                ?>
                             </td>
                             <td class="px-3 py-4 font-medium whitespace-nowrap text-center">
-                                <a class="text-blue-800" href="chitietdanhgia.php?id=<?php echo $makehoach ?>">Chi tiết</a>
+                                <a class="text-blue-800" href="chitietdanhgia.php?id=<?php echo $id_kehoachgiaoviec ?>">Chi tiết</a>
                             </td>
                         </tr>
                     <?php } ?>

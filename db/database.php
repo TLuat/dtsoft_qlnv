@@ -2,7 +2,7 @@
 
 
 session_start();
-define("DATABASE", "quanlynhansu");
+define("DATABASE", "dtsoft2");
 define("USERNAME", "root");
 define("PASSWORD", "");
 define("LOCALHOST", "localhost");

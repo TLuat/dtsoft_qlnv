@@ -73,7 +73,7 @@ include "classes/nhansu.php";
                              Khu vực
                           </th>
                           <th class="px-3 py-3">
-                             Kế Hoạch
+                             Năm
                           </th>
                           <th class="px-3 py-3">
                              Kết quả
@@ -83,51 +83,51 @@ include "classes/nhansu.php";
                   <tbody class="text-black text-center">
 
                       <?php 
-                      $sql = "SELECT * FROM nhanvien ORDER BY manhanvien LIMIT 5";
+                      $sql = "SELECT * FROM nguoidung ORDER BY id_nguoidung LIMIT 5";
                       $result = mysqli_query($ketnoi, $sql);
                       $stt=0;
 
                       while ($row = mysqli_fetch_array($result)) {
                         $stt++;
 
-                        $manhanvien = $row["manhanvien"];
-                        $hoten = $row["hoten"];
-                        $mabophan = $row["mabophan"];
-                        $machucvu = $row["machucvu"];
-                        $makhuvuc = $row["makhuvuc"];
+                        $id_nguoidung = $row["id_nguoidung"];
+                        $tennguoidung = $row["tennguoidung"];
+                        $id_bophan = $row["id_bophan"];
+                        $id_vaitro = $row["id_vaitro"];
+                        $id_khuvuc = $row["id_khuvuc"];
 
-                        $sql_bophan = "SELECT `tenbophan` FROM `bophan` WHERE `mabophan` = '" . $mabophan . "'";
+                        $sql_bophan = "SELECT `tenbophan` FROM `bophan` WHERE `id_bophan` = '" . $id_bophan . "'";
                         $result_bophan = mysqli_query($ketnoi, $sql_bophan);
                         $row_bophan = mysqli_fetch_array($result_bophan);
                         $tenbophan = $row_bophan["tenbophan"];
 
-                        $sql_chucvu = "SELECT `tenchucvu` FROM `chucvu` WHERE `machucvu` = '" . $machucvu . "'";
-                        $result_chucvu = mysqli_query($ketnoi, $sql_chucvu);
-                        $row_chucvu = mysqli_fetch_array($result_chucvu);
-                        $tenchucvu = $row_chucvu["tenchucvu"];
+                        $sql_vaitro = "SELECT `tenvaitro` FROM `vaitro` WHERE `id_vaitro` = '" . $id_vaitro . "'";
+                        $result_vaitro = mysqli_query($ketnoi, $sql_vaitro);
+                        $row_vaitro = mysqli_fetch_array($result_vaitro);
+                        $tenvaitro = $row_vaitro["tenvaitro"];
 
-                        $sql_khuvuc = "SELECT `tenkhuvuc` FROM `khuvuc` WHERE `makhuvuc` = '" . $makhuvuc . "'";
+                        $sql_khuvuc = "SELECT `tenkhuvuc` FROM `khuvuc` WHERE `id_khuvuc` = '" . $id_khuvuc . "'";
                         $result_khuvuc = mysqli_query($ketnoi, $sql_khuvuc);
                         $row_khuvuc = mysqli_fetch_array($result_khuvuc);
                         $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
 
                         // Bang chi tiet ke hoach
-                        $sql_chitietkehoach = "SELECT `makehoach` FROM `chitietkehoach` WHERE `manhanvien` = '" . $manhanvien . "'";
-                        $result_chitietkehoach = mysqli_query($ketnoi, $sql_chitietkehoach);
-                        $row_chitietkehoach = mysqli_fetch_array($result_chitietkehoach);
-                        $makehoach = $row_chitietkehoach["makehoach"];
+                        // $sql_theodoikehoach = "SELECT `id_kehoachgiaoviec` FROM `theodoikehoach` WHERE `id_nguoidung` = '" . $id_nguoidung . "'";
+                        // $result_theodoikehoach = mysqli_query($ketnoi, $sql_theodoikehoach);
+                        // $row_theodoikehoach = mysqli_fetch_array($result_theodoikehoach);
+                        // $id_kehoachgiaoviec = $row_theodoikehoach["id_kehoachgiaoviec"];
 
 
                       ?>
                     
                         <tr class="bg-white border-b dark:border-gray-700 hover:bg-gray-50">
                             <td class="px-5 text-left"><?php echo $stt ?></td>
-                            <td class="text-center"><?php echo $manhanvien ?></td>
+                            <td class="text-center"><?php echo $id_nguoidung ?></td>
                             <td scope="row" class="px-3 py-4 text-black">
-                                <?php echo $hoten ?>
+                                <?php echo $tennguoidung ?>
                             </td>
                             <td class="px-3 py-4 font-medium whitespace-nowrap">
-                                <?php echo $tenchucvu ?>
+                                <?php echo $tenvaitro ?>
                             </td>
                             <td class="px-3 py-4 font-medium whitespace-nowrap">
                                 <?php echo $tenbophan ?>
@@ -136,7 +136,7 @@ include "classes/nhansu.php";
                                 <?php echo $tenkhuvuc ?>
                             </td>
                             <td class="px-3 py-4 font-medium whitespace-nowrap">
-                                <?php echo $makehoach ?>
+                                2023
                             </td>
                             <td class="px-3 py-4 font-medium whitespace-nowrap text-center">
                                 Đạt

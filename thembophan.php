@@ -1,67 +1,47 @@
 <?php
 $activePage = "Thêm Bộ Phận";
 include "inc/header.php";
+include "db/connect.php";
+$sql = "SELECT * FROM khuvuc";
+$result = mysqli_query($connect, $sql);
 ?>
 
-<div class="container-fluid">
-    <a class="btn btn-info text-white" href="bophan.php"><i class="fa fa-long-arrow-left"></i> Trở về</a>
-</div>
-<div class="container-fluid py-4">
-    <div class="row">
-        <div class="col-12">
-            <div class="card my-4">
-                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                    <div class="bg-gradient-info shadow border-radius-lg pt-4 pb-3">
-                        <h6 class="text-white text-capitalize ps-3">THÊM BỘ PHẬN</h6>
-                    </div>
-                </div>
-                <div class="card-body px-0 pb-2">
-                    <div class="table-responsive  p-0">
-                        <div class="card-body">
-                            <form role="form">
-                                <div class="form-group form-group-sm">
-                                    <label class="form-label">Tên bộ phận</label>
-                                    <div class="form-control form-control-sm  input-group input-group-outline mb-3">
-                                        <input type="text" id="namecv" class="form-control" placeholder="Nhập vào tên bộ phận" require>
-                                    </div>
-                                </div>
-                                <div class="form-group form-group-sm">
-                                    <label class="form-label">Khu vực</label>
-                                    <div class="form-control form-control-sm input-group input-group-outline mb-3">
-                                        <select class="form-control">
-                                            <option selected>-- Chọn khu vực --</option>
-                                            <option value="0">Hà Nội</option>
-                                            <option value="1">TP. Hồ Chí Minh</option>
-                                            <option value="2">TP. Cần Thơ</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group form-group-sm">
-                                    <label class="form-label">Tên công việc chuyên môn</label>
-                                    <div class="form-control form-control-sm  input-group input-group-outline mb-3">
-                                        <input type="text" id="namecv" class="form-control" placeholder="Nhập vào tên công việc chuyên môn" required>
-                                    </div>
-                                </div>
-                                
-                             
-                                
-                                </div>
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-lg bg-gradient-success btn-lg w-20 mt-4 mb-0">Thêm bộ phận</button>
-                                </div>
-                            </form>
+<div class="p-4 sm:ml-64">
+    <div class="p-4 mt-14">
+        <div class="mb-4 font-bold text-lg uppercase text-center">THÊM BỘ PHẬN</div>
+        <div class="mb-4">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5 rounded">
+                <form action="process_thembophan.php" method="POST">
+                    <div class="grid gap-6 mb-6 md:grid-cols-2">
+                        <div>
+                            <label for="first_name" class="block mb-2 text-sm font-medium">Tên bộ phận</label>
+                            <input type="text" name="tenbophan" id="first_name" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"  required>
                         </div>
+                        <div>
+                            <label for="phone" class="block mb-2 text-sm font-medium">Khu vực</label>
+                            <select name="id_khuvuc" id="countries" class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"  required>
+                                <option selected>-- Chọn khu vực --</option>
+                                <?php foreach ($result as $each) : ?>
+                                    <option value="<?php echo $each['id_khuvuc'] ?>"><?php echo $each['tenkhuvuc'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="last_name" class="block mb-2 text-sm font-medium">Tên công việc chuyên môn</label>
+                            <input type="text" name="cvchuyenmon" id="last_name" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        </div>
+                        
                     </div>
-                </div>
+                   
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                </form>
+
             </div>
+
         </div>
     </div>
-    <footer class="footer py-4  ">
-        <div class="container-fluid">
-        </div>
-    </footer>
 </div>
-</main>
+
 </body>
 
 </html>

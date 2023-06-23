@@ -1,3 +1,7 @@
+<?php
+session_start();
+// var_dump(isset($_SESSION['error'])); die();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -203,23 +207,27 @@
                 </div>
                 <header class="header">Log in</header>
                 <header class="subHeader">Welcome to <b>DTSoft!</b> Please Enter your Details</header>
-
-                <form>
+                <?php if (isset($_SESSION['error'])) { ?>
+							<div style="color: #ff606e; font-size: .875em;"><?php echo $_SESSION['error']; ?></div>
+						<?php
+							unset($_SESSION['error']);
+						} ?>
+                <form action="process_login.php" method="post">
                     <div class="inputContainer">
                         <label class="label" for="emailAddress1"><img src="https://i.imgur.com/Hn13wvm.png" class="labelIcon"><span>Email
                                 Address*</span></label>
-                        <input type="email" class="input" id="emailAddress1" placeholder="Enter your Email Address">
+                        <input type="email" name="email" class="input" id="emailAddress1" placeholder="Enter your Email Address">
                     </div>
                     <div class="inputContainer">
                         <label class="label" for="emailAddress"><img src="https://i.imgur.com/g5SvdfG.png"
                                 class="labelIcon"><span>Password*</span></label>
-                        <input type="password" class="input" id="emailAddress" placeholder="Enter your Password">
+                        <input type="password" name="password" class="input" id="emailAddress" placeholder="Enter your Password">
                     </div>
                     <div class="OptionsContainer">
                         
                 
                     </div>
-                    <button class="LoginButton">Login</button>
+                    <button type="submit" class="LoginButton">Login</button>
                 </form>
             </div>
         </div>

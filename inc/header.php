@@ -1,5 +1,5 @@
 <?php 
-// include_once('db/database.php');
+ include_once('db/connect.php');
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +24,49 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- <link rel="stylesheet" href="/assets/css/style.css"> -->
+  <!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<!--Datatables -->
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script>
+    $(document).ready(function() {
+
+        var table = $('#myTable').DataTable({
+                responsive: false,
+                search: "",
+                searchPlaceholder: "Search..."
+            })
+            // .columns.adjust()
+            .responsive.recalc();
+
+        $('#filter-select1, #filter-select2, #filter-select3').change(function() {
+            var filterValue1 = $('#filter-select1').val();
+            var filterValue2 = $('#filter-select2').val();
+            var filterValue3 = $('#filter-select3').val();
+
+            // Áp dụng bộ lọc vào DataTable
+            table.columns(1).search(filterValue1); // Lọc cột 1 bằng giá trị của select 1
+            table.columns(2).search(filterValue2);
+            table.columns(5).search(filterValue3);
+
+            table.draw(); // Vẽ lại DataTable
+        });
+
+        // Custom styling for search input
+        // $('.dataTables_filter input').addClass('bg-gray-100 border border-gray-300 py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500');
+
+        // Clear default search icon
+        // $('.dataTables_filter label::before').remove();
+        // $('.dataTables_filter label::after').remove();
+        // $('.dataTables_filter label').addClass('');
+        // $('.dataTables_filter input').addClass('m-2 bg-white text-white border');
+
+        // $('.dataTables_filter label').append('<i class="fa-solid fa-magnifying-glass"></i>');
+        $('.dataTables_filter input').attr('placeholder', 'Tìm kiếm ...');
+    });
+</script>
   <style>
 		/*Overrides for Tailwind CSS */
 
@@ -234,6 +277,31 @@
                   </a>
                </li>
 
+               <li class="border-b rounded">
+                  <button type="button" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-black hover:bg-gray-200" aria-controls="dropdown-cv" data-collapse-toggle="dropdown-ct">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-target-arrow" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                      <path d="M12 7a5 5 0 1 0 5 5" />
+                      <path d="M13 3.055a9 9 0 1 0 7.941 7.945" />
+                      <path d="M15 6v3h3l3 -3h-3v-3z" />
+                      <path d="M15 9l-3 3" />
+                    </svg>
+                    <span class="flex-1 ml-3 text-left whitespace-nowrap">Chỉ Tiêu</span>
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                  </button>
+                  <ul id="dropdown-ct" class="hidden py-2 space-y-2">
+                    <li>
+                      <a href="chitieu.php" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-black dark:hover:bg-gray-200">Danh sách chỉ tiêu</a>
+                    </li>
+                    <li>
+                      <a href="baocaochitieu.php" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-black dark:hover:bg-gray-200">Báo cáo chỉ tiêu</a>
+                    </li>
+                  </ul>
+               </li>
+               
                <li class="border-b rounded">
                   <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-gray-200">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-view-360" width="34" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">

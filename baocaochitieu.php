@@ -32,6 +32,9 @@ include "inc/header.php";
                 TÊN KẾ HOẠCH
               </th>
               <th class="px-3 py-3 border border-slate-300">
+                ĐẶT CHỈ TIÊU
+              </th>
+              <th class="px-3 py-3 border border-slate-300">
                 BÁO CÁO CHỈ TIÊU	
               </th>
             </tr>
@@ -45,6 +48,11 @@ include "inc/header.php";
               <td class="text-center font-medium border border-slate-300"><?php echo $row['id_kehoachgiaoviec']; ?></td>
               <td scope="row" class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
                 <?php echo $row['tenkh']; ?>
+              </td>
+              <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
+                <a class="text-blue-800" href="datchitieu.php?&id=<?php echo $row['id_kehoachgiaoviec']; ?>">
+                <i class="fa-solid fa-bullseye"></i>
+                </a>
               </td>
               <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
                 <a class="text-blue-800" href="baocaochitieukehoach.php?&id=<?php echo $row['id_kehoachgiaoviec']; ?>">

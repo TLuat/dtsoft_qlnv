@@ -7,7 +7,7 @@ include "inc/header.php";
   $id_user = $_SESSION['id'];
   $sql = "SELECT * FROM kehoachgiaoviec kh
   INNER JOIN tiendocongviec td ON kh.id_kehoachgiaoviec = td.id_kehoachgiaoviec
-  WHERE td.id_nguoidung = $id_user;
+  WHERE td.id_nguoidung = '" . $id_user . "' 
   ";
   $query = mysqli_query($connect,$sql);
 ?>

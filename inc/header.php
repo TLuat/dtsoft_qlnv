@@ -175,9 +175,7 @@
 		}
 	</style>
  
- <script>$( function() {
-    $( "#draggable" ).draggable();
-  });</script>
+
 </head>
 
 <body class="g-sidenav-show bg-slate-50" id="draggable">
@@ -332,7 +330,7 @@
                       <a href="congviec.php" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-black dark:hover:bg-gray-200">Danh sách công việc</a>
                     </li>
                     <li>
-                      <a href="ketquadanhgia.php" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-black dark:hover:bg-gray-200">Kết quả đánh giá</a>
+                      <a href="capnhattiendocongviec.php" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-black dark:hover:bg-gray-200">Cập nhật tiến độ</a>
                     </li>
                   </ul>
                </li>

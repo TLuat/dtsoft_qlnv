@@ -9,6 +9,7 @@ define("LOCALHOST", "localhost");
 $ketnoi = mysqli_connect(LOCALHOST, USERNAME, PASSWORD, DATABASE);
 $ketnoi->query("set names 'utf8'");
 $conn = $ketnoi;
+$connect = $ketnoi;
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 $_SESSION['session_request'] = time();
 $time = date('h:i d-m-Y');

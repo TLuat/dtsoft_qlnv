@@ -26,7 +26,7 @@ if (isset($_POST['capnhat_ns'])) {
     $ngaysinh_ns = $_POST['ngaysinh_ns'];
     $gioitinh_ns = $_POST['gioitinh_ns'];
 
-    $sql = "UPDATE nguoidung SET id_nguoidung = '$id_ns',id_bophan = '$bophan_ns',id_vaitro = '$vaitro_ns',id_khuvuc= '$khuvuc_ns',tennguoidung = '$ten_ns',sdt_nd= '$sdt_ns' ,diachi_nd = '$diachi_ns',
+    $sql = "UPDATE nguoidung SET id_nguoidung = '$id_ns',id_bophan = '$bophan_ns',id_vaitro = '$vaitro_ns',id_khuvuc= '$khuvuc_ns',tennguoidung = '$ten_ns',sdt= '$sdt_ns' ,diachi = '$diachi_ns',
         email='$email_ns',password = '$password_ns',ngaysinh = '$ngaysinh_ns',gioitinh = '$gioitinh_ns'  where id_nguoidung = '" . $id . "' ";
     $query = mysqli_query($ketnoi, $sql);
     echo '<script>alert("Cập nhật nhân sự thành công")</script>';
@@ -51,7 +51,7 @@ if (isset($_POST['capnhat_ns'])) {
                         </div>
                         <div>
                             <label for="last_name" class="block mb-2 text-sm font-medium">Địa chỉ</label>
-                            <input type="text" name="diachi_ns" id="last_name" value="<?php echo $row_up['diachi_nd'] ?>" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required>
+                            <input type="text" name="diachi_ns" id="last_name" value="<?php echo $row_up['diachi'] ?>" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required>
                         </div>
                         <div>
                             <label for="company" class="block mb-2 text-sm font-medium">Họ & tên</label>
@@ -70,7 +70,7 @@ if (isset($_POST['capnhat_ns'])) {
                         </div>
                         <div>
                             <label for="visitors" class="block mb-2 text-sm font-medium">Số điện thoại</label>
-                            <input type="number" name="sdt_ns" id="visitors" value="<?php echo $row_up['sdt_nd'] ?>" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+                            <input type="number" name="sdt_ns" id="visitors" value="<?php echo $row_up['sdt'] ?>" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
                         </div>
                         <div>
                             <label for="visitors" class="block mb-2 text-sm font-medium">Password</label>

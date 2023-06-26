@@ -227,8 +227,8 @@ INSERT INTO `tiendocongviec` (`id_congviec`, `id_nguoidung`, `id_khuvuc`, `id_bo
 ('CV001', 'NV001', 'CT', 'KD001', 'KH001', 'Hoạt Động Kinh Doanh', 'Hoàn Thành', '2023-06-23', '2023-06-23', '2023-06-25'),
 ('CV002', 'NV001', 'CT', 'KD001', 'KH002', 'Thu Hồi Công Nợ', 'Hoàn Thành', '2023-06-23', '2023-07-24', '2023-06-23'),
 ('CV003', 'NV001', 'CT', 'CSKH002', 'KH002', 'Hoạt Động Kinh Doanh', 'Hoàn Thành', '2023-06-23', '2023-06-24', '2023-06-23'),
-('CV005', 'NV001', 'CT', 'CSKH001', 'KH001', 'Thu Hồi Công Nợ', '-- Chọn tiến độ --', '2023-06-23', '2023-06-23', '0000-00-00'),
-('CV006', 'NV001', 'CT', 'CSKH001', 'KH001', 'Thu Hồi Công Nợ', '-- Chọn tiến độ --', '2023-06-25', '2023-06-30', '0000-00-00');
+('CV005', 'NV001', 'CT', 'CSKH001', 'KH001', 'Thu Hồi Công Nợ', '-- Chọn tiến độ --', '2023-06-23', '2023-06-23', '2023-06-23'),
+('CV006', 'NV001', 'CT', 'CSKH001', 'KH001', 'Thu Hồi Công Nợ', '-- Chọn tiến độ --', '2023-06-25', '2023-06-30', '2023-06-30');
 
 -- --------------------------------------------------------
 
@@ -326,6 +326,3 @@ ALTER TABLE `theodoikehoach`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

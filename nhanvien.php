@@ -2,12 +2,30 @@
 $activePage = "Nhân viên";
 include "inc/header.php";
 include "db/database.php";
+// session_start();
+$id_vt = $_SESSION['id_vaitro'];
+$id_bp = $_SESSION['id_bophan'];
+$id_kv = $_SESSION['id_khuvuc'];
 
-$sql = "SELECT * FROM nguoidung, vaitro, bophan, khuvuc
-WHERE nguoidung.id_khuvuc = khuvuc.id_khuvuc
-AND   nguoidung.id_vaitro = vaitro.id_vaitro
-AND   nguoidung.id_bophan = bophan.id_bophan";
-$query = mysqli_query($connect, $sql);
+if ($id_vt == 'QLKV') {
+  $sql = "SELECT * FROM nguoidung, vaitro, bophan, khuvuc
+  WHERE nguoidung.id_khuvuc = khuvuc.id_khuvuc 
+  AND   nguoidung.id_vaitro = vaitro.id_vaitro
+  AND   nguoidung.id_bophan = bophan.id_bophan
+  AND   khuvuc.id_khuvuc = '".$id_kv."'";
+  $query = mysqli_query($connect, $sql);
+} else if ($id_vt = 'QLBP') {
+  $sql = "SELECT * FROM nguoidung, vaitro, bophan, khuvuc
+  WHERE nguoidung.id_khuvuc = khuvuc.id_khuvuc
+  AND   nguoidung.id_vaitro = vaitro.id_vaitro
+  AND   nguoidung.id_bophan = bophan.id_bophan
+  AND   khuvuc.id_khuvuc = '".$id_kv."'
+  AND   bophan.id_bophan = '".$id_bp."' 
+  AND nguoidung.id_vaitro NOT IN (SELECT nguoidung.id_vaitro FROM nguoidung WHERE nguoidung.id_vaitro = 'QLBP' OR nguoidung.id_vaitro = 'QLKV') ";
+  
+  $query = mysqli_query($connect, $sql);
+}
+
 
 // $sql_bophan = mysqli_query($connect, "SELECT * FROM bophan order by id_bophan ASC");
 

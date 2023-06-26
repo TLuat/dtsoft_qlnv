@@ -9,7 +9,7 @@ $result = mysqli_query($connect, $sql);
 $isCustomer = mysqli_num_rows($result);
 if ($isCustomer == 1) {
     $each = mysqli_fetch_array($result);
-    $_SESSION['name'] = $each['tennguoidung'];
+    $_SESSION['tennguoidung'] = $each['tennguoidung'];
     $_SESSION['id_nguoidung'] = $each['id_nguoidung'];
     $_SESSION['id_vaitro'] = $each['id_vaitro'];
     $_SESSION['id_bophan'] = $each['id_bophan'];

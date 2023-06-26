@@ -4,13 +4,14 @@ include "inc/header.php";
 ?>
 <?php 
     $id = $_GET['id'];
-    $sql = "SELECT * FROM chitieu where id_chitieu = $id";
+    $sql = "SELECT * FROM chitieu where id_chitieu = '$id'";
     $query_up = mysqli_query($connect,$sql);
     $row_up = mysqli_fetch_assoc($query_up);
     if(isset($_POST['sbm'])){
-        if(!empty($_POST['tenchitieu']) ) {
+        if(!empty($_POST['tenchitieu']) && !empty($_POST['id_chitieu']) ) {
+            $id_chitieu = $_POST['id_chitieu'];
             $tenchitieu = $_POST['tenchitieu'];
-            $sql = "UPDATE chitieu SET tenchitieu = '$tenchitieu' Where id_chitieu = $id;"; 
+            $sql = "UPDATE chitieu SET tenchitieu = '$tenchitieu',id_chitieu = '$id_chitieu'  Where id_chitieu = '$id';"; 
             $query = mysqli_query($connect,$sql);
             echo'<script>alert("Chỉnh sửa chỉ tiêu thành công!")</script>';
         }else{
@@ -24,6 +25,10 @@ include "inc/header.php";
     <div class="mb-4">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5 rounded">
             <form method="post" enctype="multipart/form-data">
+                <div class="mb-6">
+                    <label for="" class="block mb-2 text-sm font-medium">ID chỉ tiêu</label>
+                    <input require value="<?php echo $row_up['id_chitieu']; ?>" name="id_chitieu" id="first_name" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập tên kế hoạch" required>
+                </div>
                 <div class="mb-6">
                     <label for="" class="block mb-2 text-sm font-medium">Tên chỉ tiêu</label>
                     <input require value="<?php echo $row_up['tenchitieu']; ?>" name="tenchitieu" id="first_name" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập tên kế hoạch" required>

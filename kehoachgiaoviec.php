@@ -3,9 +3,26 @@ $activePage = "Kế hoạch giao việc";
 include "inc/header.php";
 ?>
 <?php 
-  $sql = "SELECT * FROM kehoachgiaoviec kh 
-  INNER JOIN khuvuc ON kh.id_khuvuc = khuvuc.id_khuvuc 
-  INNER JOIN bophan ON kh.id_bophan = bophan.id_bophan";
+  $id_user = $_SESSION['id_nguoidung'];
+  $vaitro = $_SESSION['id_vaitro'];
+  $bophan = $_SESSION['id_bophan'];
+  if($vaitro == 'QLBP'){
+    $sql = "SELECT DISTINCT kh.id_kehoachgiaoviec, kh.tenkh, kv.tenkhuvuc, bp.tenbophan
+  FROM kehoachgiaoviec kh 
+    INNER JOIN khuvuc kv ON kh.id_khuvuc = kv.id_khuvuc 
+    INNER JOIN bophan bp ON kh.id_bophan = bp.id_bophan
+  WHERE kh.id_bophan = '" . $bophan . "'
+  ";
+  }else{
+    $sql = "SELECT DISTINCT kh.id_kehoachgiaoviec, kh.tenkh, kv.tenkhuvuc, bp.tenbophan, td.id_nguoidung
+  FROM kehoachgiaoviec kh 
+    INNER JOIN khuvuc kv ON kh.id_khuvuc = kv.id_khuvuc 
+    INNER JOIN bophan bp ON kh.id_bophan = bp.id_bophan
+    INNER JOIN tiendocongviec td ON kh.id_kehoachgiaoviec = td.id_kehoachgiaoviec
+  WHERE td.id_nguoidung = '" . $id_user . "'
+  ";
+  }
+  
   $query = mysqli_query($connect,$sql);
 ?>
 <div class="p-4 sm:ml-64">
@@ -13,9 +30,16 @@ include "inc/header.php";
     <div class="mb-4 font-bold text-lg uppercase">Kế hoạch giao việc</div>
     <div class="p-4 mt-14 grid">
       <div class="justify-self-end">
-        <a href="themkehoach.php" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-          Thêm Kế hoạch <i class="fa-solid fa-plus"></i>
-        </a>
+        <?php 
+          if($vaitro == 'QLBP'){
+        ?>
+            <a href="themkehoach.php" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+              Thêm Kế hoạch <i class="fa-solid fa-plus"></i>
+            </a>
+        <?php
+          }
+        ?>
+
       </div>
     </div>
     <div class="mb-4">
@@ -43,9 +67,16 @@ include "inc/header.php";
               <th class="px-3 py-3 border border-slate-300">
                 XEM CHI TIẾT	
               </th>
-              <th class="px-3 py-3 border border-slate-300">
-                XÓA
-              </th>
+              <?php 
+                if($vaitro == 'QLBP'){
+              ?>
+                <th class="px-3 py-3 border border-slate-300">
+                  XÓA
+                </th>
+              <?php
+                }
+              ?>
+              
             </tr>
           </thead>
           <tbody class="text-black text-center">
@@ -69,7 +100,13 @@ include "inc/header.php";
                   <i class="fa-solid fa-eye"></i>
                 </a>
               </td>
+              <?php 
+                if($vaitro == 'QLBP'){
+              ?>
               <td><a onclick="return Del('<?php echo $row['tenkh'] ?>')" class="btn btn-danger" href="xoakehoach.php?&id=<?php echo $row['id_kehoachgiaoviec']; ?>"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+              <?php
+                }
+              ?>
             </tr>
             <?php  }  ?>
           </tbody>

@@ -4,37 +4,20 @@ include "inc/header.php";
 ?>
 <?php 
     $id = $_GET['id'];
-    $sql = "SELECT * FROM kehoachgiaoviec kh
-    INNER JOIN khuvuc kv ON kh.id_khuvuc = kv.id_khuvuc
-    INNER JOIN bophan bp ON kh.id_bophan = bp.id_bophan
-    where kh.id_kehoachgiaoviec = $id";
+    $sql = "SELECT * FROM kehoachgiaoviec
+    where id_kehoachgiaoviec = '" . $id . "' ";
     $query_up = mysqli_query($connect,$sql);
     $row_up = mysqli_fetch_assoc($query_up);
-    $sql_bophan = "SELECT * FROM bophan";
-    $query_bophan = mysqli_query($connect,$sql_bophan);
-    $sql_khuvuc = "SELECT * FROM khuvuc";
-    $query_khuvuc = mysqli_query($connect,$sql_khuvuc);
     if(isset($_POST['sbm'])){
-        if(!empty($_POST['tenkh']) && !empty($_POST['id_khuvuc']) && !empty($_POST['id_bophan']) && !empty($_POST['ngaybatdau']) && !empty($_POST['ngayktdukien']) && !empty($_POST['ngayktthucte']) && !empty($_POST['motakh'])) {
+        if(!empty($_POST['tenkh']) && !empty($_POST['ngaybatdau']) && !empty($_POST['ngayktdukien']) && !empty($_POST['ngayktthucte'])) {
             $tenkh = $_POST['tenkh'];
-            $id_khuvuc = $_POST['id_khuvuc'];
-            $id_bophan = $_POST['id_bophan'];
             $ngaybatdau = $_POST['ngaybatdau'];
             $ngayktdukien = $_POST['ngayktdukien'];
             $ngayktthucte = $_POST['ngayktthucte'];
-            $motakh = $_POST['motakh'];
-            $sql_check = "SELECT * FROM bophan Where bophan.id_bophan = $id_bophan and bophan.id_khuvuc = $id_khuvuc";
-            $query_check = mysqli_query($connect,$sql_check);
-            $check_done = mysqli_num_rows($query_check);
-            if($check_done != 0){
-                $sql = "UPDATE kehoachgiaoviec SET tenkh = '$tenkh', id_khuvuc = '$id_khuvuc', id_bophan = '$id_bophan', ngaybatdau = '$ngaybatdau', ngayktdukien = '$ngayktdukien', ngayktthucte = '$ngayktthucte', motakh = '$motakh'
-                Where id_kehoachgiaoviec = $id;"; 
-                $query = mysqli_query($connect,$sql);
-                echo'<script>alert("Chỉnh sửa kế hoạch thành công!")</script>';
-            }
-            else{
-                echo'<script>alert("Chỉnh sửa kế hoạch thất bại! Bộ phận này không có trong khu vực này!")</script>';
-            }
+            $sql = "UPDATE kehoachgiaoviec SET tenkh = '$tenkh', ngaybatdau = '$ngaybatdau', ngayktdukien = '$ngayktdukien', ngayktthucte = '$ngayktthucte'
+            Where id_kehoachgiaoviec = '$id';"; 
+            $query = mysqli_query($connect,$sql);
+            echo'<script>alert("Chỉnh sửa kế hoạch thành công!")</script>';
         }else{
                 echo '<script>alert("Chỉnh sửa kế hoạch thất bại! Hãy điền đầy đủ tất cả các mục")</script>';
             }
@@ -49,47 +32,19 @@ include "inc/header.php";
                 <div class="mb-6">
                     <label for="" class="block mb-2 text-sm font-medium">Tên Kế hoạch</label>
                     <input type="text" name="tenkh" require value="<?php echo $row_up['tenkh']; ?>" id="first_name" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required>
-                </div>  
-                <div class="mb-6">
-                    <label for="" class="block mb-2 text-sm font-medium">Khu vực</label>
-                    <select id="countries" name="id_khuvuc" class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required>
-                        <?php 
-                            while($row_khuvuc = mysqli_fetch_assoc($query_khuvuc)){ 
-                                if($row_up['id_khuvuc'] == $row_khuvuc['id_khuvuc']){?>
-                                    <option selected value="<?php echo $row_khuvuc['id_khuvuc']; ?>"><?php echo $row_khuvuc['tenkhuvuc']; ?></option>
-                        <?php } else {?>
-                                    <option value="<?php echo $row_khuvuc['id_khuvuc']; ?>"><?php echo $row_khuvuc['tenkhuvuc']; ?></option>
-                        <?php   }} ?>
-                    </select>
-                </div>        
-                <div class="mb-6">
-                    <label for="" class="block mb-2 text-sm font-medium">Bộ phận</label>
-                    <select id="countries" name="id_bophan" class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required>
-                        <?php 
-                            while($row_bophan = mysqli_fetch_assoc($query_bophan)){ 
-                                if($row_up['id_bophan'] == $row_bophan['id_bophan']){?>
-                                    <option selected value="<?php echo $row_bophan['id_bophan']; ?>"><?php echo $row_bophan['tenbophan']; ?></option>
-                        <?php } else {?>
-                                    <option value="<?php echo $row_bophan['id_bophan']; ?>"><?php echo $row_bophan['tenbophan']; ?></option>
-                        <?php   }} ?>
-                    </select>
                 </div>        
                 <div class="mb-6">
                     <label for="" class="block mb-2 text-sm font-medium">Ngày bắt đầu</label>
-                    <input type="datetime-local" name="ngaybatdau" class="form-control" require value="<?php echo $row_up['ngaybatdau']; ?>">
+                    <input type="date" name="ngaybatdau" class="form-control" require value="<?php echo $row_up['ngaybatdau']; ?>">
                 </div>
                 <div class="mb-6">
                     <label for="" class="block mb-2 text-sm font-medium">Ngày Kết thúc dự kiến</label>
-                    <input type="datetime-local" name="ngayktdukien" class="form-control" require value="<?php echo $row_up['ngayktdukien']; ?>">
+                    <input type="date" name="ngayktdukien" class="form-control" require value="<?php echo $row_up['ngayktdukien']; ?>">
                 </div>
                 <div class="mb-6">
                     <label for="" class="block mb-2 text-sm font-medium">Ngày Kết thúc thực tế</label>
-                    <input type="datetime-local" name="ngayktthucte" class="form-control" require value="<?php echo $row_up['ngayktthucte']; ?>">
+                    <input type="date" name="ngayktthucte" class="form-control" require value="<?php echo $row_up['ngayktthucte']; ?>">
                 </div>     
-                <div class="mb-6">
-                    <label for="message" class="block mb-2 text-sm font-medium">Mô tả kế hoạch</label>
-                    <textarea id="message" name="motakh" rows="4" class="block p-2.5 w-full text-sm rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"><?php echo $row_up['motakh']; ?></textarea>
-                </div> 
                 <button name=sbm type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Thay đổi</button>
             </form>
 

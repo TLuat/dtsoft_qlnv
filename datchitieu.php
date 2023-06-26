@@ -1,10 +1,9 @@
 <?php
-session_start();
 $activePage = "Báo cáo chỉ tiêu";
 include "inc/header.php";
 ?>
 <?php 
-    $id_user = $_SESSION['id'];
+    $id_user = $_SESSION['id_nguoidung'];
     $id = $_GET['id'];
     $sql = "SELECT * FROM theodoikehoach WHERE id_kehoachgiaoviec = $id";
     $sql_ct = "SELECT * FROM chitieu";
@@ -13,7 +12,7 @@ include "inc/header.php";
         if(!empty($_POST['id_chitieu']) && !empty($_POST['chitieucandat']) && !empty($id)) {
             $id_chitieu = $_POST['id_chitieu'];
             $chitieucandat = $_POST['chitieucandat'];
-            $sql = "UPDATE theodoikehoach SET chitieucandat='$chitieucandat' WHERE id_chitieu=$id_chitieu";
+            $sql = "UPDATE theodoikehoach SET chitieucandat='$chitieucandat' WHERE id_chitieu= '$id_chitieu'";
             $query = mysqli_query($connect,$sql);
             echo'<script>alert("Đặt chỉ tiêu thành công!")</script>';
         }else{
@@ -40,7 +39,7 @@ include "inc/header.php";
                     <label for="" class="block mb-2 text-sm font-medium">Giá trị cần đạt</label>
                     <input placeholder="Giá trị chỉ tiêu" name="chitieucandat" id="first_name" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập tên kế hoạch" required>
                 </div>        
-                <button name=sbm type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Nộp báo cáo</button>
+                <button name=sbm type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
             </form>
 
         </div>

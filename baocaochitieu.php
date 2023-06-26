@@ -1,14 +1,23 @@
 <?php
-session_start();
 $activePage = "Báo cáo chỉ tiêu";
 include "inc/header.php";
 ?>
 <?php 
-  $id_user = $_SESSION['id'];
-  $sql = "SELECT * FROM kehoachgiaoviec kh
-  INNER JOIN tiendocongviec td ON kh.id_kehoachgiaoviec = td.id_kehoachgiaoviec
-  WHERE td.id_nguoidung = '" . $id_user . "' 
-  ";
+  $id_user = $_SESSION['id_nguoidung'];
+  $vaitro = $_SESSION['id_vaitro'];
+  $bophan = $_SESSION['id_bophan'];
+  if($vaitro == 'QLBP'){
+    $sql = "SELECT * FROM kehoachgiaoviec kh
+    INNER JOIN bophan bp ON kh.id_bophan = bp.id_bophan
+    WHERE kh.id_bophan = '" . $bophan . "' 
+    ";
+  }else{
+    $sql = "SELECT DISTINCT kh.id_kehoachgiaoviec, kh.tenkh 
+    FROM kehoachgiaoviec kh
+    INNER JOIN tiendocongviec td ON kh.id_kehoachgiaoviec = td.id_kehoachgiaoviec
+    WHERE td.id_nguoidung = '" . $id_user . "' 
+    ";
+  }
   $query = mysqli_query($connect,$sql);
 ?>
 <div class="p-4 sm:ml-64">
@@ -31,12 +40,22 @@ include "inc/header.php";
               <th class="px-3 py-3 border border-slate-300">
                 TÊN KẾ HOẠCH
               </th>
-              <th class="px-3 py-3 border border-slate-300">
-                ĐẶT CHỈ TIÊU
-              </th>
-              <th class="px-3 py-3 border border-slate-300">
-                BÁO CÁO CHỈ TIÊU	
-              </th>
+              <?php 
+                if($vaitro == 'QLBP'){
+              ?>
+                <th class="px-3 py-3 border border-slate-300">
+                  ĐẶT CHỈ TIÊU
+                </th>
+              <?php
+                }else{
+              ?>
+                <th class="px-3 py-3 border border-slate-300">
+                  BÁO CÁO CHỈ TIÊU	
+                </th>
+              <?php
+                }
+              ?>
+              
             </tr>
           </thead>
           <tbody class="text-black text-center">
@@ -49,16 +68,25 @@ include "inc/header.php";
               <td scope="row" class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
                 <?php echo $row['tenkh']; ?>
               </td>
-              <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
-                <a class="text-blue-800" href="datchitieu.php?&id=<?php echo $row['id_kehoachgiaoviec']; ?>">
-                <i class="fa-solid fa-bullseye"></i>
-                </a>
-              </td>
-              <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
-                <a class="text-blue-800" href="baocaochitieukehoach.php?&id=<?php echo $row['id_kehoachgiaoviec']; ?>">
-                  <i class="fa-solid fa-book"></i>
-                </a>
-              </td>
+              <?php 
+                if($vaitro == 'QLBP'){
+              ?>
+                <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
+                  <a class="text-blue-800" href="datchitieu.php?&id=<?php echo $row['id_kehoachgiaoviec']; ?>">
+                  <i class="fa-solid fa-bullseye"></i>
+                  </a>
+                </td>
+              <?php
+                }else{
+              ?>
+                <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
+                  <a class="text-blue-800" href="baocaochitieukehoach.php?&id=<?php echo $row['id_kehoachgiaoviec']; ?>">
+                    <i class="fa-solid fa-book"></i>
+                  </a>
+                </td>
+              <?php
+                }
+              ?>
             </tr>
             <?php  }  ?>
           </tbody>

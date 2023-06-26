@@ -4,30 +4,31 @@ include "inc/header.php";
 ?>
 <?php
     $id = $_GET['id'];
+    $vaitro = $_SESSION['id_vaitro'];
     $sql = "SELECT * FROM kehoachgiaoviec
     INNER JOIN khuvuc ON kehoachgiaoviec.id_khuvuc = khuvuc.id_khuvuc 
     INNER JOIN bophan ON khuvuc.id_khuvuc = bophan.id_khuvuc
-    WHERE id_kehoachgiaoviec = $id";
+    WHERE id_kehoachgiaoviec = '" . $id . "' ";
     $query = mysqli_query($connect, $sql);
     $row = mysqli_fetch_assoc($query);
 
     $sql1 = "SELECT * FROM kehoachgiaoviec kh
     INNER JOIN tiendocongviec td ON kh.id_kehoachgiaoviec = td.id_kehoachgiaoviec
     INNER JOIN nguoidung nd ON td.id_nguoidung = nd.id_nguoidung
-    WHERE kh.id_kehoachgiaoviec = $id";
+    WHERE kh.id_kehoachgiaoviec = '" . $id . "' ";
     $query1 = mysqli_query($connect, $sql1);
     $query2 = mysqli_query($connect, $sql1);
 
 
     $tongtiendo = 0;
     $tong = 0;
-    $i =1;
-    while($row2 = mysqli_fetch_assoc($query2)){$i++; $tong += $row2['phantramhoanthanh'];  }  
-    if($tong == 0){
-      $tongtiendo = 0;
+    while($row2 = mysqli_fetch_assoc($query2)){ $tong = $row2['trangthaicongviec'];  
+    if($tong == 'Hoàn Thành'){
+      $tongtiendo = 1;
     }else{
-      $tongtiendo = $tong/($i-1);
-    }
+      $tongtiendo = 0;
+      break;
+    }}
 ?>
 
 <div class="p-4 sm:ml-64">
@@ -35,9 +36,16 @@ include "inc/header.php";
     <div class="mb-5 font-bold text-lg uppercase">Chi tiết Kế hoạch </div>
     <div class="p-4 mt-14 grid">
       <div class="justify-self-start">
-        <a href="chinhsuakehoach.php?&id=<?php echo $id ?>" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-          Chỉnh sửa kế hoạch <i class="fa-solid fa-pen-to-square"></i>
-        </a>
+        <?php 
+          if($vaitro == 'QLBP'){
+        ?>
+            <a href="chinhsuakehoach.php?&id=<?php echo $id ?>" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+              Chỉnh sửa kế hoạch <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+        <?php
+          }
+        ?>
+
       </div>
     </div>
     <div class="mb-4 mt-5">
@@ -86,7 +94,12 @@ include "inc/header.php";
               <?php echo $row['tenbophan']; ?>
               </td>
               <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
-                <?php echo $tongtiendo ?>%
+                <?php 
+                if($tongtiendo == 0){echo 'Chưa hoàn thành';}
+                else {
+                  echo 'Đã hoàn thành';
+                }
+                ?>
               </td>
             </tr>
           </tbody>
@@ -140,16 +153,16 @@ include "inc/header.php";
                   <?php echo $row1['tennguoidung']; ?>
                   </td>
                   <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
-                  <?php echo $row1['tgbatdau']; ?>
+                  <?php echo $row1['thoigianbatdau']; ?>
                   </td>
                   <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
-                  <?php echo $row1['tgketthucdukien']; ?>
+                  <?php echo $row1['thoigianketthucdukien']; ?>
                   </td>
                   <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
-                  <?php echo $row1['tgketthucthucte']; ?>
+                  <?php echo $row1['thoigianketthuc']; ?>
                   </td>
                   <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
-                  <?php echo $row1['phantramhoanthanh']; ?>%
+                  <?php echo $row1['trangthaicongviec']; ?>
                   </td>
                 </tr>
                 <?php

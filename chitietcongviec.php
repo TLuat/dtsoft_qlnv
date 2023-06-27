@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (!isset($_GET['id']) || $_GET['id'] == NULL) {
   echo "Lỗi rồi";
 } else {
-  $id = $_GET['id']; // Lấy mã kế hoạch trên host
+  $id = $_GET['id'];
 }
 ?>
 
@@ -31,6 +31,7 @@ if (!isset($_GET['id']) || $_GET['id'] == NULL) {
         <div class="mb-4 mt-5">
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <?php
+
             $sql = "SELECT * FROM tiendocongviec WHERE id_congviec = '$id'";
             $result = mysqli_query($connect, $sql);
             $row = mysqli_fetch_array($result);
@@ -144,39 +145,39 @@ if (!isset($_GET['id']) || $_GET['id'] == NULL) {
                           <td class="px-3 py-4 font-medium whitespace-nowrap text-lg">                          
                             <form class="flex" method="POST">
                                 <select name="trangthaicongviec" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option selected>-- Chọn tiến độ --</option>
-                                    <option>Hoàn Thành</option>
-                                    <option>Chưa Hoàn Thành</option>
+                                    <option value="" selected>-- Chọn tiến độ --</option>
+                                    <option value = "Hoàn Thành">Hoàn Thành</option>
+                                    <option value = "Chưa Hoàn Thành">Chưa Hoàn Thành</option>
                                 </select>
                                 <button type="submit" class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Lưu
                                 </button>
                             </form>
                             <?php
-                                if(isset($_POST['trangthaicongviec'])){
-                                    $trangthai = $_POST['trangthaicongviec']; 
-
-                                    $sql = "UPDATE tiendocongviec SET trangthaicongviec = '$trangthai' WHERE id_congviec = '$id'";
-                                    $result = mysqli_query($connect, $sql);
-                                    if ($result) {
-                                        echo "Cập nhật trạng thái thành công.";
-                                    } else {
-                                        echo "Cập nhật trạng thái thất bại: " . mysqli_error($connect);
-                                    }
-                                }
-                            ?>
-                            <?php
-                              if(isset($_POST['trangthaicongviec']) == 'Hoàn Thành'){
-                                $ngayketthuc = date('Y-m-d');
-                                $sql = "UPDATE tiendocongviec SET thoigianketthuc = '$ngayketthuc' WHERE id_congviec = '$id'";
+                              if (isset($_POST['trangthaicongviec'])) {
+                                $trangthai = $_POST['trangthaicongviec'];
+                            
+                                $sql = "UPDATE tiendocongviec SET trangthaicongviec = '$trangthai' WHERE id_congviec = '$id'";
                                 $result = mysqli_query($connect, $sql);
+                            
+                                if ($result) {
+                                    echo "Cập nhật trạng thái thành công.";
                                 } else {
-                                  $dateString = "0000-00-00"; // Chuỗi ngày
-                                  $timestamp = strtotime($dateString); // Chuyển đổi chuỗi thành timestamp
-                                  $ngayketthuc = date("Y-m-d", $timestamp); // Chuyển đổi timestamp thành đối tượng kiểu ngày
-                                  $sql_deletedate = "UPDATE tiendocongviec SET thoigianketthuc = '$ngayketthuc' WHERE id_congviec = '$id'";
-                                  $result = mysqli_query($connect, $sql_deletedate);
+                                    echo "Cập nhật trạng thái thất bại: " . mysqli_error($connect);
                                 }
+                            
+                                if ($trangthai == 'Hoàn Thành') {
+                                    $ngayketthuc = date('Y-m-d');
+                                    $sql_update = "UPDATE tiendocongviec SET thoigianketthuc = '$ngayketthuc' WHERE id_congviec = '$id'";
+                                    $result = mysqli_query($connect, $sql_update);
+                                } else {
+                                    $dateString = "0000-00-00"; // Chuỗi ngày
+                                    $timestamp = strtotime($dateString); // Chuyển đổi chuỗi thành timestamp
+                                    $ngayketthuc = date("Y-m-d", $timestamp); // Chuyển đổi timestamp thành đối tượng kiểu ngày
+                                    $sql_deletedate = "UPDATE tiendocongviec SET thoigianketthuc = '$ngayketthuc' WHERE id_congviec = '$id'";
+                                    $result = mysqli_query($connect, $sql_deletedate);
+                                }
+                            }                            
                             ?>
                           </td>
                       </tr>

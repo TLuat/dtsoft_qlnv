@@ -108,7 +108,16 @@ if (isset($_GET['delete_id'])) {
           </thead>
             <tbody class="text-black text-center">
             <?php
-            $sql = "SELECT * FROM tiendocongviec ORDER BY id_congviec LIMIT 5";
+
+            if ($id_vt == "QLBP") {
+              $condition = "id_bophan = '" . $id_bp . "'";
+            } 
+            $sql = "SELECT * FROM tiendocongviec";
+
+            if (!empty($condition)) {
+              $sql .= " WHERE $condition";
+            }
+
             $result = mysqli_query($connect, $sql);
             $stt = 0;
 

@@ -12,9 +12,21 @@ include "inc/header.php";
         if(!empty($_POST['id_chitieu']) && !empty($_POST['chitieucandat']) && !empty($id)) {
             $id_chitieu = $_POST['id_chitieu'];
             $chitieucandat = $_POST['chitieucandat'];
-            $sql = "UPDATE theodoikehoach SET chitieucandat='$chitieucandat' WHERE id_chitieu= '$id_chitieu'";
-            $query = mysqli_query($connect,$sql);
-            echo'<script>alert("Đặt chỉ tiêu thành công!")</script>';
+            $id_kehoachgiaoviec = $id;
+
+            $sql_check = "SELECT * FROM theodoikehoach WHERE id_chitieu = '$id_chitieu' AND id_kehoachgiaoviec = '$id' ";
+            $query_check = mysqli_query($connect,$sql_check);
+            $row_check = mysqli_fetch_assoc($query_check);
+
+            if($sql_check == ''){
+                $sql = "INSERT INTO theodoikehoach (id_chitieu, chitieucandat, id_kehoachgiaoviec)
+                VALUES ('$id_chitieu', '$chitieucandat', '$id_kehoachgiaoviec')";
+                $query = mysqli_query($connect,$sql);
+                echo'<script>alert("Đặt chỉ tiêu thành công!")</script>';
+            }else{
+                echo'<script>alert("Bạn đã đặt chỉ tiêu này cho kế hoạch này rồi!")</script>';
+            }
+            
         }else{
                 echo '<script>alert("Đặt chỉ tiêu thất bại! Hãy điền đầy đủ tất cả các mục")</script>';
             }

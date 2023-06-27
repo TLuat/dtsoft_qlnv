@@ -5,27 +5,44 @@ include "inc/header.php";
 <?php 
     $id_user = $_SESSION['id_nguoidung'];
     $id = $_GET['id'];
-    $sql_ct = "SELECT * FROM chitieu";
+    $sql_ct = "SELECT DISTINCT td.id_chitieu, ct.tenchitieu FROM theodoikehoach td
+    INNER JOIN chitieu ct ON td.id_chitieu = ct.id_chitieu
+    WHERE id_kehoachgiaoviec = '$id'";
     $query_ct = mysqli_query($connect,$sql_ct);
     if(isset($_POST['sbm'])){
         if(!empty($_POST['id_chitieu']) && !empty($_POST['chitieudatduoc']) && !empty($id)) {
             $id_chitieu = $_POST['id_chitieu'];
             $chitieudatduoc = $_POST['chitieudatduoc'];
-            $id_kehoachgiaoviec = $id;
-
-            $sql_check = "SELECT * FROM theodoikehoach WHERE id_nguoidung = '$id_user' AND id_chitieu = '$id_chitieu' AND id_kehoachgiaoviec = '$id' ";
-            $query_check = mysqli_query($connect,$sql_check);
-            $row_check = mysqli_fetch_assoc($query_check);
-            if($row_check == ""){
-                $sql = "INSERT INTO theodoikehoach (id_nguoidung, id_chitieu, chitieudatduoc, id_kehoachgiaoviec)
-                VALUES ('$id_user' ,'$id_chitieu', '$chitieudatduoc', '$id_kehoachgiaoviec')";
-                $query = mysqli_query($connect,$sql);
-                echo'<script>alert("Báo cáo chỉ tiêu thành công!")</script>';
+            // $sql_check = "SELECT * FROM theodoikehoach WHERE id_nguoidung = '$id_user' AND id_chitieu = '$id_chitieu' AND id_kehoachgiaoviec = '$id' ";
+            // $query_check = mysqli_query($connect,$sql_check);
+            // $row_check = mysqli_fetch_assoc($query_check);
+            // if($row_check == ""){
+            $sql_check_baocao = "SELECT * FROM theodoikehoach WHERE id_nguoidung = '$id_user' AND id_chitieu = '$id_chitieu' AND id_kehoachgiaoviec = '$id' LIMIT 1";
+            $query_check_baocao = mysqli_query($connect,$sql_check_baocao);
+            $row_check_baocao = mysqli_fetch_assoc($query_check_baocao);
+            
+            if($row_check_baocao == ''){
+                $sql_check = "SELECT * FROM theodoikehoach WHERE id_chitieu = '$id_chitieu' AND id_kehoachgiaoviec = '$id' LIMIT 1";
+                $query_check = mysqli_query($connect,$sql_check);
+                $row_check = mysqli_fetch_assoc($query_check);
+                if($row_check != ""){
+                    if($row_check['id_nguoidung'] == NULL){
+                        $sql = "UPDATE theodoikehoach
+                        SET id_nguoidung = '$id_user',chitieudatduoc = '$chitieudatduoc'
+                        WHERE id_nguoidung IS NULL AND id_chitieu = '$id_chitieu' AND id_kehoachgiaoviec = '$id';";
+                        $query = mysqli_query($connect,$sql);
+                        echo'<script>alert("Báo cáo chỉ tiêu thành công!")</script>';
+                    }elseif($row_check['id_nguoidung'] != $id_user){
+                        $chitieucandat = $row_check['chitieucandat'];
+                        $sql = "INSERT INTO theodoikehoach (id_nguoidung, id_chitieu, id_kehoachgiaoviec, chitieucandat ,chitieudatduoc)
+                        VALUES ('$id_user', '$id_chitieu', '$id', '$chitieucandat','$chitieudatduoc')";
+                        $query = mysqli_query($connect,$sql);
+                        echo'<script>alert("Báo cáo chỉ tiêu thành công!")</script>';
+                    }
+                }
             }else{
                 echo'<script>alert("Bạn đã báo cáo chỉ tiêu này rồi!")</script>';
             }
-
-
         }else{
                 echo '<script>alert("Báo cáo chỉ tiêu thất bại! Hãy điền đầy đủ tất cả các mục")</script>';
             }

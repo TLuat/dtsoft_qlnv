@@ -1,7 +1,10 @@
 <?php 
  include_once('db/connect.php');
  session_start();
-
+ $id_vt = $_SESSION['id_vaitro'];
+ $id_bp = $_SESSION['id_bophan'];
+ $id_kv = $_SESSION['id_khuvuc'];
+ $id_nd = $_SESSION['id_nguoidung'];
 ?>
 
 <!DOCTYPE html>
@@ -328,12 +331,24 @@
                     </svg>
                   </button>
                   <ul id="dropdown-cv" class="hidden py-2 space-y-2">
+                    <?php
+                    if ($id_vt == "QLBP"){
+                    ?>
                     <li>
                       <a href="congviec.php" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-black dark:hover:bg-gray-200">Danh sách công việc</a>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                    if ($id_vt == "NS"){
+                    ?>
                     <li>
                       <a href="capnhattiendocongviec.php" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-black dark:hover:bg-gray-200">Cập nhật tiến độ</a>
                     </li>
+                    <?php
+                    }
+                    ?>
                   </ul>
                </li>
 

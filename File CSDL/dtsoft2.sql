@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 25, 2023 at 03:34 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.0.25
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th6 27, 2023 lúc 12:51 AM
+-- Phiên bản máy phục vụ: 10.4.28-MariaDB
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dtsoft2`
+-- Cơ sở dữ liệu: `dtsoft2`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bophan`
+-- Cấu trúc bảng cho bảng `bophan`
 --
 
 CREATE TABLE `bophan` (
@@ -35,7 +35,7 @@ CREATE TABLE `bophan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `bophan`
+-- Đang đổ dữ liệu cho bảng `bophan`
 --
 
 INSERT INTO `bophan` (`id_bophan`, `id_khuvuc`, `tenbophan`, `cvchuyenmon`) VALUES
@@ -55,7 +55,7 @@ INSERT INTO `bophan` (`id_bophan`, `id_khuvuc`, `tenbophan`, `cvchuyenmon`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chitieu`
+-- Cấu trúc bảng cho bảng `chitieu`
 --
 
 CREATE TABLE `chitieu` (
@@ -64,7 +64,7 @@ CREATE TABLE `chitieu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `chitieu`
+-- Đang đổ dữ liệu cho bảng `chitieu`
 --
 
 INSERT INTO `chitieu` (`id_chitieu`, `tenchitieu`) VALUES
@@ -78,7 +78,7 @@ INSERT INTO `chitieu` (`id_chitieu`, `tenchitieu`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kehoachgiaoviec`
+-- Cấu trúc bảng cho bảng `kehoachgiaoviec`
 --
 
 CREATE TABLE `kehoachgiaoviec` (
@@ -93,11 +93,11 @@ CREATE TABLE `kehoachgiaoviec` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `kehoachgiaoviec`
+-- Đang đổ dữ liệu cho bảng `kehoachgiaoviec`
 --
 
 INSERT INTO `kehoachgiaoviec` (`id_kehoachgiaoviec`, `id_bophan`, `id_khuvuc`, `tenkh`, `ngaybatdau`, `ngayktdukien`, `ngayktthucte`, `trangthai`) VALUES
-('KH001', 'KD001', 'CT', 'Kế Hoạch 001', '2023-06-19', '2023-06-19', '2023-06-19', 'Đạt'),
+('KH001', 'KD001', 'CT', 'Kế Hoạch 001', '2023-06-19', '2023-06-19', '2023-06-19', 'Chưa đạt'),
 ('KH002', 'CSKH001', 'CT', 'Kế Hoạch 002', '2023-06-19', '2023-06-19', '2023-06-19', ''),
 ('KH003', 'TKBT001', 'CT', 'Kế hoạch 003', '2023-06-08', '2023-06-09', '2023-06-30', ''),
 ('KH004', 'T001', 'CT', 'Kế hoạch 003', '2023-06-05', '2023-06-01', '2023-06-30', '');
@@ -105,7 +105,7 @@ INSERT INTO `kehoachgiaoviec` (`id_kehoachgiaoviec`, `id_bophan`, `id_khuvuc`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ketquadanhgia`
+-- Cấu trúc bảng cho bảng `ketquadanhgia`
 --
 
 CREATE TABLE `ketquadanhgia` (
@@ -115,7 +115,7 @@ CREATE TABLE `ketquadanhgia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `ketquadanhgia`
+-- Đang đổ dữ liệu cho bảng `ketquadanhgia`
 --
 
 INSERT INTO `ketquadanhgia` (`id_nguoidung`, `id_chitieu`, `ketquadanhgia`) VALUES
@@ -126,7 +126,7 @@ INSERT INTO `ketquadanhgia` (`id_nguoidung`, `id_chitieu`, `ketquadanhgia`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `khuvuc`
+-- Cấu trúc bảng cho bảng `khuvuc`
 --
 
 CREATE TABLE `khuvuc` (
@@ -137,7 +137,7 @@ CREATE TABLE `khuvuc` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `khuvuc`
+-- Đang đổ dữ liệu cho bảng `khuvuc`
 --
 
 INSERT INTO `khuvuc` (`id_khuvuc`, `tenkhuvuc`, `diachi`, `sdt`) VALUES
@@ -147,7 +147,7 @@ INSERT INTO `khuvuc` (`id_khuvuc`, `tenkhuvuc`, `diachi`, `sdt`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nguoidung`
+-- Cấu trúc bảng cho bảng `nguoidung`
 --
 
 CREATE TABLE `nguoidung` (
@@ -165,20 +165,23 @@ CREATE TABLE `nguoidung` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `nguoidung`
+-- Đang đổ dữ liệu cho bảng `nguoidung`
 --
 
 INSERT INTO `nguoidung` (`id_nguoidung`, `id_bophan`, `id_vaitro`, `id_khuvuc`, `tennguoidung`, `sdt`, `diachi`, `email`, `password`, `ngaysinh`, `gioitinh`) VALUES
-('NV001', 'KD001', 'NS', 'CT', 'Nguyễn Văn A', '123456789', 'Địa chỉ 1', 'nva@gmail.com', '123456789', '10/01/1990', 'Nam'),
-('NV002', 'T001', 'NS', 'CT', 'Nguyễn Văn B', '987654321', 'Địa chỉ 2', 'nvb@gmail.com', '987654321', '09/01/1989', 'Nam'),
+('NV001', 'KD001', 'NS', 'CT', 'Nguyễn Văn A', '123456789', 'Địa chỉ 1', 'nva@gmail.com', '123', '10/01/1990', 'Nam'),
+('NV002', 'KD001', 'NS', 'CT', 'Nguyễn Văn B', '987654321', 'Địa chỉ 2', 'nvb@gmail.com', '987654321', '09/01/1989', 'Nam'),
 ('NV003', 'CSKH001', 'NS', 'CT', 'Nguyễn Văn C', '0123456789', 'Địa chỉ 3', 'nvc@gmail.com', '123', '10/01/1990', 'Nữ'),
 ('NV004', 'PTPM001', 'NS', 'CT', 'Nguyễn Văn D', '0123456789', 'Địa chỉ 4', 'nvc@gmail.com', '123', '10/01/1990', 'Nữ'),
-('NV005', 'PTPM001', 'NS', 'CT', 'Nguyễn Văn E', '0123456789', 'Địa chỉ 5', 'nve@gmail.com', '123', '09/01/1989', 'Nam');
+('NV005', 'PTPM001', 'NS', 'CT', 'Nguyễn Văn E', '0123456789', 'Địa chỉ 5', 'nve@gmail.com', '123', '09/01/1989', 'Nam'),
+('NV006', 'KD001', 'QLBP', 'CT', 'Trần Văn A', '0123456789', 'Địa chỉ 6', 'tva@gmail.com', '123', '10/01/1990', 'Nam'),
+('NV007', '', 'QLKV', 'CT', 'Phạm Minh A', '0123456789', 'Địa chỉ 7', 'pva@gmail.com', '123', '10/01/1990', 'Nam'),
+('NV008', 'KD001', 'NS', 'CT', 'Nguyễn Văn F', '0123456789', 'Địa chỉ 8', 'nvf@gmail.com', '123', '10/01/1990', 'Nam');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `theodoikehoach`
+-- Cấu trúc bảng cho bảng `theodoikehoach`
 --
 
 CREATE TABLE `theodoikehoach` (
@@ -191,19 +194,20 @@ CREATE TABLE `theodoikehoach` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `theodoikehoach`
+-- Đang đổ dữ liệu cho bảng `theodoikehoach`
 --
 
 INSERT INTO `theodoikehoach` (`id`, `id_nguoidung`, `id_chitieu`, `id_kehoachgiaoviec`, `chitieucandat`, `chitieudatduoc`) VALUES
 (1, 'NV001', 'DS', 'KH001', 15000000, 9000000),
 (2, 'NV002', 'DS', 'KH001', 15000000, 14000000),
 (5, 'NV001', 'HBSP', 'KH001', 4, 4),
-(6, 'NV002', 'HBSP', 'KH001', 4, 4);
+(6, 'NV002', 'HBSP', 'KH001', 4, 4),
+(8, 'NV008', 'THCN', 'KH001', 700000, 700000);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tiendocongviec`
+-- Cấu trúc bảng cho bảng `tiendocongviec`
 --
 
 CREATE TABLE `tiendocongviec` (
@@ -220,7 +224,7 @@ CREATE TABLE `tiendocongviec` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tiendocongviec`
+-- Đang đổ dữ liệu cho bảng `tiendocongviec`
 --
 
 INSERT INTO `tiendocongviec` (`id_congviec`, `id_nguoidung`, `id_khuvuc`, `id_bophan`, `id_kehoachgiaoviec`, `tencongviec`, `trangthaicongviec`, `thoigianbatdau`, `thoigianketthucdukien`, `thoigianketthuc`) VALUES
@@ -233,7 +237,7 @@ INSERT INTO `tiendocongviec` (`id_congviec`, `id_nguoidung`, `id_khuvuc`, `id_bo
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vaitro`
+-- Cấu trúc bảng cho bảng `vaitro`
 --
 
 CREATE TABLE `vaitro` (
@@ -243,7 +247,7 @@ CREATE TABLE `vaitro` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `vaitro`
+-- Đang đổ dữ liệu cho bảng `vaitro`
 --
 
 INSERT INTO `vaitro` (`id_vaitro`, `tenvaitro`, `mota`) VALUES
@@ -252,24 +256,24 @@ INSERT INTO `vaitro` (`id_vaitro`, `tenvaitro`, `mota`) VALUES
 ('QLKV', 'Quản Lý Khu Vực', 'là người quản lý khu vực');
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `bophan`
+-- Chỉ mục cho bảng `bophan`
 --
 ALTER TABLE `bophan`
   ADD PRIMARY KEY (`id_bophan`),
   ADD KEY `id_khuvuc` (`id_khuvuc`);
 
 --
--- Indexes for table `chitieu`
+-- Chỉ mục cho bảng `chitieu`
 --
 ALTER TABLE `chitieu`
   ADD PRIMARY KEY (`id_chitieu`);
 
 --
--- Indexes for table `kehoachgiaoviec`
+-- Chỉ mục cho bảng `kehoachgiaoviec`
 --
 ALTER TABLE `kehoachgiaoviec`
   ADD PRIMARY KEY (`id_kehoachgiaoviec`),
@@ -277,32 +281,32 @@ ALTER TABLE `kehoachgiaoviec`
   ADD KEY `id_khuvuc` (`id_khuvuc`);
 
 --
--- Indexes for table `ketquadanhgia`
+-- Chỉ mục cho bảng `ketquadanhgia`
 --
 ALTER TABLE `ketquadanhgia`
   ADD KEY `id_nguoidung` (`id_nguoidung`,`id_chitieu`),
   ADD KEY `id_chitieu` (`id_chitieu`);
 
 --
--- Indexes for table `khuvuc`
+-- Chỉ mục cho bảng `khuvuc`
 --
 ALTER TABLE `khuvuc`
   ADD PRIMARY KEY (`id_khuvuc`);
 
 --
--- Indexes for table `nguoidung`
+-- Chỉ mục cho bảng `nguoidung`
 --
 ALTER TABLE `nguoidung`
   ADD PRIMARY KEY (`id_nguoidung`);
 
 --
--- Indexes for table `theodoikehoach`
+-- Chỉ mục cho bảng `theodoikehoach`
 --
 ALTER TABLE `theodoikehoach`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tiendocongviec`
+-- Chỉ mục cho bảng `tiendocongviec`
 --
 ALTER TABLE `tiendocongviec`
   ADD PRIMARY KEY (`id_congviec`),
@@ -310,19 +314,22 @@ ALTER TABLE `tiendocongviec`
   ADD KEY `id_kehoachgiaoviec` (`id_kehoachgiaoviec`);
 
 --
--- Indexes for table `vaitro`
+-- Chỉ mục cho bảng `vaitro`
 --
 ALTER TABLE `vaitro`
   ADD PRIMARY KEY (`id_vaitro`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `theodoikehoach`
+-- AUTO_INCREMENT cho bảng `theodoikehoach`
 --
 ALTER TABLE `theodoikehoach`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

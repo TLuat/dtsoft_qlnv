@@ -26,33 +26,33 @@ include "db/database.php";
                     $id_bophan = $_POST['id_bophan'];
                     $ngaybatdau = $_POST['thoigianbatdau'];
                     $ngayketthucdukien = $_POST['thoigianketthucdukien'];
-
                     //Chuẩn bị truy vấn INSERT
                     $sql = "INSERT INTO 
-                                tiendocongviec (id_nguoidung, id_kehoachgiaoviec, tencongviec, id_khuvuc, id_bophan, id_congviec, thoigianbatdau, thoigianketthucdukien)
-                                VALUES ('$id_nguoidung', '$id_kehoachgiaoviec', '$tencongviec', '$id_khuvuc', '$id_bophan' , '$id_congviec' , '$ngaybatdau' , '$ngayketthucdukien')";
-
+                                tiendocongviec (id_nguoidung, tencongviec, id_khuvuc, id_bophan, id_kehoachgiaoviec, id_congviec, thoigianbatdau, thoigianketthucdukien)
+                                VALUES ('$id_nguoidung', '$tencongviec', '$id_khuvuc', '$id_bophan', '$id_kehoachgiaoviec', '$id_congviec' , '$ngaybatdau' , '$ngayketthucdukien')";
 
                     // Thực thi truy vấn
                     if ($connect->query($sql) === TRUE) {
-                        echo "Thêm dữ liệu thành công !";
+                        echo "Thêm công việc thành công !";
                     } else {
                         echo "Lỗi: " . $sql . "<br>" . $connect->error;
                     }
                 }
                 ?>
                 <?php
-                $sql_kh = "SELECT * FROM kehoachgiaoviec";
+                $sql_kh = "SELECT * FROM kehoachgiaoviec WHERE id_bophan = '$id_bp'";
                 $result_kh = mysqli_query($connect, $sql_kh);
 
-                $sql_kv = "SELECT * FROM khuvuc";
+                $sql_kv = "SELECT * FROM khuvuc WHERE id_khuvuc = '$id_kv'";
                 $result_kv = mysqli_query($connect, $sql_kv);
+               
 
-                $sql_bp = "SELECT * FROM bophan";
+                $sql_bp = "SELECT * FROM bophan WHERE id_bophan = '$id_bp'";
                 $result_bp = mysqli_query($connect, $sql_bp);
 
-                $sql_ns = "SELECT * FROM nguoidung";
+                $sql_ns = "SELECT * FROM nguoidung WHERE id_bophan = '$id_bp' AND id_vaitro = 'NS'";
                 $result_ns = mysqli_query($connect, $sql_ns);
+
                 ?>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -63,15 +63,6 @@ include "db/database.php";
                         <div>
                             <label for="tencongviec" class="block mb-2 text-sm font-medium">Tên công việc</label>
                             <input name="tencongviec" type="text" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tên công việc" required>
-                        </div>
-                        <div>
-                            <label for="id_kehoachgiaoviec" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mã kế hoạch</label>
-                            <select name="id_kehoachgiaoviec" class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" require>
-                                <option selected>-- Chọn kế hoạch --</option>
-                                <?php foreach ($result_kh as $row) : ?>
-                                    <option value="<?php echo $row['id_kehoachgiaoviec'] ?>"><?php echo $row['tenkh'] ?></option>
-                                <?php endforeach ?>
-                            </select>
                         </div>
                         <div>
                             <label for="id_khuvuc" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Khu vực thực hiện</label>
@@ -92,11 +83,24 @@ include "db/database.php";
                             </select>
                         </div>
                         <div>
+                            <label for="id_kehoachgiaoviec" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mã kế hoạch</label>
+                            <select name="id_kehoachgiaoviec" class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" require>
+                                <option selected>-- Chọn kế hoạch --</option>
+                                <?php foreach ($result_kh as $row) : ?>
+                                    <option value="<?php echo $row['id_kehoachgiaoviec'] ?>"><?php echo $row['tenkh'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                        <div>
                             <label for="id_nguoidung" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Người thực hiện</label>
                             <select name="id_nguoidung" class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" require>
                                 <option selected>-- Chọn nhân sự --</option>
-                                <<?php foreach ($result_ns as $row) : ?> <option value="<?php echo $row['id_nguoidung'] ?>"><?php echo $row['tennguoidung'] ?></option>
+                            
+                                <?php foreach ($result_ns as $row) : ?>
+                                        <option value="<?php echo $row['id_nguoidung'] ?>"><?php echo $row['tennguoidung'] ?></option>
+                                    
                                 <?php endforeach ?>
+                                
                             </select>
                         </div>
                         <div class="mb-6">

@@ -60,7 +60,18 @@ include "db/database.php";
             </tr>
           </thead>
           <?php
-          $sql = "SELECT * FROM tiendocongviec ORDER BY id_congviec LIMIT 5";
+          $id_vt = $_SESSION['id_vaitro'];
+          $id_bp = $_SESSION['id_bophan'];
+          $id_kv = $_SESSION['id_khuvuc'];
+          if ($id_vt == "NS") {
+              $condition = "id_nguoidung = '" . $id_nd . "'";
+          }
+          $sql = "SELECT * FROM tiendocongviec";
+          
+          if (!empty($condition)) {
+              $sql .= " WHERE $condition";
+          }
+
           $result = mysqli_query($connect, $sql);
           $stt = 0;
 

@@ -2,7 +2,7 @@
 $activePage = "Quản lý kết quả đánh giá";
 include "inc/header.php";
 include "db/database.php";
-include "classes/nhansu.php";
+
 ?>
 
 
@@ -42,7 +42,7 @@ include "classes/nhansu.php";
     </div>
     <div class="mb-4">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-gray-500 dark:text-gray-400" id="myTable">
+            <table class="w-full text-sm text-gray-500 dark:text-gray-400" id="myTable3">
                 <thead class="text-xs text-white uppercase bg-gray-700">
                     <tr>
                         <th class="px-3 py-3">
@@ -71,7 +71,25 @@ include "classes/nhansu.php";
                 <tbody class="text-black text-center">
 
                     <?php
-                    $sql = "SELECT * FROM kehoachgiaoviec ORDER BY id_kehoachgiaoviec LIMIT 5";
+                    $id_nd = $_SESSION['id_nguoidung'];
+                    $id_vt = $_SESSION['id_vaitro'];
+                    $id_bp = $_SESSION['id_bophan'];
+                    $id_kv = $_SESSION['id_khuvuc'];
+
+                    if ($id_vt == "NS" or $id_vt == "QLBP") {
+                        $condition = "id_bophan = '" . $id_bp . "'";
+                    } else {
+                        $condition = "id_khuvuc = '" . $id_kv . "'";
+                    }
+                    
+                    $sql = "SELECT * FROM kehoachgiaoviec";
+                    
+                    if (!empty($condition)) {
+                        $sql .= " WHERE $condition";
+                    }
+                    
+                    // $sql .= " ORDER BY id_kehoachgiaoviec LIMIT 5";
+
                     $result = mysqli_query($ketnoi, $sql);
                     $stt = 0;
 
@@ -149,7 +167,7 @@ include "classes/nhansu.php";
 <script>
     $(document).ready(function() {
 
-        var table = $('#myTable').DataTable({
+        var table = $('#myTable3').DataTable({
                 responsive: false,
                 search: "",
                 searchPlaceholder: "Search..."

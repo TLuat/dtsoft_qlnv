@@ -89,17 +89,18 @@ if (!isset($_GET['id']) || $_GET['id'] == NULL) {
             ?>
                 
                 <?php
-                $sql_kh = "SELECT * FROM kehoachgiaoviec";
-                $result_kh = mysqli_query($connect, $sql_kh);
-
-                $sql_kv = "SELECT * FROM khuvuc";
-                $result_kv = mysqli_query($connect, $sql_kv);
-
-                $sql_bp = "SELECT * FROM bophan";
-                $result_bp = mysqli_query($connect, $sql_bp);
-
-                $sql_ns = "SELECT * FROM nguoidung";
-                $result_ns = mysqli_query($connect, $sql_ns);
+                    $sql_kh = "SELECT * FROM kehoachgiaoviec WHERE id_bophan = '$id_bp'";
+                    $result_kh = mysqli_query($connect, $sql_kh);
+    
+                    $sql_kv = "SELECT * FROM khuvuc WHERE id_khuvuc = '$id_kv'";
+                    $result_kv = mysqli_query($connect, $sql_kv);
+                    
+    
+                    $sql_bp = "SELECT * FROM bophan WHERE id_bophan = '$id_bp'";
+                    $result_bp = mysqli_query($connect, $sql_bp);
+    
+                    $sql_ns = "SELECT * FROM nguoidung WHERE id_bophan = '$id_bp' AND id_vaitro = 'NS'";
+                    $result_ns = mysqli_query($connect, $sql_ns);
                 ?>
 
                 <form method="POST">

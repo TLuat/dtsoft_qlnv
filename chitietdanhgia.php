@@ -2,8 +2,11 @@
 $activePage = "Quản lý kết quả đánh giá";
 include "inc/header.php";
 include "db/database.php";
-include "classes/nhansu.php";
 
+$id_nd = $_SESSION['id_nguoidung'];
+$id_vt = $_SESSION['id_vaitro'];
+$id_bp = $_SESSION['id_bophan'];
+$id_kv = $_SESSION['id_khuvuc'];
 ?>
 
 <?php
@@ -168,13 +171,16 @@ $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
                         </td>
                         <td class="px-3 py-4 font-medium whitespace-nowrap">
                         </td>
-                        <td class="px-3 py-4 font-medium whitespace-nowrap text-lg">
+                        <?php 
+                        if($id_vt == 'QLBP') {
+                        ?>
+                            <td class="px-3 py-4 font-medium whitespace-nowrap text-lg">
                             ĐÁNH GIÁ TỔNG THỂ:
                         </td>
                         <td class="px-3 py-4 font-medium whitespace-nowrap text-lg">
                             <form class="flex" action="" method="POST">
                                 <select name="trangthai" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option>-- Chọn đánh gá --</option>
+                                    <option value="">-- Chọn đánh gá --</option>
                                     <option>Đạt</option>
                                     <option>Chưa đạt</option>
                                     <option>Không đạt</option>
@@ -198,6 +204,9 @@ $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
     
                             ?>
                         </td>
+                        <?php
+                        }
+                        ?>
                     </tr>
                 </tbody>
             </table>
@@ -235,7 +244,23 @@ $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
                     <tbody class="text-black text-center">
 
                         <?php
-                        $sql3 = "SELECT * FROM theodoikehoach WHERE id_kehoachgiaoviec = '" . $id . "'";
+                        
+                        if ($id_vt == "NS") {
+                            $condition = "id_nguoidung = '" . $id_nd . "'";
+                        } elseif ($id_vt == "QLBP") {
+                            $condition = "";
+                        } else {
+                            $condition = "";
+                        }
+                        
+                        $sql3 = "SELECT * FROM theodoikehoach";
+                        
+                        if (!empty($condition)) {
+                            $sql3 .= " WHERE id_kehoachgiaoviec = '" . $id . "' AND $condition";
+                        } else {
+                            $sql3 .= " WHERE id_kehoachgiaoviec = '" . $id . "'";
+                        }
+                        
                         $result3 = mysqli_query($ketnoi, $sql3);
 
                         while ($row3 = mysqli_fetch_array($result3)) {

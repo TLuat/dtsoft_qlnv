@@ -202,18 +202,21 @@
                     echo $row['tenvaitro'];
                   ?>
               </span>
+              <?php
+              if ($_SESSION['id_bophan'] != NULL){
+                $sql = "SELECT tenbophan from bophan where id_bophan = '" . $_SESSION['id_bophan'] ."'";
+                $result = mysqli_query($connect, $sql);
+                $row = mysqli_fetch_array($result);
+              ?>
               <span class="relative px-5 py-2.5 bg-white rounded-md border-r border-blue-900">
-              <i class="fa-solid fa-cheese"></i>
-                  <?php 
-                    if(!empty($_SESSION['id_bophan'])){
-                      $sql = "SELECT tenbophan from bophan where id_bophan = '" . $_SESSION['id_bophan'] ."'";
-                      $result = mysqli_query($connect, $sql);
-                      $row = mysqli_fetch_array($result);
-                      echo $row['tenbophan'];
-                    } echo "Bộ phận";
-                    
+                 <i class="fa-solid fa-cheese"></i>
+                  <?php
+                      echo $row['tenbophan'];       
                   ?>
               </span>
+              <?php
+              } else echo '';
+              ?>
               <span class="relative px-5 py-2.5 bg-white rounded-md">
                   <i class="fa-solid fa-globe"></i>
                   <?php 

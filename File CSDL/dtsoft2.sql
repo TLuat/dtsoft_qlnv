@@ -186,11 +186,11 @@ INSERT INTO `nguoidung` (`id_nguoidung`, `id_bophan`, `id_vaitro`, `id_khuvuc`, 
 
 CREATE TABLE `theodoikehoach` (
   `id` int(11) NOT NULL,
-  `id_nguoidung` varchar(10) NOT NULL,
+  `id_nguoidung` varchar(10) DEFAULT NULL,
   `id_chitieu` varchar(10) NOT NULL,
   `id_kehoachgiaoviec` varchar(10) NOT NULL,
   `chitieucandat` int(255) NOT NULL,
-  `chitieudatduoc` int(255) NOT NULL
+  `chitieudatduoc` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

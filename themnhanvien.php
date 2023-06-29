@@ -108,9 +108,9 @@ if (isset($_POST['them_ns'])) {
                         <select id="countries" name="vaitro_ns" class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required>
                             <option selected>-- Chọn Chức vụ --</option>
                             <?php
-                            if( $_SESSION['id_vaitro'] == 'QLKV'){
-                                $sql_vaitro = "SELECT * FROM vaitro WHERE id_vaitro NOT IN ('QLBP');";
-                            }else {
+                            if ($_SESSION['id_vaitro'] == 'QLKV') {
+                                $sql_vaitro = "SELECT * FROM vaitro WHERE id_vaitro NOT IN ('QLKV');";
+                            } else {
                                 $sql_vaitro = "SELECT * FROM vaitro WHERE id_vaitro NOT IN ( 'QLKV','QLBP');";
                             }
                             $query_vaitro = mysqli_query($ketnoi, $sql_vaitro);
@@ -162,7 +162,8 @@ if (isset($_POST['them_ns'])) {
                             <select id="countries" name="bophan_ns" class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required>
                                 <option selected>-- Chọn Bộ phận --</option>
                                 <?php
-                                $sql_bophan = "SELECT * FROM bophan ORDER BY id_bophan DESC";
+                                $id_kv = $_SESSION['id_khuvuc'];
+                                $sql_bophan = "SELECT * FROM bophan where id_khuvuc = '".$id_kv."'";
                                 $query_bophan = mysqli_query($ketnoi, $sql_bophan);
                                 while ($row_bophan = mysqli_fetch_array($query_bophan)) {
                                 ?>

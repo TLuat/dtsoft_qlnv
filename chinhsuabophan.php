@@ -3,10 +3,11 @@ $activePage = "Chỉnh Sửa Bộ Phận";
 include "inc/header.php";
 include "db/connect.php";
 $id_bophan = $_GET['id_bophan'];
-$sql = "SELECT * FROM bophan where id_bophan = $id_bophan";
+$sql = "SELECT * FROM bophan where id_bophan = '$id_bophan'";
 $result = mysqli_query($connect, $sql);
 $bophan = mysqli_fetch_array($result);
-$sql = "SELECT * FROM khuvuc";
+$id_khuvuc = $_SESSION['id_khuvuc'];
+$sql = "SELECT * FROM khuvuc where id_khuvuc='$id_khuvuc'";
 $result = mysqli_query($connect, $sql);
 ?>
 
@@ -17,6 +18,10 @@ $result = mysqli_query($connect, $sql);
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5 rounded">
                 <form action="process_chinhsuabophan.php" method="POST">
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
+                        <div>
+                            <label for="first_name" class="block mb-2 text-sm font-medium">Mã bộ phận</label>
+                            <input type="text" name="id_bophan" value="<?php echo $bophan['id_bophan'] ?>" id="first_name" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        </div>
                         <div>
                             <label for="first_name" class="block mb-2 text-sm font-medium">Tên bộ phận</label>
                             <input type="text" name="tenbophan" value="<?php echo $bophan['tenbophan'] ?>" id="first_name" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required>

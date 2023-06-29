@@ -1,8 +1,14 @@
 <?php
+include "check_qlkv_login.php";
 $activePage = "Quản lý bộ phận";
 include "inc/header.php";
 include "db/connect.php";
-$sql = "SELECT b.*, k.tenkhuvuc FROM bophan b INNER JOIN khuvuc k ON b.id_khuvuc = k.id_khuvuc";
+$id_vaitro = $_SESSION['id_vaitro'];
+$id_khuvuc = $_SESSION['id_khuvuc'];
+if ($id_vaitro == 'QLKV') {
+  $sql = "SELECT b.*, k.tenkhuvuc FROM bophan b INNER JOIN khuvuc k ON b.id_khuvuc = k.id_khuvuc
+  where b.id_khuvuc='$id_khuvuc'";
+}
 $result = mysqli_query($connect, $sql);
 ?>
 

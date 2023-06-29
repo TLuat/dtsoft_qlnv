@@ -1,6 +1,10 @@
 <?php 
  include_once('db/connect.php');
- session_start();
+ if (session_id() === '')
+  session_start();
+if(!isset($_SESSION['id_vaitro'])) {
+    header('Location: login.php');
+}
  $id_vt = $_SESSION['id_vaitro'];
  $id_bp = $_SESSION['id_bophan'];
  $id_kv = $_SESSION['id_khuvuc'];
@@ -220,10 +224,12 @@
               <span class="relative px-5 py-2.5 bg-white rounded-md">
                   <i class="fa-solid fa-globe"></i>
                   <?php 
+                   if ($_SESSION['id_khuvuc'] != NULL){
                     $sql = "SELECT tenkhuvuc from khuvuc where id_khuvuc = '" . $_SESSION['id_khuvuc'] ."'";
                     $result = mysqli_query($connect, $sql);
                     $row = mysqli_fetch_array($result);
                     echo $row['tenkhuvuc'];
+                   }
                   ?>
               </span>
             </div>	  
@@ -237,26 +243,18 @@
                     <span class="text-black p-1 cursor-pointer" data-dropdown-toggle="dropdown-user"><?php echo $_SESSION['tennguoidung']; ?></span>
                   </div>
                   <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
-                    <div class="px-4 py-3" role="none">
+                    <!-- <div class="px-4 py-3" role="none">
                       <p class="text-sm text-gray-900 dark:text-black" role="none">
                         Neil Sims
                       </p>
                       <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                         neil.sims@flowbite.com
                       </p>
-                    </div>
+                    </div> -->
                     <ul class="py-1" role="none">
+                      
                       <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
-                      </li>
-                      <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
-                      </li>
-                      <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
-                      </li>
-                      <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
+                        <a href="process_signout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
                       </li>
                     </ul>
                   </div>
@@ -283,6 +281,7 @@
                   </a>
                </li>
 
+               <?php if($_SESSION['id_vaitro'] == 'QLKV' || $_SESSION['id_vaitro'] == 'QLBP') { ?>
                <li class="border-b rounded">
                   <a href="nhanvien.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-gray-200">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users-group" width="34" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -298,7 +297,9 @@
                      <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-700 dark:text-white">40</span>
                   </a>
                </li>
+                <?php } ?>
 
+              <?php if($_SESSION['id_vaitro'] == 'QLKV') { ?>
                <li class="border-b rounded">
                   <a href="bophan.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-gray-200">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-flipboard" width="34" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -308,7 +309,9 @@
                     <span class="flex-1 ml-3 whitespace-nowrap">Bộ Phận</span>
                   </a>
                </li>
+               <?php } ?>
 
+               <?php if ($id_vt != "QLKV" && $id_vt != 'QTHT'){ ?>
                <li class="border-b rounded">
                   <button type="button" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-black hover:bg-gray-200" aria-controls="dropdown-cv" data-collapse-toggle="dropdown-ct">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-target-arrow" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -325,15 +328,20 @@
                     </svg>
                   </button>
                   <ul id="dropdown-ct" class="hidden py-2 space-y-2">
+                  <?php if ($id_vt == "QLBP"){ ?>
                     <li>
                       <a href="chitieu.php" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-black dark:hover:bg-gray-200">Danh sách chỉ tiêu</a>
                     </li>
+                  <?php } ?>
+                  
                     <li>
                       <a href="baocaochitieu.php" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-black dark:hover:bg-gray-200">Báo cáo chỉ tiêu</a>
                     </li>
                   </ul>
                </li>
-               
+               <?php } ?>
+
+               <?php if ($id_vt == "QTHT"){ ?>
                <li class="border-b rounded">
                   <a href="khuvuc.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-gray-200">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-view-360" width="34" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -345,7 +353,9 @@
                     <span class="flex-1 ml-3 whitespace-nowrap">Khu vực</span>
                   </a>
                </li>
-
+               <?php } ?>
+                
+               <?php if ($id_vt != "QLKV" && $id_vt != 'QTHT'){ ?>
                <li>
                   <button type="button" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-black hover:bg-gray-200" aria-controls="dropdown-cv" data-collapse-toggle="dropdown-cv">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cell" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -380,7 +390,11 @@
                     ?>
                   </ul>
                </li>
+               <?php } ?>
 
+               <?php
+                    if ($id_vt == "QLBP"){
+                ?>
                <li class="border-b rounded">
                   <a href="kehoachgiaoviec.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-gray-200">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-devices" width="34" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -392,7 +406,9 @@
                     <span class="flex-1 ml-3 whitespace-nowrap">Kế hoạch</span>
                   </a>
                </li>
+               <?php } ?>
 
+               <?php if ($id_vt != "QTHT"){ ?>
                <li>
                 <button type="button" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-black hover:bg-gray-200" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                       <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-pencil" width="34" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -405,24 +421,28 @@
                       <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                 </button>
                 <ul id="dropdown-example" class="hidden py-2 space-y-2">  
+                    <?php if ($id_vt == "QLKV" || $id_vt == "QLBP"){ ?>
                       <li>
                          <a href="danhgia.php" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-black dark:hover:bg-gray-200">Đánh giá</a>
                       </li>
+                    <?php } ?>
                       <li>
                          <a href="ketquadanhgia.php" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-black dark:hover:bg-gray-200">Kết quả đánh giá</a>
                       </li>            
                 </ul>
              </li>
-
+             <?php } ?>
      <!-- Tài KHoản -->
+        <?php if ($id_vt == "QTHT"){ ?>
                <li class="pt-5">Tài khoản</li>
                 <li class="border-b rounded">
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-gray-200">
+                    <a href="user.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-gray-200">
                       <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-700 transition duration-75 dark:text-gray-700 group-hover:text-gray-900" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
                       <span class="flex-1 ml-3 whitespace-nowrap">Users</span>
                     </a>
                 </li>
-                <li class="border-b rounded">
+                <?php } ?>
+                <!-- <li class="border-b rounded">
                     <a href="login.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-gray-200">
                       <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-700 transition duration-75 dark:text-gray-700 group-hover:text-gray-900" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path></svg>
                       <span class="flex-1 ml-3 whitespace-nowrap">Sign In</span>
@@ -433,7 +453,7 @@
                       <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-700 transition duration-75 dark:text-gray-700 group-hover:text-gray-900" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path></svg>
                       <span class="flex-1 ml-3 whitespace-nowrap">Sign Up</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
          </div>
       </aside>

@@ -1,10 +1,8 @@
 <?php
-$activePage = "Chi tiết kế hoạch";
-include "inc/header.php";
+include "db/connect.php";
 ?>
 <?php
     $id = $_GET['id'];
-    $vaitro = $_SESSION['id_vaitro'];
     $sql = "SELECT * FROM kehoachgiaoviec
     INNER JOIN khuvuc ON kehoachgiaoviec.id_khuvuc = khuvuc.id_khuvuc 
     INNER JOIN bophan ON khuvuc.id_khuvuc = bophan.id_khuvuc
@@ -30,52 +28,44 @@ include "inc/header.php";
       break;
     }}
 ?>
-
+<style>	
+	@media print{
+		#print {
+			display:none;
+		}
+	}
+	@media print {
+		#PrintButton {
+			display: none;
+		}
+	}
+    td{
+        text-align: center;
+    }
+</style>
 <div class="p-4 sm:ml-64">
   <div class="p-4 mt-14">
-    <div class="mb-5 font-bold text-lg uppercase">Chi tiết Kế hoạch </div>
     <div class="p-4 mt-14 grid">
       <div class="justify-self-start">
-        <a href="inchitietkehoach.php?&id=<?php echo $id ?>" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-          In kế hoạch <i class="fa-solid fa-pen-to-square"></i>
-        </a>
-        <?php 
-          if($vaitro == 'QLBP'){
-        ?>
-            <a href="chinhsuakehoach.php?&id=<?php echo $id ?>" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-              Chỉnh sửa kế hoạch <i class="fa-solid fa-pen-to-square"></i>
-            </a>
-        <?php
-          }
-        ?>
 
       </div>
     </div>
     <div class="mb-4 mt-5">
-        <div class="text-center mb-5 font-bold text-lg uppercase">
+        <h2>
           Thông tin kế hoạch "<?php echo $row['tenkh']; ?>"
-        </div>
+        </h2>
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-white uppercase bg-gray-700">
             <tr>
               <th class="px-3 py-3 border border-slate-300">
-                NGÀY BẮT ĐẦU
+                NGÀY BẮT ĐẦU |
               </th>
               <th class="px-3 py-3 border border-slate-300">
-              NGÀY KẾT THÚC DỰ KIẾN
+              NGÀY KẾT THÚC DỰ KIẾN |
               </th>
               <th class="px-3 py-3 border border-slate-300">
               NGÀY KẾT THÚC THỰC TẾ
-              </th>
-              <th class="px-3 py-3 border border-slate-300">
-              KHU VỰC THỰC HIỆN
-              </th>
-              <th class="px-3 py-3 border border-slate-300">
-              BỘ PHẬN PHỤ TRÁCH
-              </th>
-              <th class="px-3 py-3 border border-slate-300">
-              TIẾN ĐỘ KẾ HOẠCH
               </th>
             </tr>
           </thead>
@@ -90,6 +80,26 @@ include "inc/header.php";
               <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
               <?php echo $row['ngayktthucte']; ?>
               </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="w-full text-sm text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-white uppercase bg-gray-700">
+            <tr>
+              <th class="px-3 py-3 border border-slate-300">
+              KHU VỰC THỰC HIỆN |
+              </th>
+              <th class="px-3 py-3 border border-slate-300">
+              BỘ PHẬN PHỤ TRÁCH |
+              </th>
+              <th class="px-3 py-3 border border-slate-300">
+              TIẾN ĐỘ KẾ HOẠCH
+              </th>
+            </tr>
+          </thead>
+          <tbody class="text-black text-center">
+            <tr class="bg-white border-b dark:border-gray-700 hover:bg-gray-50">
               <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
               <?php echo $row['tenkhuvuc']; ?>
               </td>
@@ -107,15 +117,17 @@ include "inc/header.php";
             </tr>
           </tbody>
         </table>
+
+
       </div>
 
       <hr class="bg-pink-400 rounded p-0.5 mt-5">
       <div class="mb-4 mt-5">
-        <div class="text-center mb-5 font-bold text-lg uppercase">
+        <h2 class="text-center mb-5 font-bold text-lg uppercase">
           Các công việc trong kế hoạch
-        </div>
+        </h2>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table id="myTable" class="w-full text-sm text-gray-500 dark:text-gray-400">
+          <table class="w-full text-sm text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-white uppercase bg-gray-700">
               <tr>
                 <th class="px-3 py-3 border border-slate-300">
@@ -176,8 +188,13 @@ include "inc/header.php";
         </div>
       </div>
     </div>
+    <button id="PrintButton" onclick="PrintPage()">Print</button>
   </div>
-
+  <script type="text/javascript">
+	function PrintPage() {
+		window.print();
+	}
+    </script>
   </body>
 
   </html>

@@ -393,7 +393,7 @@ if(!isset($_SESSION['id_vaitro'])) {
                <?php } ?>
 
                <?php
-                    if ($id_vt == "QLBP"){
+                    if ($id_vt == "QLBP" || $id_vt == "NS"){
                 ?>
                <li class="border-b rounded">
                   <a href="kehoachgiaoviec.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-gray-200">

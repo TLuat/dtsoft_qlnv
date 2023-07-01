@@ -36,19 +36,19 @@ if ($id_vt == 'QLKV') {
 <div class="p-4 sm:ml-64">
   <div class="p-4 mt-14">
     <div class="mb-4 font-bold text-lg uppercase">Nhân viên</div>
-    <div class="p-4 mt-14 grid">
-      <!-- <div class="justify-self-start">
-        <label for="simple-search" class="sr-only">Search</label>
-        <div class="relative w-full">
-          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
-            </svg>
-          </div>
-          <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required>
-        </div>
-      </div> -->
-      <div class="flex">
+
+    <div class="p-4 order-1 divsToShow" style="display: none;">
+      <div class="p-2 rounded-lg">      
+        <p class="block mb-2 text-base font-medium text-gray-900 <?php if ($id_vt == 'QLBP') echo 'divsToShow';
+                                                                      elseif ($id_vt == 'QLKV') echo '' 
+                                                                  ?>"
+          >Bộ phận: <?php echo $row_bophan['tenbophan'] ?></p>
+        <p class="block mb-2 text-base font-medium text-gray-900 <?php if ($id_vt == 'QLKV' || $id_vt == 'QLBP') echo 'divsToShow' ?>">Khu vực: <?php echo $row['tenkhuvuc']; ?></p>
+      </div>
+    </div>   
+
+    <div class="p-4 mt-4 grid">
+      <div class="flex divToHide">
         <div class="shadow-md bg-white p-2 rounded-lg">
           <label for="countries" class="block mb-2 text-base font-medium text-gray-900">Chọn bộ phận</label>
           <select id="filter-select1" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -81,7 +81,7 @@ if ($id_vt == 'QLKV') {
         </div>
 
       </div>
-      <div class="justify-self-end">
+      <div class="justify-self-end divToHide">
         <a href="themnhanvien.php" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
           Thêm nhân sự <i class="fa-solid fa-user-plus"></i>
         </a>
@@ -108,13 +108,14 @@ if ($id_vt == 'QLKV') {
                 <th class="px-3 py-3 border border-slate-300">
                   Chức vụ
                 </th>
-                <th class="px-3 py-3 border border-slate-300">
+                <th class="px-3 py-3 border border-slate-300 <?php if ($id_vt == 'QLBP') echo 'divToHide';
+                                        elseif ($id_vt == 'QLKV') echo '' ?>">
                   Bộ phận
                 </th>
                 <th class="px-3 py-3 border border-slate-300">
                   Công việc chuyên môn
                 </th>
-                <th class="px-3 py-3 border border-slate-300">
+                <th class="px-3 py-3 border border-slate-300 <?php if ($id_vt == 'QLKV' || $id_vt == 'QLBP') echo 'divToHide' ?>">
                   Khu vực
                 </th>
                 <!-- <th class="px-3 py-3 border border-slate-300">
@@ -132,7 +133,7 @@ if ($id_vt == 'QLKV') {
                 <th class="px-3 py-3 border border-slate-300">
                   GIỚI TÍNH
                 </th> -->
-                <th class="px-3 py-3 border border-slate-300">
+                <th class="px-3 py-3 border border-slate-300 action-column">
                   QUẢN LÝ
                 </th>
               </tr>
@@ -152,13 +153,14 @@ if ($id_vt == 'QLKV') {
                   <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
                     <?php echo $row['tenvaitro'] ?>
                   </td>
-                  <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
+                  <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300 <?php if ($id_vt == 'QLBP') echo 'divToHide';
+                                                                        elseif ($id_vt == 'QLKV') echo '' ?>">
                     <?php echo $row['tenbophan'] ?>
                   </td>
                   <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
                     <?php echo $row['cvchuyenmon'] ?>
                   </td>
-                  <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
+                  <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300 <?php if ($id_vt == 'QLKV' || $id_vt == 'QLBP') echo 'divToHide' ?>">
                     <?php echo $row['tenkhuvuc'] ?>
                   </td>
                   <!-- <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
@@ -177,7 +179,7 @@ if ($id_vt == 'QLKV') {
                     <?php echo $row['gioitinh'] ?> -->
 
                   </td>
-                  <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300 text-center">
+                  <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300 text-center action-column">
                     <a class="text-blue-800" href="chinhsuanhanvien.php?action=sua&idnhansu=<?php echo $row['id_nguoidung']  ?>">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </a> |
@@ -221,6 +223,15 @@ if ($id_vt == 'QLKV') {
           </table>
         </div>
 
+        <div class="fixed right-6 group divToHide" style="top: 100px;">
+          <button onclick="printPage()" class="flex items-center justify-center text-white bg-blue-700 drop-shadow-lg rounded-lg w-20 h-10 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
+            <svg aria-hidden="true" class="w-6 h-6 mr-2 font-bold" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-bold">Print</span>
+          </button>
+        </div>   
+
       </div>
     </div>
   </div>
@@ -229,6 +240,77 @@ if ($id_vt == 'QLKV') {
   <!--Datatables -->
   <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+  <script>
+    function printPage() {
+      // Hiện thẻ div 
+      var divsToShow = document.getElementsByClassName('divsToShow');
+      for (var i = 0; i < divsToShow.length; i++) {
+        divsToShow[i].style.display = 'block';
+      }
+
+      // Ẩn các thẻ div khác
+      var divsToHide = document.getElementsByClassName('divToHide');
+      for (var i = 0; i < divsToHide.length; i++) {
+        divsToHide[i].style.display = 'none';
+      }
+
+      // Ẩn cột Action trước khi in trang
+      var actionColumns = document.getElementsByClassName('action-column');
+      for (var i = 0; i < actionColumns.length; i++) {
+        actionColumns[i].style.display = 'none';
+      }
+
+      var printStyle = document.createElement('style');
+      printStyle.innerHTML = `
+              @media print {
+                table {
+                  border-collapse: collapse;
+                }
+              
+                table, th, td {
+                  border: 1px solid black;
+                }
+              
+                th {
+                  background-color: black;
+                  color: black;
+                  white-space: nowrap;
+                }
+              
+                td {
+                  color: black;
+                  text-align: center;
+                  background-color: white;
+                  white-space: nowrap;
+                }
+
+                td span {
+                  color: black;
+                }
+              }
+            `;
+
+      // Thêm phần tử style vào phần tử head
+      document.head.appendChild(printStyle);
+
+      // In trang
+      window.print();
+
+      // Hiển thị lại cột Action sau khi in trang (tuỳ chọn)
+      for (var i = 0; i < actionColumns.length; i++) {
+        actionColumns[i].style.display = '';
+      }
+
+      for (var i = 0; i < divsToHide.length; i++) {
+        divsToHide[i].style.display = '';
+      }
+
+      // Ẩn lại thẻ div 
+      for (var i = 0; i < divsToShow.length; i++) {
+        divsToShow[i].style.display = 'none';
+      }
+    }
+  </script>
   <script>
     $(document).ready(function() {
 
@@ -261,31 +343,10 @@ if ($id_vt == 'QLKV') {
         table.draw(); // Vẽ lại DataTable
       });
 
-      // $('#filter-select1, #filter-select2, #filter-select3, #filter-select4').change(function() {
-      //   var filterValue1 = $('#filter-select1').val();
-      //   var filterValue2 = $('#filter-select2').val();
-      //   var filterValue3 = $('#filter-select3').val();
-      //   var filterValue4 = $('#filter-select4').val();
-
-      //   // Áp dụng bộ lọc vào DataTable
-      //   table.columns(4).search(filterValue1); // Lọc cột 1 bằng giá trị của select 1
-      //   table.columns(5).search(filterValue2);
-      //   table.columns(8).search(filterValue3);
-      //   table.columns(7).search(filterValue4);
-
-      //   table.draw(); // Vẽ lại DataTable
-      // });
-
-      // Custom styling for search input
-      // $('.dataTables_filter input').addClass('bg-gray-100 border border-gray-300 py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500');
-
-      // Clear default search icon
-      // $('.dataTables_filter label::before').remove();
-      // $('.dataTables_filter label::after').remove();
-      // $('.dataTables_filter label').addClass('');
-      // $('.dataTables_filter input').addClass('m-2 bg-white text-white border');
-
-      // $('.dataTables_filter label').append('<i class="fa-solid fa-magnifying-glass"></i>');
+      $('.dataTables_filter').addClass('divToHide');
+      $('.dataTables_wrapper select').addClass('divToHide');
+      $('.dataTables_wrapper label').addClass('divToHide');
+      $('.dataTables_wrapper label').addClass('divToHide');
 
       $('.dataTables_filter input').attr('placeholder', 'Tìm kiếm ...');
     });

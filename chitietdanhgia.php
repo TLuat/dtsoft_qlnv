@@ -48,7 +48,7 @@ $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
 
 <div class="p-4 sm:ml-64">
     <div class="p-4 mt-14">
-        <div class="mb-3 drop-shadow-lg"><a href="danhgia.php" class="bg-blue-700 p-2 text-white font-bold rounded-lg uppercase"><i class="fa-sharp fa-solid fa-arrow-left"></i> Trờ về</a></div>
+        <div class="mb-3 drop-shadow-lg"><a href="danhgia.php" class="bg-blue-700 p-2 text-white font-bold rounded-lg uppercase"><i class="fa-sharp fa-solid fa-arrow-left"></i> Trở về</a></div>
         <div class="mb-5 font-bold uppercase text-center underline text-xl drop-shadow-lg">Chi tiết Đánh giá</div>
         <div class="grid grid-cols-3 gap-4 mb-4">
             <div class="items-center justify-center h-24 rounded bg-white">
@@ -125,6 +125,11 @@ $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
                         $tenchitieu = $row2["tenchitieu"];
                         $tongchitieuđatuoc = $row2["tongchitieuđatuoc"];
                         $tongchitieucandat = $row2["tongchitieucandat"];
+
+                        $sql_kehoach = "SELECT * FROM `kehoachgiaoviec` WHERE `id_kehoachgiaoviec` = '" . $id . "'";
+                        $result_kehoach = mysqli_query($ketnoi, $sql_kehoach);
+                        $row_kehoach = mysqli_fetch_array($result_kehoach);
+                        $trangthaikehoach = $row_kehoach["trangthai"];
                 ?>
 
                 <tr class="bg-white border-b dark:border-gray-700 hover:bg-gray-50">
@@ -179,11 +184,11 @@ $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
                         </td>
                         <td class="px-3 py-4 font-medium whitespace-nowrap text-lg">
                             <form class="flex" action="" method="POST">
-                                <select name="trangthai" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option value="">-- Chọn đánh gá --</option>
-                                    <option>Đạt</option>
-                                    <option>Chưa đạt</option>
-                                    <option>Không đạt</option>
+                                <select name="trangthai" class="text-center bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="" <?php if($trangthaikehoach == 'Đạt') echo 'selected' ?>>-- Chọn Đánh gá --</option>
+                                    <option value="Đạt" <?php if($trangthaikehoach == 'Đạt') echo 'selected' ?>>Đạt</option>
+                                    <option value="Chưa Đạt" <?php if($trangthaikehoach == 'Chưa Đạt') echo 'selected' ?>>Chưa Đạt</option>
+                                    <option value="Không Đạt" <?php if($trangthaikehoach == 'Không Đạt') echo 'selected' ?>>Không Đạt</option>
                                 </select>
                                 <button type="submit" class="ml-3 drop-shadow-lg text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Lưu
@@ -218,108 +223,140 @@ $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
                 Danh sách nhân viên thuộc kế hoạch <?php echo $id ?>
             </div>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-white uppercase bg-gray-700">
-                        <tr>
-                            <th class="px-3 py-3 border border-slate-300">
-                                Tên nhân sự
-                            </th>
-                            <th class="px-3 py-3 border border-slate-300">
-                                Tên chỉ tiêu
-                            </th>
-                            <th class="px-3 py-3 border border-slate-300">
-                                Chỉ tiêu cần đạt
-                            </th>
-                            <th class="px-3 py-3 border border-slate-300">
-                                Chỉ đạt được
-                            </th>
-                            <th class="px-3 py-3 border border-slate-300">
-                                Hoàn thành (%)
-                            </th>
-                            <th class="px-3 py-3 border border-slate-300">
-                                Đánh giá
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-black text-center">
-
-                        <?php
-                        
-                        if ($id_vt == "NS") {
-                            $condition = "id_nguoidung = '" . $id_nd . "'";
-                        } elseif ($id_vt == "QLBP") {
-                            $condition = "";
-                        } else {
-                            $condition = "";
-                        }
-                        
-                        $sql3 = "SELECT * FROM theodoikehoach";
-                        
-                        if (!empty($condition)) {
-                            $sql3 .= " WHERE id_kehoachgiaoviec = '" . $id . "' AND $condition";
-                        } else {
-                            $sql3 .= " WHERE id_kehoachgiaoviec = '" . $id . "'";
-                        }
-                        
-                        $result3 = mysqli_query($ketnoi, $sql3);
-
-                        while ($row3 = mysqli_fetch_array($result3)) {
-                            $id_nguoidung = $row3["id_nguoidung"];
-                            $id_chitieu = $row3["id_chitieu"];
-                            $chitieudatduoc = $row3["chitieudatduoc"];
-                            $chitieucandat = $row3["chitieucandat"];
-
-                            $sql_nguoidung = "SELECT * FROM `nguoidung` WHERE `id_nguoidung` = '" . $id_nguoidung . "'";
-                            $result_nguoidung = mysqli_query($ketnoi, $sql_nguoidung);
-                            $row_nguoidung = mysqli_fetch_array($result_nguoidung);
-                            $tennguoidung = $row_nguoidung["tennguoidung"];
-
-                            $sql_chitieu = "SELECT * FROM `chitieu` WHERE `id_chitieu` = '" . $id_chitieu . "'";
-                            $result_chitieu = mysqli_query($ketnoi, $sql_chitieu);
-                            $row3_chitieu = mysqli_fetch_array($result_chitieu);
-                            $tenchitieu = $row3_chitieu["tenchitieu"];
-
-                        ?>
-                            <tr class="bg-white border-b dark:border-gray-700 hover:bg-gray-50">
-                                <td class="px-3 py-4 text-black border-r border-slate-300">
-                                    <?php echo $tennguoidung ?>
-                                </td>
-                                <td class="px-3 py-4 text-black border-r border-slate-300">
-                                    <?php echo $tenchitieu ?>
-                                </td>
-                                <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
-                                    <?php echo $chitieucandat ?>
-                                </td>
-                                <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
-                                    <?php
-                                    if ($chitieudatduoc) {
-                                        echo $chitieudatduoc;
-                                    } else echo "Chưa báo cáo";
-                                    ?>
-                                </td>
-                                <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
-                                    <?php
-                                    if ($chitieudatduoc) {
-                                        $phanTramHoanThanh = ($chitieudatduoc / $chitieucandat) * 100;
-                                        echo round($phanTramHoanThanh, 2) . "%";
-                                    } else echo "--";
-
-                                    ?>
-                                </td>
-                                <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
-                                    <?php
-                                    if ($chitieudatduoc) {
-                                        if ($phanTramHoanThanh >= 75) echo "Đạt";
-                                        else if ($phanTramHoanThanh < 75) echo "Không đạt";
-                                        else echo "Chưa đạt";
-                                    } else echo "--";
-                                    ?>
-                                </td>
+                <form class="flex" action="" method="POST">
+                    <table class="w-full text-sm text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-white uppercase bg-gray-700">
+                            <tr>
+                                <th class="px-3 py-3 border border-slate-300">
+                                    Tên nhân sự
+                                </th>
+                                <th class="px-3 py-3 border border-slate-300">
+                                    Tên chỉ tiêu
+                                </th>
+                                <th class="px-3 py-3 border border-slate-300">
+                                    Chỉ tiêu cần đạt
+                                </th>
+                                <th class="px-3 py-3 border border-slate-300">
+                                    Chỉ đạt được
+                                </th>
+                                <th class="px-3 py-3 border border-slate-300">
+                                    Hoàn thành (%)
+                                </th>
+                                <th class="px-3 py-3 border border-slate-300">
+                                    Đánh giá
+                                </th>
                             </tr>
+                        </thead>
+                        <tbody class="text-black text-center">
 
-                        <?php } ?>
-                    </tbody>
-                </table>
+                            <?php
+                            
+                            if ($id_vt == "NS") {
+                                $condition = "id_nguoidung = '" . $id_nd . "'";
+                            } elseif ($id_vt == "QLBP") {
+                                $condition = "";
+                            } else {
+                                $condition = "";
+                            }
+                            
+                            $sql3 = "SELECT * FROM theodoikehoach";
+                            
+                            if (!empty($condition)) {
+                                $sql3 .= " WHERE id_kehoachgiaoviec = '" . $id . "' AND $condition ORDER BY id_nguoidung";
+                            } else {
+                                $sql3 .= " WHERE id_kehoachgiaoviec = '" . $id . "' ORDER BY id_nguoidung";
+                            }
+                            
+                            $result3 = mysqli_query($ketnoi, $sql3);
+                            
+                            while ($row3 = mysqli_fetch_array($result3)) {
+                                $id_nguoidung = $row3["id_nguoidung"];
+                                $id_chitieu = $row3["id_chitieu"];
+                                $chitieudatduoc = $row3["chitieudatduoc"];
+                                $chitieucandat = $row3["chitieucandat"];
+                                $trangthai = $row3["trangthai"];
+
+                                $sql_nguoidung = "SELECT * FROM `nguoidung` WHERE `id_nguoidung` = '" . $id_nguoidung . "'";
+                                $result_nguoidung = mysqli_query($ketnoi, $sql_nguoidung);
+                                $row_nguoidung = mysqli_fetch_array($result_nguoidung);
+                                $tennguoidung = $row_nguoidung["tennguoidung"];
+
+                                $sql_chitieu = "SELECT * FROM `chitieu` WHERE `id_chitieu` = '" . $id_chitieu . "'";
+                                $result_chitieu = mysqli_query($ketnoi, $sql_chitieu);
+                                $row3_chitieu = mysqli_fetch_array($result_chitieu);
+                                $tenchitieu = $row3_chitieu["tenchitieu"];
+
+                            ?>
+                                <tr class="bg-white border-b dark:border-gray-700 hover:bg-gray-50">
+                                    <td class="px-3 py-4 text-black border-r border-slate-300">
+                                        <?php echo $tennguoidung ?>
+                                    </td>
+                                    <td class="px-3 py-4 text-black border-r border-slate-300">
+                                        <?php echo $tenchitieu ?>
+                                    </td>
+                                    <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
+                                        <?php echo $chitieucandat ?>
+                                    </td>
+                                    <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
+                                        <?php
+                                        if ($chitieudatduoc) {
+                                            echo $chitieudatduoc;
+                                        } else echo "Chưa báo cáo";
+                                        ?>
+                                    </td>
+                                    <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
+                                        <?php
+                                        if ($chitieudatduoc) {
+                                            $phanTramHoanThanh = ($chitieudatduoc / $chitieucandat) * 100;
+                                            echo round($phanTramHoanThanh, 2) . "%";
+                                        } else echo "--";
+
+                                        ?>
+                                    </td>
+                                    <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
+                                        <input type="hidden" name="id_nguoidung[]" value="<?php echo $id_nguoidung; ?>">
+                                        <input type="hidden" name="id_chitieu[]" value="<?php echo $id_chitieu; ?>">
+                                        <select name="trangthaichitieu[]" class="bg-white inline-block border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block text-center p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="" <?php if($trangthai == '') echo 'selected' ?>>-- Chọn đánh gá --</option>
+                                            <option value="Đạt" <?php if($trangthai == 'Đạt') echo 'selected' ?>>Đạt</option>
+                                            <option value="Chưa Đạt" <?php if($trangthai == 'Chưa Đạt') echo 'selected' ?>>Chưa Đạt</option>
+                                            <option value="Không Đạt" <?php if($trangthai == 'Không Đạt') echo 'selected' ?>>Không Đạt</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                                <tr>
+                                    <td colspan="6" class="px-3 py-4 text-right">
+                                        <button type="submit" class="inline-block mr-9 drop-shadow-lg text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            Lưu Đánh giá
+                                        </button>
+                                    </td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <?php
+                    if (isset($_POST['trangthaichitieu'])) {
+                        $trangthaichitieu = $_POST['trangthaichitieu'];
+                        $id_nguoidung_array = $_POST['id_nguoidung'];
+                        $id_chitieu_array = $_POST['id_chitieu'];
+
+                        for ($i = 0; $i < count($trangthaichitieu); $i++) {
+                            $trangthai = $trangthaichitieu[$i];
+                            $id_nguoidung = $id_nguoidung_array[$i];
+                            $id_chitieu = $id_chitieu_array[$i];
+
+                            $sql = "UPDATE theodoikehoach SET trangthai = '$trangthai' WHERE id_nguoidung = '$id_nguoidung' AND id_chitieu = '$id_chitieu'";
+                            $result = mysqli_query($ketnoi, $sql);
+                        }
+
+                        if ($result) {
+                            echo "Cập nhật trạng thái thành công.";
+                        } else {
+                            echo "Cập nhật trạng thái thất bại: " . mysqli_error($ketnoi);
+                        }
+                    }
+                ?>
             </div>
         </div>
     </div>

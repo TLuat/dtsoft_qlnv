@@ -196,7 +196,7 @@ if(!isset($_SESSION['id_vaitro'])) {
                 <img src="assets/img/logo.jpg" class="h-12 mr-3" alt="FlowBite Logo" />
               </a>
             </div>
-	    <div class="flex items-center justify-start relative inline-flex items-center p-0.5 mb-2 mr-2 text-sm font-medium rounded-lg border border-blue-900">
+	    <div class="divToHide flex items-center justify-start relative inline-flex items-center p-0.5 mb-2 mr-2 text-sm font-medium rounded-lg border border-blue-900">
               <span class="relative px-5 py-2.5 bg-white rounded-md border-r border-blue-900">
                 <i class="fa-regular fa-user"></i>
                   <?php 
@@ -210,12 +210,12 @@ if(!isset($_SESSION['id_vaitro'])) {
               if ($_SESSION['id_bophan'] != NULL){
                 $sql = "SELECT tenbophan from bophan where id_bophan = '" . $_SESSION['id_bophan'] ."'";
                 $result = mysqli_query($connect, $sql);
-                $row = mysqli_fetch_array($result);
+                $row_bophan = mysqli_fetch_array($result);
               ?>
               <span class="relative px-5 py-2.5 bg-white rounded-md border-r border-blue-900">
                  <i class="fa-solid fa-cheese"></i>
                   <?php
-                      echo $row['tenbophan'];       
+                      echo $row_bophan['tenbophan'];       
                   ?>
               </span>
               <?php
@@ -237,7 +237,7 @@ if(!isset($_SESSION['id_vaitro'])) {
               }
               ?>
             </div>	  
-            <div class="flex items-center">
+            <div class="flex items-center divToHide">
                 <div class="flex items-center ml-3">
                   <div class="flex">
                     <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">

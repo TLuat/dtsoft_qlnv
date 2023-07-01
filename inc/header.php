@@ -221,17 +221,21 @@ if(!isset($_SESSION['id_vaitro'])) {
               <?php
               } else echo '';
               ?>
+              <?php
+              if ($_SESSION['id_vaitro'] != 'QTHT'){
+              ?>
               <span class="relative px-5 py-2.5 bg-white rounded-md">
                   <i class="fa-solid fa-globe"></i>
                   <?php 
-                   if ($_SESSION['id_khuvuc'] != NULL){
                     $sql = "SELECT tenkhuvuc from khuvuc where id_khuvuc = '" . $_SESSION['id_khuvuc'] ."'";
                     $result = mysqli_query($connect, $sql);
                     $row = mysqli_fetch_array($result);
                     echo $row['tenkhuvuc'];
-                   }
                   ?>
               </span>
+              <?php
+              }
+              ?>
             </div>	  
             <div class="flex items-center">
                 <div class="flex items-center ml-3">
@@ -252,7 +256,15 @@ if(!isset($_SESSION['id_vaitro'])) {
                       </p>
                     </div> -->
                     <ul class="py-1" role="none">
-                      
+                       <?php
+                      if($_SESSION['id_vaitro'] == 'QLBP' || $_SESSION['id_vaitro'] == 'NS'){
+                      ?>
+                      <li>
+                        <a href="thongtincanhan.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Profile</a>
+                      </li>
+                      <?php
+                      }
+                      ?>
                       <li>
                         <a href="process_signout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
                       </li>

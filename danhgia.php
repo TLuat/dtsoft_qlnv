@@ -11,24 +11,37 @@ include "db/database.php";
         <div class="mb-5 font-bold uppercase text-center underline text-xl drop-shadow-lg">Đánh giá</div>
         <div class="p-4 mt-14 flex grid">
             <div class="flex">
+                <?php 
+                if($id_vt == 'QLKV' || $id_vt == 'QTHT'){
+                ?>
                 <div class="shadow-md bg-white p-2 rounded-lg">
-                    <label for="countries" class="block mb-2 text-base font-medium text-gray-900">Chọn bộ phận</label>
-                    <select id="filter-select1" class="bg-gray-500 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected value="">-- Tất cả --</option>
-                        <option value="Kinh doanh">Kinh doanh</option>
-                        <option value="TKBT">TKBT</option>
-                        <option value="Nguồn lực">Nguồn lực</option>
-                        <option value="Tester">Tester</option>
-                    </select>
+                <label for="countries" class="block mb-2 text-base font-medium text-gray-900">Chọn bộ phận</label>
+                <select id="filter-select1" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected value="">-- Tất cả --</option>
+                    <option value="Kinh doanh">Kinh doanh</option>
+                    <option value="TKBT">TKBT</option>
+                    <option value="Nguồn lực">Nguồn lực</option>
+                    <option value="Tester">Tester</option>
+                </select>
                 </div>
+                <?php    
+                }
+                ?>
+
+                <?php 
+                if($id_vt == 'QTHT'){
+                ?>
                 <div class="ml-5 shadow-md bg-white p-2 rounded-lg">
-                    <label class="block mb-2 text-base font-medium text-gray-900">Chọn khu vực</label>
-                    <select id="filter-select2" class="bg-gray-500 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="">-- Tất cả --</option>
-                        <option value="Cần Thơ">Cần Thơ</option>
-                        <option value="Nha Trang">Nha Trang</option>
-                    </select>
+                <label class="block mb-2 text-base font-medium text-gray-900">Chọn khu vực</label>
+                <select id="filter-select2" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="">-- Tất cả --</option>
+                    <option value="Cần Thơ">Cần Thơ</option>
+                    <option value="Nha Trang">Nha Trang</option>
+                </select>
                 </div>
+                <?php    
+                }
+                ?>
                 <div class="ml-5 shadow-md bg-white p-2 rounded-lg">
                     <label class="block mb-2 text-base font-medium text-gray-900">Chọn Trạng Thái đánh giá</label>
                     <select id="filter-select3" class="bg-gray-500 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -58,10 +71,13 @@ include "db/database.php";
                             Ngày kết thúc dự kiến
                         </th>
                         <th class="px-3 py-3">
+                            Ngày kết thúc thực tế
+                        </th>
+                        <th class="px-3 py-3">
                             Tiến độ
                         </th>
                         <th class="px-3 py-3">
-                            Trạng thái
+                            Kết quả
                         </th>
                         <th class="px-3 py-3">
                             Action
@@ -132,19 +148,41 @@ include "db/database.php";
                                 <?php echo $ngayktdukien ?>
                             </td>
                             <td class="px-3 py-4 font-medium whitespace-nowrap">
-                                Đã hoàn thành
+                                <?php echo $ngayktthucte ?>
+                            </td>
+                            <td class="px-3 py-4 font-medium whitespace-nowrap">
+                               <?php 
+                                    $date1 = new DateTime($ngayktdukien);
+                                    $date2 = new DateTime($ngayktthucte);
+                                    
+                                    $diff = $date1->diff($date2);
+                                    
+                                    if($ngayktthucte!=''){
+                                        if ($diff->days > 0) {
+                                            echo "Trễ tiến độ";
+                                        } elseif ($diff->days < 0) {
+                                            echo "Đúng tiến độ";
+                                        } else {
+                                            echo "Đúng tiến độ";
+                                        }
+                                    } else echo "--"
+                               ?>
                             </td>
                             <td class="px-3 py-4 font-medium whitespace-nowrap text-center">
                                 <?php 
                                     if ($trangthai=='-- Chọn đánh giá --' or $trangthai=='') {
                                         echo 'Chưa đánh giá';
                                     } 
-                                    else echo $trangthai;
+                                    else if ($trangthai == 'Đạt') echo '<span class="bg-green-500 rounded p-1 text-white font-bold">Đạt</span>';
+                                    else if ($trangthai == 'Không Đạt') echo '<span class="bg-red-500 rounded p-1 text-white font-bold">Không Đạt</span>';
+                                    else echo '<span class="bg-yellow-500 rounded p-1 text-white font-bold">Chưa Đạt</span>';
                     
                                 ?>
                             </td>
                             <td class="px-3 py-4 font-medium whitespace-nowrap text-center">
-                                <a class="text-blue-800" href="chitietdanhgia.php?id=<?php echo $id_kehoachgiaoviec ?>">Chi tiết</a>
+                                <a class="bg-blue-700 p-1 text-white rounded-lg uppercase" href="chitietdanhgia.php?id=<?php echo $id_kehoachgiaoviec ?>">
+                                    Đánh giá
+                                </a>
                             </td>
                         </tr>
                     <?php } ?>

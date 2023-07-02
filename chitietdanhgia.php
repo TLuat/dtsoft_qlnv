@@ -125,6 +125,9 @@ $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
                         $tenchitieu = $row2["tenchitieu"];
                         $tongchitieuđatuoc = $row2["tongchitieuđatuoc"];
                         $tongchitieucandat = $row2["tongchitieucandat"];
+                        $đatduoc = number_format($tongchitieuđatuoc, 0, '.', '.');
+                        $candat = number_format($tongchitieucandat, 0, '.', '.');
+
 
                         $sql_kehoach = "SELECT * FROM `kehoachgiaoviec` WHERE `id_kehoachgiaoviec` = '" . $id . "'";
                         $result_kehoach = mysqli_query($ketnoi, $sql_kehoach);
@@ -137,12 +140,12 @@ $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
                         <?php echo $tenchitieu ?>
                     </td>
                     <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
-                        <?php echo $tongchitieucandat ?>
+                        <?php echo $candat?>
                     </td>
                     <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
                         <?php
                         if ($tongchitieuđatuoc) {
-                            echo $tongchitieuđatuoc;
+                            echo $đatduoc;
                         } else echo "Chưa báo cáo";
                         ?>
                     </td>
@@ -275,6 +278,8 @@ $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
                                 $chitieudatduoc = $row3["chitieudatduoc"];
                                 $chitieucandat = $row3["chitieucandat"];
                                 $trangthai = $row3["trangthai"];
+                                $đatduoc_nv = number_format($chitieudatduoc, 0, '.', '.');
+                                $candat_nv = number_format($chitieucandat, 0, '.', '.');
 
                                 $sql_nguoidung = "SELECT * FROM `nguoidung` WHERE `id_nguoidung` = '" . $id_nguoidung . "'";
                                 $result_nguoidung = mysqli_query($ketnoi, $sql_nguoidung);
@@ -295,12 +300,12 @@ $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
                                         <?php echo $tenchitieu ?>
                                     </td>
                                     <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
-                                        <?php echo $chitieucandat ?>
+                                        <?php echo $candat_nv ?>
                                     </td>
                                     <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
                                         <?php
                                         if ($chitieudatduoc) {
-                                            echo $chitieudatduoc;
+                                            echo  $đatduoc_nv ;
                                         } else echo "Chưa báo cáo";
                                         ?>
                                     </td>

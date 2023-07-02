@@ -277,7 +277,7 @@ include "db/database.php";
                   <img src="assets/img/img_gt.jpg" class="rounded-lg" style="display: inline-block; width: 1000px; height: 500px" alt="">
             </div>
          </div>
-         <div class="bg-blue-200 p-5 border-2 border-inherit shadow-xl rounded-lg">
+         <div class="bg-blue-100 p-5 border-2 border-inherit shadow-xl rounded-lg">
             <div>
             <div class="grid grid-cols-3 p-6 border-2 border-inherit shadow-xl rounded-lg">
                   <div class="">
@@ -312,7 +312,7 @@ include "db/database.php";
                      <img src="assets/img/annhnen.jpg" class="rounded-lg" style="display: inline-block; width: auto; height: auto" alt="">
                   </div>
                   <div class="col-span-2 ml-3">
-                  <p>>> Các chi nhánh công ty</p>
+                  <p class="underline text-blue-500"> Các chi nhánh công ty</p>
                   </div>
                </div>
                <br>
@@ -321,7 +321,7 @@ include "db/database.php";
                      <img src="assets/img/anh1.jpg" class="rounded-lg" style="display: inline-block; width: auto; height: auto;" alt="">
                   </div>
                   <div class="col-span-2 ml-3">
-                  <p>>> Thông tin 2</p>
+                  <p class="underline text-blue-500"> Lễ tổng kết hoạt động kinh doanh</p>
                   </div>
                </div>
                <br>
@@ -330,7 +330,7 @@ include "db/database.php";
                      <img src="assets/img/anh3.jpg" class="rounded-lg" style="display: inline-block; width: auto; height: auto" alt="">
                   </div>
                   <div class="col-span-2 ml-3">
-                  <p>>> Kỷ niệm 28 năm thành lập công ty</p>
+                  <p class="underline text-blue-500"> Kỷ niệm 28 năm thành lập công ty</p>
                   </div>
                </div>
             </div>

@@ -316,6 +316,8 @@ $id_kv = $_SESSION['id_khuvuc'];
                                       $id_chitieu = $row3["id_chitieu"];
                                       $chitieudatduoc = $row3["chitieudatduoc"];
                                       $chitieucandat = $row3["chitieucandat"];
+                                      $đatduoc_nv = number_format($chitieudatduoc, 0, '.', '.');
+                                      $candat_nv = number_format($chitieucandat, 0, '.', '.');
 
                                       $sql_chitieu = "SELECT * FROM `chitieu` WHERE `id_chitieu` = '" . $id_chitieu . "'";
                                       $result_chitieu = mysqli_query($ketnoi, $sql_chitieu);
@@ -328,12 +330,12 @@ $id_kv = $_SESSION['id_khuvuc'];
                                           <?php echo $tenchitieu ?>
                                         </td>
                                         <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
-                                          <?php echo $chitieucandat ?>
+                                          <?php echo $candat_nv ?>
                                         </td>
                                         <td class="px-3 py-4 font-medium whitespace-nowrap border-r border-slate-300">
                                           <?php
                                           if (isset($chitieudatduoc)) {
-                                            echo $chitieudatduoc;
+                                            echo $đatduoc_nv;
                                           } else echo "Chưa báo cáo";
                                           ?>
                                         </td>
@@ -570,3 +572,4 @@ $id_kv = $_SESSION['id_khuvuc'];
 </body>
 
 </html>
+

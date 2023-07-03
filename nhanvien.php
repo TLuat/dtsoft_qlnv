@@ -42,7 +42,7 @@ if ($id_vt == 'QLKV') {
         <p class="block mb-2 text-base font-medium text-gray-900 <?php if ($id_vt == 'QLBP') echo 'divsToShow';
                                                                       elseif ($id_vt == 'QLKV') echo '' 
                                                                   ?>"
-          >Bộ phận: <?php echo $row_bophan['tenbophan'] ?></p>
+          >Bộ phận: <?php echo $id_vt == 'QLKV' ? '' : $row_bophan['tenbophan'] ?></p>
         <p class="block mb-2 text-base font-medium text-gray-900 <?php if ($id_vt == 'QLKV' || $id_vt == 'QLBP') echo 'divsToShow' ?>">Khu vực: <?php echo $row['tenkhuvuc']; ?></p>
       </div>
     </div>   

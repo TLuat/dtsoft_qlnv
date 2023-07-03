@@ -24,7 +24,7 @@ if (isset($_POST['them_ns'])) {
         // $password = md5($_POST['password']);
 
         $sql = "INSERT INTO nguoidung (id_nguoidung,id_bophan,id_vaitro,id_khuvuc,tennguoidung,sdt_nd,diachi_nd,email,password,ngaysinh,gioitinh) 
-            VALUEs ('$id_ns','$bophan_ns', '$vaitro_ns', '$khuvuc_ns', '$ten_ns', ' $sdt_ns', '$diachi_ns', '$email_ns', '$password_ns', '$ngaysinh_ns', ' $gioitinh_ns ')";
+            VALUEs ('$id_ns','$bophan_ns', '$vaitro_ns', '$khuvuc_ns', '$ten_ns', '$sdt_ns', '$diachi_ns', '$email_ns', '$password_ns', '$ngaysinh_ns', ' $gioitinh_ns ')";
         $query = mysqli_query($ketnoi, $sql);
         echo '<script>alert("Thêm nhân sự thành công")</script>';
         // header('location: nhanvien.php');
@@ -49,7 +49,7 @@ if (isset($_POST['them_ns'])) {
         // $password = md5($_POST['password']);
 
         $sql = "INSERT INTO nguoidung (id_nguoidung,id_bophan,id_vaitro,id_khuvuc,tennguoidung,sdt_nd,diachi_nd,email,password,ngaysinh,gioitinh) 
-        VALUEs ('$id_ns','$bophan_ns', '$vaitro_ns', '$khuvuc_ns', '$ten_ns', ' $sdt_ns', '$diachi_ns', '$email_ns', '$password_ns', '$ngaysinh_ns', ' $gioitinh_ns ')";
+        VALUEs ('$id_ns','$bophan_ns', '$vaitro_ns', '$khuvuc_ns', '$ten_ns', '$sdt_ns', '$diachi_ns', '$email_ns', '$password_ns', '$ngaysinh_ns', ' $gioitinh_ns ')";
         $query = mysqli_query($ketnoi, $sql);
         echo '<script>alert("Thêm nhân sự thành công")</script>';
         // header('location: nhanvien.php');
@@ -99,7 +99,7 @@ if (isset($_POST['them_ns'])) {
                         </div>
                         <div>
                             <label for="visitors" class="block mb-2 text-sm font-medium">Ngày sinh</label>
-                            <input type="text" name="ngaysinh_ns" id="visitors" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập ngày sinh" required>
+                            <input type="date" name="ngaysinh_ns" id="visitors" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập ngày sinh" required>
                         </div>
                     </div>
 
@@ -109,9 +109,9 @@ if (isset($_POST['them_ns'])) {
                             <option selected>-- Chọn Chức vụ --</option>
                             <?php
                             if ($_SESSION['id_vaitro'] == 'QLKV') {
-                                $sql_vaitro = "SELECT * FROM vaitro WHERE id_vaitro NOT IN ('QLKV');";
+                                $sql_vaitro = "SELECT * FROM vaitro WHERE id_vaitro NOT IN ('QLKV', 'QTHT');";
                             } else {
-                                $sql_vaitro = "SELECT * FROM vaitro WHERE id_vaitro NOT IN ( 'QLKV','QLBP');";
+                                $sql_vaitro = "SELECT * FROM vaitro WHERE id_vaitro NOT IN ( 'QLKV','QLBP', 'QTHT');";
                             }
                             $query_vaitro = mysqli_query($ketnoi, $sql_vaitro);
                             while ($row_vaitro  = mysqli_fetch_array($query_vaitro)) {

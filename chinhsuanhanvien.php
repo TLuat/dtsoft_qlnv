@@ -26,7 +26,7 @@ if (isset($_POST['capnhat_ns'])) {
         $ngaysinh_ns = $_POST['ngaysinh_ns'];
         $gioitinh_ns = $_POST['gioitinh_ns'];
 
-        $sql = "UPDATE nguoidung SET id_nguoidung = '$id_ns',id_bophan = '$bophan_ns',id_vaitro = '$vaitro_ns',id_khuvuc= '$khuvuc_ns',tennguoidung = '$ten_ns',sdt= '$sdt_ns' ,diachi = '$diachi_ns',
+        $sql = "UPDATE nguoidung SET id_nguoidung = '$id_ns',id_bophan = '$bophan_ns',id_vaitro = '$vaitro_ns',id_khuvuc= '$khuvuc_ns',tennguoidung = '$ten_ns',sdt_nd= '$sdt_ns' ,diachi_nd = '$diachi_ns',
         email='$email_ns',password = '$password_ns',ngaysinh = '$ngaysinh_ns',gioitinh = '$gioitinh_ns'  where id_nguoidung = '" . $id . "' ";
         $query = mysqli_query($ketnoi, $sql);
         echo '<script>alert("Cập nhật nhân sự thành công")</script>';
@@ -96,7 +96,7 @@ if (isset($_POST['capnhat_ns'])) {
                         </div>
                         <div>
                             <label for="visitors" class="block mb-2 text-sm font-medium">Ngày sinh</label>
-                            <input type="text" name="ngaysinh_ns" id="visitors" value="<?php echo $row_up['ngaysinh'] ?>" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập ngày sinh" required>
+                            <input type="date" name="ngaysinh_ns" id="visitors" value="<?php echo $row_up['ngaysinh'] ?>" class=" border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập ngày sinh" required>
                         </div>
                     </div>
                     <div class="mb-6">

@@ -174,15 +174,15 @@ CREATE TABLE `nguoidung` (
 
 INSERT INTO `nguoidung` (`id_nguoidung`, `id_bophan`, `id_vaitro`, `id_khuvuc`, `tennguoidung`, `sdt_nd`, `diachi_nd`, `email`, `password`, `ngaysinh`, `gioitinh`) VALUES
 ('NV001', 'KD001', 'NS', 'CT', 'Nguyễn Văn A', '123456789', 'Địa chỉ 1', 'nva@gmail.com', '123', '1993-06-01', 'Nam'),
-('NV002', 'KD001', 'NS', 'CT', 'Nguyễn Văn B', '987654321', 'Địa chỉ 2', 'nvb@gmail.com', '123', '0000-00-00', 'Nam'),
-('NV003', 'CSKH001', 'NS', 'CT', 'Nguyễn Văn C', '0123456789', 'Địa chỉ 3', 'nvc@gmail.com', '123', '0000-00-00', 'Nữ'),
-('NV004', 'PTPM001', 'NS', 'CT', 'Nguyễn Văn D', '0123456789', 'Địa chỉ 4', 'nvc@gmail.com', '123', '0000-00-00', 'Nữ'),
-('NV005', 'PTPM001', 'NS', 'CT', 'Nguyễn Văn E', '0123456789', 'Địa chỉ 5', 'nve@gmail.com', '123', '0000-00-00', 'Nam'),
-('NV007', '', 'QLKV', 'CT', 'Phạm Văn A', '012345678', 'Địa chỉ 7', 'pva@gmail.com', '123', '0000-00-00', 'Nam'),
+('NV002', 'KD001', 'NS', 'CT', 'Nguyễn Văn B', '987654321', 'Địa chỉ 2', 'nvb@gmail.com', '123', '1993-06-01', 'Nam'),
+('NV003', 'CSKH001', 'NS', 'CT', 'Nguyễn Văn C', '0123456789', 'Địa chỉ 3', 'nvc@gmail.com', '123', '1993-06-01', 'Nữ'),
+('NV004', 'PTPM001', 'NS', 'CT', 'Nguyễn Văn D', '0123456789', 'Địa chỉ 4', 'nvc@gmail.com', '123', '1993-06-01', 'Nữ'),
+('NV005', 'PTPM001', 'NS', 'CT', 'Nguyễn Văn E', '0123456789', 'Địa chỉ 5', 'nve@gmail.com', '123', '1993-06-01', 'Nam'),
+('NV007', '', 'QLKV', 'CT', 'Phạm Văn A', '012345678', 'Địa chỉ 7', 'pva@gmail.com', '123', '1993-06-01', 'Nam'),
 ('NV008', 'KD001', 'NS', 'CT', 'Nguyễn Văn F', '0123456789', 'Địa chỉ 8', 'nvf@gmail.com', '123', '1993-06-01', 'Nam'),
 ('NV009', '', 'QTHT', '', 'Quản Trị Viên', '123456789', 'Địa chỉ 8', 'qtv@gmail.com', '123', '1993-06-01', 'Nam'),
 ('NV06', 'KD001', 'QLBP', 'CT', 'Trần Văn A', '0123456789', 'Địa chỉ 6', 'tva@gmail.com', '123', '2023-07-08', 'Nam'),
-('NV10', 'KD001 ', 'NS ', 'CT', 'Nguyễn Văn 10', ' 123456789', 'Địa chỉ 10', 'nv10@gmail.com', '202cb962ac59075b964b07152d234b70', '1999-01-01', ' Nam ');
+('NV10', 'KD001 ', 'NS ', 'CT', 'Nguyễn Văn 10', '123456789', 'Địa chỉ 10', 'nv10@gmail.com', '202cb962ac59075b964b07152d234b70', '1999-01-01', ' Nam ');
 
 -- --------------------------------------------------------
 
@@ -224,10 +224,10 @@ CREATE TABLE `tiendocongviec` (
   `id_bophan` varchar(10) NOT NULL,
   `id_kehoachgiaoviec` varchar(10) NOT NULL,
   `tencongviec` varchar(255) NOT NULL,
-  `trangthaicongviec` varchar(255) NOT NULL,
+  `trangthaicongviec` varchar(255) DEFAULT NULL,
   `thoigianbatdau` date NOT NULL,
   `thoigianketthucdukien` date NOT NULL,
-  `thoigianketthuc` date NOT NULL
+  `thoigianketthuc` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -235,7 +235,7 @@ CREATE TABLE `tiendocongviec` (
 --
 
 INSERT INTO `tiendocongviec` (`id_congviec`, `id_nguoidung`, `id_khuvuc`, `id_bophan`, `id_kehoachgiaoviec`, `tencongviec`, `trangthaicongviec`, `thoigianbatdau`, `thoigianketthucdukien`, `thoigianketthuc`) VALUES
-('CV001', 'NV001', 'CT', 'KD001', 'KH001', 'Hoạt Động Kinh Doanh', '', '2023-06-23', '2023-06-24', '0000-00-00'),
+('CV001', 'NV001', 'CT', 'KD001', 'KH001', 'Hoạt Động Kinh Doanh', '', '2023-06-23', '2023-06-24', NULL),
 ('CV003', 'NV002', 'CT', 'KD001', 'KH001', 'Thu Hồi Công Nợ', 'Hoàn Thành', '2023-06-27', '2023-06-28', '2023-06-27'),
 ('CV004', 'NV008', 'CT', 'KD001', 'KH001', 'Thu Hồi Công Nợ', 'Hoàn Thành', '2023-06-20', '2023-07-01', '2023-06-27');
 

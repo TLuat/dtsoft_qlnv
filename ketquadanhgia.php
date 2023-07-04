@@ -1,5 +1,5 @@
 <?php
-$activePage = "Quản lý kết quả đánh giá";
+
 include "inc/header.php";
 include "db/database.php";
 include "classes/nhansu.php";
@@ -267,7 +267,7 @@ $id_kv = $_SESSION['id_khuvuc'];
                               <!-- Modal header -->
                               <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                                 <h3 class="text-xl font-semibold text-gray-900">
-                                  <?php echo $tennguoidung ?>
+                                  <?php echo $tennguoidung ?> -  <?php echo $id_nguoidung ?>
                                 </h3>
                                 <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal<?php echo $id_nguoidung ?>">
                                   <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

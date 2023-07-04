@@ -1,5 +1,4 @@
 <?php
-$activePage = "Quản lý kết quả đánh giá";
 include "inc/header.php";
 include "db/database.php";
 
@@ -16,7 +15,7 @@ include "db/database.php";
                 ?>
                 <div class="shadow-md bg-white p-2 rounded-lg">
                 <label for="countries" class="block mb-2 text-base font-medium text-gray-900">Chọn bộ phận</label>
-                <select id="filter-select1" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select id="filter-select1" class="border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected value="">-- Tất cả --</option>
                     <option value="Kinh doanh">Kinh doanh</option>
                     <option value="TKBT">TKBT</option>
@@ -33,7 +32,7 @@ include "db/database.php";
                 ?>
                 <div class="ml-5 shadow-md bg-white p-2 rounded-lg">
                 <label class="block mb-2 text-base font-medium text-gray-900">Chọn khu vực</label>
-                <select id="filter-select2" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select id="filter-select2" class="border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="">-- Tất cả --</option>
                     <option value="Cần Thơ">Cần Thơ</option>
                     <option value="Nha Trang">Nha Trang</option>
@@ -44,9 +43,11 @@ include "db/database.php";
                 ?>
                 <div class="ml-5 shadow-md bg-white p-2 rounded-lg">
                     <label class="block mb-2 text-base font-medium text-gray-900">Chọn Trạng Thái đánh giá</label>
-                    <select id="filter-select3" class="bg-gray-500 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select id="filter-select3" class="border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="">-- Tất cả --</option>
-                        <option value="Đã đánh giá">Đã đánh giá</option>
+                        <option value="Đạt">Đạt</option>
+                        <option value="Chưa Đạt">Chưa Đạt</option>
+                        <option value="Không Đạt">Không Đạt</option>
                         <option value="Chưa đánh giá">Chưa đánh giá</option>
                     </select>
                 </div>
@@ -221,7 +222,7 @@ include "db/database.php";
             // Áp dụng bộ lọc vào DataTable
             table.columns(1).search(filterValue1); // Lọc cột 1 bằng giá trị của select 1
             table.columns(2).search(filterValue2);
-            table.columns(5).search(filterValue3);
+            table.columns(6).search(filterValue3);
 
             table.draw(); // Vẽ lại DataTable
         });

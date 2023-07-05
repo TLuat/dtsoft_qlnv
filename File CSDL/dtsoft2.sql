@@ -182,7 +182,7 @@ INSERT INTO `nguoidung` (`id_nguoidung`, `id_bophan`, `id_vaitro`, `id_khuvuc`, 
 ('NV008', 'KD001', 'NS', 'CT', 'Nguyễn Văn F', '0123456789', 'Địa chỉ 8', 'nvf@gmail.com', '123', '1993-06-01', 'Nam'),
 ('NV009', '', 'QTHT', '', 'Quản Trị Viên', '123456789', 'Địa chỉ 8', 'qtv@gmail.com', '123', '1993-06-01', 'Nam'),
 ('NV06', 'KD001', 'QLBP', 'CT', 'Trần Văn A', '0123456789', 'Địa chỉ 6', 'tva@gmail.com', '123', '2023-07-08', 'Nam'),
-('NV10', 'KD001 ', 'NS ', 'CT', 'Nguyễn Văn 10', '123456789', 'Địa chỉ 10', 'nv10@gmail.com', '202cb962ac59075b964b07152d234b70', '1999-01-01', ' Nam ');
+('NV10', 'KD001 ', 'NS', 'CT', 'Nguyễn Văn 10', '123456789', 'Địa chỉ 10', 'nv10@gmail.com', '202cb962ac59075b964b07152d234b70', '1999-01-01', ' Nam ');
 
 -- --------------------------------------------------------
 

@@ -24,7 +24,7 @@ if (isset($_POST['them_ns'])) {
         // $password = md5($_POST['password']);
 
         $sql = "INSERT INTO nguoidung (id_nguoidung,id_bophan,id_vaitro,id_khuvuc,tennguoidung,sdt_nd,diachi_nd,email,password,ngaysinh,gioitinh) 
-            VALUEs ('$id_ns','$bophan_ns', '$vaitro_ns', '$khuvuc_ns', '$ten_ns', ' $sdt_ns', '$diachi_ns', '$email_ns', '$password_ns', '$ngaysinh_ns', ' $gioitinh_ns ')";
+            VALUEs ('$id_ns','$bophan_ns', '$vaitro_ns', '$khuvuc_ns', '$ten_ns', '$sdt_ns', '$diachi_ns', '$email_ns', '$password_ns', '$ngaysinh_ns', ' $gioitinh_ns ')";
         $query = mysqli_query($ketnoi, $sql);
         echo '<script>alert("Thêm nhân sự thành công")</script>';
         // header('location: nhanvien.php');
@@ -120,8 +120,7 @@ if (isset($_POST['them_ns'])) {
                         <div class="mb-6">
                             <label for="" class="block mb-2 text-sm font-medium">Bộ phận</label>
                             <select id="bophan" name="bophan_ns" class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required>
-                                <option selected>-- Chọn Bộ phận --</option>
-                              
+                                <option value="" selected>-- Chọn Bộ phận --</option>
                             </select>
                         </div>
 
@@ -144,7 +143,7 @@ if (isset($_POST['them_ns'])) {
             var id_khuvuc = $(this).val();
             $.ajax({
                 type: "get",
-                url: "http://dtsoft_qlnv.test/api_bophan.php",
+                url: "http://localhost/dtsoft_qlnv/api_bophan.php",
                 data: {
                     'id_khuvuc': id_khuvuc
                 },

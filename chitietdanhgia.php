@@ -60,11 +60,11 @@ $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
                         $row_trangthai = mysqli_fetch_array($result_trangthai);
                         $trangthaidanhgia = $row_trangthai["trangthai"];
 
-                        if ($trangthaidanhgia=='Không đạt') {
+                        if ($trangthaidanhgia=='Không Đạt') {
                             echo '<span class="bg-red-500 rounded p-1 text-white font-bold">Không đạt</span>';
                         } else if($trangthaidanhgia=='Đạt') {
                             echo '<span class="bg-green-500 rounded p-1 text-white font-bold">Đạt</span>';
-                        } else if($trangthaidanhgia=='Chưa đạt') {
+                        } else if($trangthaidanhgia=='Chưa Đạt') {
                             echo '<span class="bg-yellow-500 rounded p-1 text-white font-bold">Chưa đạt</span>';
                         } else {
                             echo '<span class="bg-red-500 rounded p-1 text-white font-bold">Chưa đánh giá</span>';

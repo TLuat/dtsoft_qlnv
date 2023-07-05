@@ -156,9 +156,9 @@ INSERT INTO `khuvuc` (`id_khuvuc`, `tenkhuvuc`, `diachi`, `sdt`) VALUES
 
 CREATE TABLE `nguoidung` (
   `id_nguoidung` varchar(10) NOT NULL,
-  `id_bophan` varchar(10) NOT NULL,
+  `id_bophan` varchar(10) DEFAULT NULL,
   `id_vaitro` varchar(10) NOT NULL,
-  `id_khuvuc` varchar(10) NOT NULL,
+  `id_khuvuc` varchar(10) DEFAULT NULL,
   `tennguoidung` varchar(255) NOT NULL,
   `sdt_nd` varchar(20) NOT NULL,
   `diachi_nd` varchar(255) NOT NULL,
@@ -178,9 +178,9 @@ INSERT INTO `nguoidung` (`id_nguoidung`, `id_bophan`, `id_vaitro`, `id_khuvuc`, 
 ('NV003', 'CSKH001', 'NS', 'CT', 'Nguyễn Văn C', '0123456789', 'Địa chỉ 3', 'nvc@gmail.com', '123', '1993-06-01', 'Nữ'),
 ('NV004', 'PTPM001', 'NS', 'CT', 'Nguyễn Văn D', '0123456789', 'Địa chỉ 4', 'nvc@gmail.com', '123', '1993-06-01', 'Nữ'),
 ('NV005', 'PTPM001', 'NS', 'CT', 'Nguyễn Văn E', '0123456789', 'Địa chỉ 5', 'nve@gmail.com', '123', '1993-06-01', 'Nam'),
-('NV007', '', 'QLKV', 'CT', 'Phạm Văn A', '012345678', 'Địa chỉ 7', 'pva@gmail.com', '123', '1993-06-01', 'Nam'),
+('NV007', NULL, 'QLKV', 'CT', 'Phạm Văn A', '012345678', 'Địa chỉ 7', 'pva@gmail.com', '123', '1993-06-01', 'Nam'),
 ('NV008', 'KD001', 'NS', 'CT', 'Nguyễn Văn F', '0123456789', 'Địa chỉ 8', 'nvf@gmail.com', '123', '1993-06-01', 'Nam'),
-('NV009', '', 'QTHT', '', 'Quản Trị Viên', '123456789', 'Địa chỉ 8', 'qtv@gmail.com', '123', '1993-06-01', 'Nam'),
+('NV009', NULL, 'QTHT', NULL, 'Quản Trị Viên', '123456789', 'Địa chỉ 8', 'qtv@gmail.com', '123', '1993-06-01', 'Nam'),
 ('NV06', 'KD001', 'QLBP', 'CT', 'Trần Văn A', '0123456789', 'Địa chỉ 6', 'tva@gmail.com', '123', '2023-07-08', 'Nam'),
 ('NV10', 'KD001 ', 'NS', 'CT', 'Nguyễn Văn 10', '123456789', 'Địa chỉ 10', 'nv10@gmail.com', '202cb962ac59075b964b07152d234b70', '1999-01-01', ' Nam ');
 

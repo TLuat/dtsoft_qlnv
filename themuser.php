@@ -5,7 +5,7 @@ include "db/database.php";
 
 if (isset($_POST['them_ns'])) {
     if (
-        !empty($_POST['id_ns']) && !empty($_POST['bophan_ns']) && !empty($_POST['vaitro_ns']) && !empty($_POST['ten_ns']) && !empty($_POST['sdt_ns'])
+        !empty($_POST['id_ns']) && !empty($_POST['vaitro_ns']) && !empty($_POST['ten_ns']) && !empty($_POST['sdt_ns'])
         && !empty($_POST['diachi_ns']) && !empty($_POST['email_ns']) && !empty($_POST['password_ns']) && !empty($_POST['ngaysinh_ns']) && !empty($_POST['gioitinh_ns'])
     ) {
         $id_ns = $_POST['id_ns'];
@@ -22,14 +22,17 @@ if (isset($_POST['them_ns'])) {
         $gioitinh_ns = $_POST['gioitinh_ns'];
 
         // $password = md5($_POST['password']);
-
         $sql = "INSERT INTO nguoidung (id_nguoidung,id_bophan,id_vaitro,id_khuvuc,tennguoidung,sdt_nd,diachi_nd,email,password,ngaysinh,gioitinh) 
             VALUEs ('$id_ns','$bophan_ns', '$vaitro_ns', '$khuvuc_ns', '$ten_ns', '$sdt_ns', '$diachi_ns', '$email_ns', '$password_ns', '$ngaysinh_ns', ' $gioitinh_ns ')";
+         if($vaitro_ns == 'QLKV') {
+            $sql = "INSERT INTO nguoidung (id_nguoidung,id_vaitro,id_khuvuc,tennguoidung,sdt_nd,diachi_nd,email,password,ngaysinh,gioitinh) 
+            VALUEs ('$id_ns', '$vaitro_ns', '$khuvuc_ns', '$ten_ns', '$sdt_ns', '$diachi_ns', '$email_ns', '$password_ns', '$ngaysinh_ns', ' $gioitinh_ns ')";
+        }
         $query = mysqli_query($ketnoi, $sql);
         echo '<script>alert("Thêm nhân sự thành công")</script>';
         // header('location: nhanvien.php');
 
-   
+
     } else {
         echo '<script>alert("Thêm nhân sự thất bại")</script>';
     }
@@ -82,49 +85,49 @@ if (isset($_POST['them_ns'])) {
 
                     <div class="mb-6">
                         <label for="" class="block mb-2 text-sm font-medium">Chức vụ</label>
-                        <select id="countries" name="vaitro_ns" class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required>
+                        <select id="roles" name="vaitro_ns" class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required>
                             <option selected>-- Chọn Chức vụ --</option>
                             <?php
-                         
-                                $sql_vaitro = "SELECT * FROM vaitro WHERE id_vaitro NOT IN ('QTHT');";
-                         
-                               
-                           
+
+                            $sql_vaitro = "SELECT * FROM vaitro WHERE id_vaitro NOT IN ('QTHT');";
+
+
+
                             $query_vaitro = mysqli_query($ketnoi, $sql_vaitro);
                             while ($row_vaitro  = mysqli_fetch_array($query_vaitro)) {
                             ?>
-                                <option value="<?php echo $row_vaitro['id_vaitro'] ?> "><?php echo $row_vaitro['tenvaitro'] ?> </option>
+                                <option value="<?php echo $row_vaitro['id_vaitro'] ?>"><?php echo $row_vaitro['tenvaitro'] ?> </option>
                             <?php
                             }
                             ?>
                         </select>
                     </div>
-                    
-                      
-                        <div class="mb-6">
-                            <label for="" class="block mb-2 text-sm font-medium">Khu vực</label>
-                            <select id="khuvuc" name="khuvuc_ns" class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required>
-                                <option selected>-- Chọn Khu vực --</option>
-                                <?php
-                                $sql_khuvuc = "SELECT * FROM khuvuc ORDER BY id_khuvuc DESC";
-                                $query_khuvuc = mysqli_query($ketnoi, $sql_khuvuc);
-                                while ($row_khuvuc = mysqli_fetch_array($query_khuvuc)) {
-                                ?>
-                                    <option value="<?php echo $row_khuvuc['id_khuvuc'] ?> "><?php echo $row_khuvuc['tenkhuvuc'] ?> </option>
-                                <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                   
-                        <div class="mb-6">
-                            <label for="" class="block mb-2 text-sm font-medium">Bộ phận</label>
-                            <select id="bophan" name="bophan_ns" class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required>
-                                <option value="" selected>-- Chọn Bộ phận --</option>
-                            </select>
-                        </div>
 
-                 
+
+                    <div class="mb-6">
+                        <label for="" class="block mb-2 text-sm font-medium">Khu vực</label>
+                        <select id="khuvuc" name="khuvuc_ns" class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required>
+                            <option selected>-- Chọn Khu vực --</option>
+                            <?php
+                            $sql_khuvuc = "SELECT * FROM khuvuc ORDER BY id_khuvuc DESC";
+                            $query_khuvuc = mysqli_query($ketnoi, $sql_khuvuc);
+                            while ($row_khuvuc = mysqli_fetch_array($query_khuvuc)) {
+                            ?>
+                                <option value="<?php echo $row_khuvuc['id_khuvuc'] ?>"><?php echo $row_khuvuc['tenkhuvuc'] ?> </option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="" class="block mb-2 text-sm font-medium">Bộ phận</label>
+                        <select id="bophan" name="bophan_ns" class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••">
+                            <option value="" selected>-- Chọn Bộ phận --</option>
+                        </select>
+                    </div>
+
+
                     <button type="submit" name="them_ns" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
                 </form>
 
@@ -141,25 +144,33 @@ if (isset($_POST['them_ns'])) {
         $("#khuvuc").change(function(e) {
             e.preventDefault();
             var id_khuvuc = $(this).val();
+            var roles = $('#roles').val();
+            console.log(roles)
             $.ajax({
                 type: "get",
-                url: "http://localhost/dtsoft_qlnv/api_bophan.php",
+                // url: "http://localhost/dtsoft_qlnv/api_bophan.php",
+                url: "http://dtsoft_qlnv.test/api_bophan.php",
                 data: {
                     'id_khuvuc': id_khuvuc
                 },
                 // dataType: "json",
                 success: function(response) {
-                    console.log(response)
-                    $('#bophan').html(response);
-                    
+                    if (roles === 'QLKV') {
+                        // $('#bophan').html('');
+                        $('#bophan').html('<option value="" selected>-- Chọn Bộ phận --</option>');
+                    } else
+                        $('#bophan').html(response);
+
                 },
                 error() {
                     console.log('error')
-                    $('#bophan').html('<option selected>-- Chọn Bộ phận --</option>');
+                    $('#bophan').html('<option value="" selected>-- Chọn Bộ phận --</option>');
+                    // $('#bophan').html('');
                 }
             });
         });
-       
+
     });
 </script>
+
 </html>

@@ -6,16 +6,15 @@ include "inc/header.php";
     $id_kv = $_SESSION['id_khuvuc'];
     $id_bp = $_SESSION['id_bophan'];
     if(isset($_POST['sbm'])){
-        if(!empty($_POST['tenkh']) && !empty($id_bp) && !empty($id_kv) && !empty($_POST['id_kehoachgiaoviec']) && !empty($_POST['ngaybatdau']) && !empty($_POST['ngayktdukien']) && !empty($_POST['ngayktthucte'])) {
+        if(!empty($_POST['tenkh']) && !empty($id_bp) && !empty($id_kv) && !empty($_POST['id_kehoachgiaoviec']) && !empty($_POST['ngaybatdau']) && !empty($_POST['ngayktdukien'])) {
             $id_kehoachgiaoviec = $_POST['id_kehoachgiaoviec'];
             $id_khuvuc = $id_kv;
             $id_bophan = $id_bp;
             $tenkh = $_POST['tenkh'];
             $ngaybatdau = $_POST['ngaybatdau'];
             $ngayktdukien = $_POST['ngayktdukien'];
-            $ngayktthucte = $_POST['ngayktthucte'];
-            $sql = "INSERT INTO kehoachgiaoviec (id_kehoachgiaoviec ,tenkh, id_khuvuc, id_bophan, ngaybatdau, ngayktdukien, ngayktthucte)
-            VALUES ('$id_kehoachgiaoviec','$tenkh', '$id_khuvuc', '$id_bophan','$ngaybatdau','$ngayktdukien','$ngayktthucte')";
+            $sql = "INSERT INTO kehoachgiaoviec (id_kehoachgiaoviec ,tenkh, id_khuvuc, id_bophan, ngaybatdau, ngayktdukien)
+            VALUES ('$id_kehoachgiaoviec','$tenkh', '$id_khuvuc', '$id_bophan','$ngaybatdau','$ngayktdukien')";
             $query = mysqli_query($connect,$sql);
             echo'<script>alert("Thêm kế hoạch thành công!")</script>';
         }else{
@@ -44,11 +43,7 @@ include "inc/header.php";
                 <div class="mb-6">
                     <label for="" class="block mb-2 text-sm font-medium">Ngày Kết thúc dự kiến</label>
                     <input type="datetime-local" name="ngayktdukien" class="form-control" >
-                </div>
-                <div class="mb-6">
-                    <label for="" class="block mb-2 text-sm font-medium">Ngày Kết thúc thực tế</label>
-                    <input type="datetime-local" name="ngayktthucte" class="form-control" >
-                </div>     
+                </div>   
                 <button name=sbm type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Thêm kế hoạch</button>
             </form>
 

@@ -5,7 +5,7 @@ include "inc/header.php";
 <?php 
     $id_user = $_SESSION['id_nguoidung'];
     $id = $_GET['id'];
-    $sql = "SELECT * FROM theodoikehoach WHERE id_kehoachgiaoviec = $id";
+    $sql = "SELECT * FROM theodoikehoach WHERE id_kehoachgiaoviec = '$id'";
     $sql_ct = "SELECT * FROM chitieu";
     $query_ct = mysqli_query($connect,$sql_ct);
     if(isset($_POST['sbm'])){
@@ -18,7 +18,7 @@ include "inc/header.php";
             $query_check = mysqli_query($connect,$sql_check);
             $row_check = mysqli_fetch_assoc($query_check);
 
-            if($sql_check == ''){
+            if($row_check == ''){
                 $sql = "INSERT INTO theodoikehoach (id_chitieu, chitieucandat, id_kehoachgiaoviec)
                 VALUES ('$id_chitieu', '$chitieucandat', '$id_kehoachgiaoviec')";
                 $query = mysqli_query($connect,$sql);

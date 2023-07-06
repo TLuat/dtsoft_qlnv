@@ -50,7 +50,7 @@ include "db/database.php";
                 $sql_bp = "SELECT * FROM bophan WHERE id_bophan = '$id_bp'";
                 $result_bp = mysqli_query($connect, $sql_bp);
 
-                $sql_ns = "SELECT * FROM nguoidung WHERE id_bophan = '$id_bp' AND id_vaitro = 'NS'";
+                $sql_ns = "SELECT * FROM nguoidung WHERE id_bophan = '$id_bp' AND id_vaitro = 'NS' AND id_khuvuc = '" . $id_kv . "'";
                 $result_ns = mysqli_query($connect, $sql_ns);
 
                 ?>

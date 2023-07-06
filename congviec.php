@@ -22,30 +22,10 @@ if (isset($_GET['delete_id'])) {
     <div class="mb-4 font-bold text-lg uppercase">Danh sách công việc </div>
     <div class="p-4 mt-14 flex grid">
       <div class="flex">
-        <div>
-          <label class="block mb-2 text-base font-medium text-gray-900">Chọn bộ phận</label>
-          <select id="filter-select1" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option value="" selected>-- Tất cả --</option>
-            <option value="Kinh Doanh">Kinh doanh</option>
-            <option value="TKBT">TKBT</option>
-            <option value="Nguồn lực">Nguồn lực</option>
-            <option value="Tester">Tester</option>
-          </select>
-        </div>
-        <div class="ml-5">
-          <label  class="block mb-2 text-base font-medium text-gray-900">Chọn khu vực</label>
-          <select id="filter-select2" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option value="" selected>-- Tất cả --</option>
-            <option value="Cần Thơ">Cần Thơ</option>
-            <option value="Nha Trang">Nha Trang</option>
-            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-            <option value="Vinh">Vinh</option>
-          </select>
-        </div>
         <div class="ml-5">
           <div>
             <label for="visitors" class="block mb-2 text-base font-medium text-gray-900">Năm</label>
-            <input type="number" id="visitors" min="1900" max="2099" step="1" value="2023" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            <input type="number" id="filter-select3" min="1900" max="2099" step="1" value="2023" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
           </div>
         </div>
       </div>
@@ -115,7 +95,7 @@ if (isset($_GET['delete_id'])) {
             $sql = "SELECT * FROM tiendocongviec";
 
             if (!empty($condition)) {
-              $sql .= " WHERE $condition";
+              $sql .= " WHERE $condition AND id_khuvuc = '" . $id_kv . "'";
             }
 
             $result = mysqli_query($connect, $sql);
@@ -234,14 +214,15 @@ if (isset($_GET['delete_id'])) {
             // .columns.adjust()
             .responsive.recalc();
 
-        $('#filter-select1, #filter-select2').change(function() {
+        $('#filter-select1, #filter-select2, #filter-select3').change(function() {
             var filterValue1 = $('#filter-select1').val();
             var filterValue2 = $('#filter-select2').val();
+            var filterValue3 = $('#filter-select3').val();
 
             // Áp dụng bộ lọc vào DataTable
             table.columns(3).search(filterValue1); // Lọc cột 1 bằng giá trị của select 1
             table.columns(2).search(filterValue2);
-  
+            table.columns(6).search(filterValue3);
 
             table.draw(); // Vẽ lại DataTable
         });
@@ -263,3 +244,4 @@ if (isset($_GET['delete_id'])) {
 </body>
 
 </html>
+

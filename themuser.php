@@ -9,7 +9,7 @@ if (isset($_POST['them_ns'])) {
         && !empty($_POST['diachi_ns']) && !empty($_POST['email_ns']) && !empty($_POST['password_ns']) && !empty($_POST['ngaysinh_ns']) && !empty($_POST['gioitinh_ns'])
     ) {
         $id_ns = $_POST['id_ns'];
-        $bophan_ns = $_POST['bophan_ns'];
+        $bophan_ns = $_POST['bophan_ns'] ?? NULL;
         $vaitro_ns = $_POST['vaitro_ns'];
         $khuvuc_ns = $_POST['khuvuc_ns'];
         // $khuvuc_ns = $_POST['id_khuvuc'];
@@ -24,9 +24,9 @@ if (isset($_POST['them_ns'])) {
         // $password = md5($_POST['password']);
         $sql = "INSERT INTO nguoidung (id_nguoidung,id_bophan,id_vaitro,id_khuvuc,tennguoidung,sdt_nd,diachi_nd,email,password,ngaysinh,gioitinh) 
             VALUEs ('$id_ns','$bophan_ns', '$vaitro_ns', '$khuvuc_ns', '$ten_ns', '$sdt_ns', '$diachi_ns', '$email_ns', '$password_ns', '$ngaysinh_ns', ' $gioitinh_ns ')";
-         if($vaitro_ns == 'QLKV') {
-            $sql = "INSERT INTO nguoidung (id_nguoidung,id_vaitro,id_khuvuc,tennguoidung,sdt_nd,diachi_nd,email,password,ngaysinh,gioitinh) 
-            VALUEs ('$id_ns', '$vaitro_ns', '$khuvuc_ns', '$ten_ns', '$sdt_ns', '$diachi_ns', '$email_ns', '$password_ns', '$ngaysinh_ns', ' $gioitinh_ns ')";
+        if ($vaitro_ns == 'QLKV') {
+            $sql = "INSERT INTO nguoidung (id_nguoidung,id_bophan,id_vaitro,id_khuvuc,tennguoidung,sdt_nd,diachi_nd,email,password,ngaysinh,gioitinh) 
+            VALUEs ('$id_ns', NULL, '$vaitro_ns', '$khuvuc_ns', '$ten_ns', '$sdt_ns', '$diachi_ns', '$email_ns', '$password_ns', '$ngaysinh_ns', ' $gioitinh_ns ')";
         }
         $query = mysqli_query($ketnoi, $sql);
         echo '<script>alert("Thêm nhân sự thành công")</script>';

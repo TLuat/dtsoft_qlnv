@@ -51,6 +51,9 @@ include "db/connect.php";
       </div>
     </div>
     <div class="mb-4 mt-5">
+      <a>
+        <img src="assets/img/logo.jpg" style="width: 300px;" />
+      </a>
         <h2>
           Thông tin kế hoạch "<?php echo $row['tenkh']; ?>"
         </h2>

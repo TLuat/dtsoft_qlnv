@@ -59,12 +59,6 @@ include "inc/header.php";
                 TÊN KẾ HOẠCH
               </th>
               <th class="px-3 py-3 border border-slate-300">
-                KHU VỰC
-              </th>
-              <th class="px-3 py-3 border border-slate-300">
-                BỘ PHẬN PHỤ TRÁCH
-              </th>
-              <th class="px-3 py-3 border border-slate-300">
                 XEM CHI TIẾT	
               </th>
               <?php 
@@ -88,12 +82,6 @@ include "inc/header.php";
               <td class="text-center font-medium border border-slate-300"><?php echo $row['id_kehoachgiaoviec']; ?></td>
               <td scope="row" class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
                 <?php echo $row['tenkh']; ?>
-              </td>
-              <td scope="row" class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
-                <?php echo $row['tenkhuvuc']; ?>
-              </td>
-              <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
-                <?php echo $row['tenbophan']; ?>
               </td>
               <td class="px-3 py-4 font-medium whitespace-nowrap border border-slate-300">
                 <a class="text-blue-800" href="chitietkehoach.php?&id=<?php echo $row['id_kehoachgiaoviec']; ?>">

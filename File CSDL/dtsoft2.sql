@@ -52,7 +52,7 @@ CREATE TABLE `bophan` (
   `id_khuvuc` varchar(10) NOT NULL,
   `tenbophan` varchar(255) NOT NULL,
   `cvchuyenmon` varchar(255) NOT NULL,
-  foreign key(id_khuvuc) references khuvuc(id_khuvuc)
+  foreign key(id_khuvuc) references khuvuc(id_khuvuc) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -136,9 +136,9 @@ CREATE TABLE `nguoidung` (
   `password` varchar(255) NOT NULL,
   `ngaysinh` date NOT NULL,
   `gioitinh` varchar(255) NOT NULL,
-  foreign key(id_bophan) references bophan(id_bophan),
-  foreign key(id_vaitro) references vaitro(id_vaitro),
-  foreign key(id_khuvuc) references khuvuc(id_khuvuc)
+  foreign key(id_bophan) references bophan(id_bophan) ON UPDATE CASCADE,
+  foreign key(id_vaitro) references vaitro(id_vaitro) ON UPDATE CASCADE,
+  foreign key(id_khuvuc) references khuvuc(id_khuvuc) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -172,8 +172,8 @@ CREATE TABLE `kehoachgiaoviec` (
   `ngayktdukien` date NOT NULL,
   `ngayktthucte` date NOT NULL,
   `trangthai` varchar(30) NOT NULL,
-  foreign key(id_khuvuc) references khuvuc(id_khuvuc),
-  foreign key(id_bophan) references bophan(id_bophan)
+  foreign key(id_khuvuc) references khuvuc(id_khuvuc) ON UPDATE CASCADE,
+  foreign key(id_bophan) references bophan(id_bophan) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -199,8 +199,8 @@ CREATE TABLE `ketquadanhgia` (
   `id_nguoidung` varchar(10) NOT NULL,
   `id_chitieu` varchar(10) NOT NULL,
   `ketquadanhgia` varchar(255) NOT NULL,
-  foreign key(id_nguoidung) references nguoidung(id_nguoidung),
-  foreign key(id_chitieu) references chitieu(id_chitieu),
+  foreign key(id_nguoidung) references nguoidung(id_nguoidung) ON UPDATE CASCADE,
+  foreign key(id_chitieu) references chitieu(id_chitieu) ON UPDATE CASCADE,
   primary key(id_nguoidung, id_chitieu)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -229,9 +229,9 @@ CREATE TABLE `theodoikehoach` (
   `chitieucandat` int(255) DEFAULT NULL,
   `chitieudatduoc` int(255) DEFAULT NULL,
   `trangthai` varchar(25) DEFAULT NULL,
-  foreign key(id_nguoidung) references nguoidung(id_nguoidung),
-  foreign key(id_chitieu) references chitieu(id_chitieu),
-  foreign key(id_kehoachgiaoviec) references kehoachgiaoviec(id_kehoachgiaoviec)
+  foreign key(id_nguoidung) references nguoidung(id_nguoidung) ON UPDATE CASCADE,
+  foreign key(id_chitieu) references chitieu(id_chitieu) ON UPDATE CASCADE,
+  foreign key(id_kehoachgiaoviec) references kehoachgiaoviec(id_kehoachgiaoviec) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -262,10 +262,10 @@ CREATE TABLE `tiendocongviec` (
   `thoigianbatdau` date NOT NULL,
   `thoigianketthucdukien` date NOT NULL,
   `thoigianketthuc` date DEFAULT NULL,
-  foreign key(id_nguoidung) references nguoidung(id_nguoidung),
-  foreign key(id_khuvuc) references khuvuc(id_khuvuc),
-  foreign key(id_bophan) references bophan(id_bophan),
-  foreign key(id_kehoachgiaoviec) references kehoachgiaoviec(id_kehoachgiaoviec)
+  foreign key(id_nguoidung) references nguoidung(id_nguoidung) ON UPDATE CASCADE,
+  foreign key(id_khuvuc) references khuvuc(id_khuvuc) ON UPDATE CASCADE,
+  foreign key(id_bophan) references bophan(id_bophan) ON UPDATE CASCADE,
+  foreign key(id_kehoachgiaoviec) references kehoachgiaoviec(id_kehoachgiaoviec) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

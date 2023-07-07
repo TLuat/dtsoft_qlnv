@@ -170,7 +170,7 @@ CREATE TABLE `kehoachgiaoviec` (
   `tenkh` varchar(255) NOT NULL,
   `ngaybatdau` date NOT NULL,
   `ngayktdukien` date NOT NULL,
-  `ngayktthucte` date NOT NULL,
+  `ngayktthucte` date DEFAULT NULL,
   `trangthai` varchar(30) NOT NULL,
   foreign key(id_khuvuc) references khuvuc(id_khuvuc) ON UPDATE CASCADE,
   foreign key(id_bophan) references bophan(id_bophan) ON UPDATE CASCADE

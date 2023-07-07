@@ -30,8 +30,15 @@ $id_kv = $_SESSION['id_khuvuc'];
               <select id="filter-select1" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option selected value="">-- Tất cả --</option>
                 <?php
-                // if ($_SESSION['id_bophan'] != NULL){
-                  $sql = "SELECT tenbophan FROM bophan WHERE id_khuvuc = '".$id_kv."'";
+                  if($id_vt == 'QLKV'){
+                    $condition2 = "id_khuvuc = '".$id_kv."'";
+                  } else {
+                    $condition2 = "";
+                  }
+                  $sql = "SELECT DISTINCT tenbophan FROM bophan";
+                  if (!empty($condition2)) {
+                    $sql .= " WHERE $condition2";
+                  }
                   $result = mysqli_query($connect, $sql);
                   while($row = mysqli_fetch_assoc($result)){  
                     $tenbophan = $row['tenbophan'];           
@@ -51,8 +58,14 @@ $id_kv = $_SESSION['id_khuvuc'];
               <label class="block mb-2 text-base font-medium text-gray-900">Chọn khu vực</label>
               <select id="filter-select2" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option value="">-- Tất cả --</option>
-                <option value="Cần Thơ">Cần Thơ</option>
-                <option value="Nha Trang">Nha Trang</option>
+                <?php
+                  $sql = "SELECT tenkhuvuc FROM khuvuc";
+                  $result = mysqli_query($connect, $sql);
+                  while($row = mysqli_fetch_assoc($result)){  
+                    $tenkhuvuc = $row['tenkhuvuc'];           
+                ?> 
+                <option value="<?php echo $tenkhuvuc ?>"><?php echo $tenkhuvuc ?></option>
+                <?php } ?>
               </select>
             </div>
             <?php    
@@ -114,20 +127,23 @@ $id_kv = $_SESSION['id_khuvuc'];
                 <?php
 
                 if ($id_vt == "NS") {
-                  $condition = "id_nguoidung = '" . $id_nd . "'";
+                  $condition = "id_nguoidung = '" . $id_nd . "' AND id_vaitro = 'NS'";
                 } elseif ($id_vt == "QLBP") {
-                  $condition = "id_bophan = '" . $id_bp . "'";
-                } else {
+                  $condition = "id_bophan = '" . $id_bp . "' AND id_vaitro = 'NS'";
+                } elseif($id_vt == "QTHT"){
+                  $condition = "id_vaitro = 'NS'";
+                }
+                else {
                   $condition = "id_khuvuc = '" . $id_kv . "'";
                 }
 
                 $sql = "SELECT * FROM nguoidung";
 
                 if (!empty($condition)) {
-                  $sql .= " WHERE $condition AND id_vaitro = 'NS'";
+                  $sql .= " WHERE $condition";
                 }
 
-                $sql .= " ORDER BY id_vaitro DESC";
+                // $sql .= " ORDER BY id_vaitro DESC";
 
                 $result = mysqli_query($ketnoi, $sql);
                 $stt = 0;
@@ -144,7 +160,7 @@ $id_kv = $_SESSION['id_khuvuc'];
                   $sql_bophan = "SELECT `tenbophan` FROM `bophan` WHERE `id_bophan` = '" . $id_bophan . "'";
                   $result_bophan = mysqli_query($ketnoi, $sql_bophan);
                   $row_bophan = mysqli_fetch_array($result_bophan);
-                  if ($id_vaitro != "QLKV") {
+                  if ($id_vaitro != "QLKV" && $id_vaitro != "QTHT") {
                     $tenbophan = $row_bophan["tenbophan"];
                   }
 
@@ -156,7 +172,10 @@ $id_kv = $_SESSION['id_khuvuc'];
                   $sql_khuvuc = "SELECT `tenkhuvuc` FROM `khuvuc` WHERE `id_khuvuc` = '" . $id_khuvuc . "'";
                   $result_khuvuc = mysqli_query($ketnoi, $sql_khuvuc);
                   $row_khuvuc = mysqli_fetch_array($result_khuvuc);
-                  $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
+                  if ($id_vaitro != "QTHT") {
+                    $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
+                  }
+                  
 
                   $sql_kehoach = "SELECT * FROM `theodoikehoach` WHERE `id_nguoidung` = '" . $id_nguoidung . "'";
                   $result_kehoach = mysqli_query($ketnoi, $sql_kehoach);           

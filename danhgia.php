@@ -80,9 +80,11 @@ include "db/database.php";
                         <th class="px-3 py-3">
                             Kết quả
                         </th>
+                        <?php if($_SESSION['id_vaitro'] != 'QLKV') { ?>
                         <th class="px-3 py-3">
                             Action
                         </th>
+                        <?php } ?>
                     </tr>
                 </thead>
                 <tbody class="text-black text-center">
@@ -180,11 +182,13 @@ include "db/database.php";
                     
                                 ?>
                             </td>
+                            <?php if($_SESSION['id_vaitro'] != 'QLKV') { ?>
                             <td class="px-3 py-4 font-medium whitespace-nowrap text-center">
                                 <a class="bg-blue-700 p-1 text-white rounded-lg uppercase" href="chitietdanhgia.php?id=<?php echo $id_kehoachgiaoviec ?>">
                                     Đánh giá
                                 </a>
                             </td>
+                            <?php } ?>
                         </tr>
                     <?php } ?>
                     

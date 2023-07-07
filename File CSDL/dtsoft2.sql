@@ -20,7 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `dtsoft2`
 --
+-- --------------------------------------------------------
 
+--
+-- Cấu trúc bảng cho bảng `khuvuc`
+--
+
+CREATE TABLE `khuvuc` (
+  `id_khuvuc` varchar(10) primary key,
+  `tenkhuvuc` varchar(255) NOT NULL,
+  `diachi` varchar(255) NOT NULL,
+  `sdt` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `khuvuc`
+--
+
+INSERT INTO `khuvuc` (`id_khuvuc`, `tenkhuvuc`, `diachi`, `sdt`) VALUES
+('CT', 'Cần Thơ', 'Địa chỉ cần thơ', 123456789),
+('DN', 'Đà Nẵng', 'Địa chỉ đà nẵng', 1234567890),
+('HCM', 'Hồ Chí Minh', 'Địa chỉ hồ chí minh', 987654321);
 -- --------------------------------------------------------
 
 --
@@ -28,10 +48,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `bophan` (
-  `id_bophan` varchar(10) NOT NULL,
+  `id_bophan` varchar(10) primary key,
   `id_khuvuc` varchar(10) NOT NULL,
   `tenbophan` varchar(255) NOT NULL,
-  `cvchuyenmon` varchar(255) NOT NULL
+  `cvchuyenmon` varchar(255) NOT NULL,
+  foreign key(id_khuvuc) references khuvuc(id_khuvuc)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -59,7 +80,7 @@ INSERT INTO `bophan` (`id_bophan`, `id_khuvuc`, `tenbophan`, `cvchuyenmon`) VALU
 --
 
 CREATE TABLE `chitieu` (
-  `id_chitieu` varchar(10) NOT NULL,
+  `id_chitieu` varchar(10) primary key,
   `tenchitieu` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -77,19 +98,82 @@ INSERT INTO `chitieu` (`id_chitieu`, `tenchitieu`) VALUES
 
 -- --------------------------------------------------------
 
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `vaitro`
+--
+
+CREATE TABLE `vaitro` (
+  `id_vaitro` varchar(10) primary key,
+  `tenvaitro` varchar(255) NOT NULL,
+  `mota` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `vaitro`
+--
+
+INSERT INTO `vaitro` (`id_vaitro`, `tenvaitro`, `mota`) VALUES
+('NS', 'Nhân Sự', 'là nhân viên trong công ty'),
+('QLBP', 'Quản Lý Bộ Phận', 'là người quản lý bộ phận'),
+('QLKV', 'Quản Lý Khu Vực', 'là người quản lý khu vực'),
+('QTHT', 'Quản Tri Hệ thống', 'là quản trị hệ thống của công ty');
+
+--
+-- Cấu trúc bảng cho bảng `nguoidung`
+--
+
+CREATE TABLE `nguoidung` (
+  `id_nguoidung` varchar(10) primary key,
+  `id_bophan` varchar(10) DEFAULT NULL,
+  `id_vaitro` varchar(10) NOT NULL,
+  `id_khuvuc` varchar(10) DEFAULT NULL,
+  `tennguoidung` varchar(255) NOT NULL,
+  `sdt_nd` varchar(20) NOT NULL,
+  `diachi_nd` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `ngaysinh` date NOT NULL,
+  `gioitinh` varchar(255) NOT NULL,
+  foreign key(id_bophan) references bophan(id_bophan),
+  foreign key(id_vaitro) references vaitro(id_vaitro),
+  foreign key(id_khuvuc) references khuvuc(id_khuvuc)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `nguoidung`
+--
+
+INSERT INTO `nguoidung` (`id_nguoidung`, `id_bophan`, `id_vaitro`, `id_khuvuc`, `tennguoidung`, `sdt_nd`, `diachi_nd`, `email`, `password`, `ngaysinh`, `gioitinh`) VALUES
+('NV001', 'KD001', 'NS', 'CT', 'Nguyễn Văn A', '123456789', 'Địa chỉ 1', 'nva@gmail.com', '123', '1993-06-01', 'Nam'),
+('NV002', 'KD001', 'NS', 'CT', 'Nguyễn Văn B', '987654321', 'Địa chỉ 2', 'nvb@gmail.com', '123', '1993-06-01', 'Nam'),
+('NV003', 'CSKH001', 'NS', 'CT', 'Nguyễn Văn C', '0123456789', 'Địa chỉ 3', 'nvc@gmail.com', '123', '1993-06-01', 'Nữ'),
+('NV004', 'PTPM001', 'NS', 'CT', 'Nguyễn Văn D', '0123456789', 'Địa chỉ 4', 'nvc@gmail.com', '123', '1993-06-01', 'Nữ'),
+('NV005', 'PTPM001', 'NS', 'CT', 'Nguyễn Văn E', '0123456789', 'Địa chỉ 5', 'nve@gmail.com', '123', '1993-06-01', 'Nam'),
+('NV007', NULL, 'QLKV', 'CT', 'Phạm Văn A', '012345678', 'Địa chỉ 7', 'pva@gmail.com', '123', '1993-06-01', 'Nam'),
+('NV008', 'KD001', 'NS', 'CT', 'Nguyễn Văn F', '0123456789', 'Địa chỉ 8', 'nvf@gmail.com', '123', '1993-06-01', 'Nam'),
+('NV009', NULL, 'QTHT', NULL, 'Quản Trị Viên', '123456789', 'Địa chỉ 8', 'qtv@gmail.com', '123', '1993-06-01', 'Nam'),
+('NV006', 'KD001', 'QLBP', 'CT', 'Trần Văn A', '0123456789', 'Địa chỉ 6', 'tva@gmail.com', '123', '2023-07-08', 'Nam'),
+('NV10', 'KD001 ', 'NS', 'CT', 'Nguyễn Văn 10', '123456789', 'Địa chỉ 10', 'nv10@gmail.com', '202cb962ac59075b964b07152d234b70', '1999-01-01', ' Nam ');
+
+-- --------------------------------------------------------
+
 --
 -- Cấu trúc bảng cho bảng `kehoachgiaoviec`
 --
 
 CREATE TABLE `kehoachgiaoviec` (
-  `id_kehoachgiaoviec` varchar(10) NOT NULL,
+  `id_kehoachgiaoviec` varchar(10) primary key,
   `id_bophan` varchar(10) NOT NULL,
   `id_khuvuc` varchar(10) NOT NULL,
   `tenkh` varchar(255) NOT NULL,
   `ngaybatdau` date NOT NULL,
   `ngayktdukien` date NOT NULL,
   `ngayktthucte` date NOT NULL,
-  `trangthai` varchar(30) NOT NULL
+  `trangthai` varchar(30) NOT NULL,
+  foreign key(id_khuvuc) references khuvuc(id_khuvuc),
+  foreign key(id_bophan) references bophan(id_bophan)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -114,90 +198,40 @@ INSERT INTO `kehoachgiaoviec` (`id_kehoachgiaoviec`, `id_bophan`, `id_khuvuc`, `
 CREATE TABLE `ketquadanhgia` (
   `id_nguoidung` varchar(10) NOT NULL,
   `id_chitieu` varchar(10) NOT NULL,
-  `ketquadanhgia` varchar(255) NOT NULL
+  `ketquadanhgia` varchar(255) NOT NULL,
+  foreign key(id_nguoidung) references nguoidung(id_nguoidung),
+  foreign key(id_chitieu) references chitieu(id_chitieu),
+  primary key(id_nguoidung, id_chitieu)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `ketquadanhgia`
 --
 
-INSERT INTO `ketquadanhgia` (`id_nguoidung`, `id_chitieu`, `ketquadanhgia`) VALUES
-('ND1', 'CT1', 'Đạt'),
-('ND2', 'CT2', 'Chưa Đạt'),
-('ND2', 'CT3', 'Chưa Đạt');
+-- INSERT INTO `ketquadanhgia` (`id_nguoidung`, `id_chitieu`, `ketquadanhgia`) VALUES
+-- ('ND1', 'CT1', 'Đạt'),
+-- ('ND2', 'CT2', 'Chưa Đạt'),
+-- ('ND2', 'CT3', 'Chưa Đạt');
 
 -- --------------------------------------------------------
 
---
--- Cấu trúc bảng cho bảng `khuvuc`
---
 
-CREATE TABLE `khuvuc` (
-  `id_khuvuc` varchar(10) NOT NULL,
-  `tenkhuvuc` varchar(255) NOT NULL,
-  `diachi` varchar(255) NOT NULL,
-  `sdt` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `khuvuc`
---
-
-INSERT INTO `khuvuc` (`id_khuvuc`, `tenkhuvuc`, `diachi`, `sdt`) VALUES
-('CT', 'Cần Thơ', 'Địa chỉ cần thơ', 123456789),
-('DN', 'Đà Nẵng', 'Địa chỉ đà nẵng', 1234567890),
-('HCM', 'Hồ Chí Minh', 'Địa chỉ hồ chí minh', 987654321);
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `nguoidung`
---
-
-CREATE TABLE `nguoidung` (
-  `id_nguoidung` varchar(10) NOT NULL,
-  `id_bophan` varchar(10) DEFAULT NULL,
-  `id_vaitro` varchar(10) NOT NULL,
-  `id_khuvuc` varchar(10) DEFAULT NULL,
-  `tennguoidung` varchar(255) NOT NULL,
-  `sdt_nd` varchar(20) NOT NULL,
-  `diachi_nd` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `ngaysinh` date NOT NULL,
-  `gioitinh` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `nguoidung`
---
-
-INSERT INTO `nguoidung` (`id_nguoidung`, `id_bophan`, `id_vaitro`, `id_khuvuc`, `tennguoidung`, `sdt_nd`, `diachi_nd`, `email`, `password`, `ngaysinh`, `gioitinh`) VALUES
-('NV001', 'KD001', 'NS', 'CT', 'Nguyễn Văn A', '123456789', 'Địa chỉ 1', 'nva@gmail.com', '123', '1993-06-01', 'Nam'),
-('NV002', 'KD001', 'NS', 'CT', 'Nguyễn Văn B', '987654321', 'Địa chỉ 2', 'nvb@gmail.com', '123', '1993-06-01', 'Nam'),
-('NV003', 'CSKH001', 'NS', 'CT', 'Nguyễn Văn C', '0123456789', 'Địa chỉ 3', 'nvc@gmail.com', '123', '1993-06-01', 'Nữ'),
-('NV004', 'PTPM001', 'NS', 'CT', 'Nguyễn Văn D', '0123456789', 'Địa chỉ 4', 'nvc@gmail.com', '123', '1993-06-01', 'Nữ'),
-('NV005', 'PTPM001', 'NS', 'CT', 'Nguyễn Văn E', '0123456789', 'Địa chỉ 5', 'nve@gmail.com', '123', '1993-06-01', 'Nam'),
-('NV007', NULL, 'QLKV', 'CT', 'Phạm Văn A', '012345678', 'Địa chỉ 7', 'pva@gmail.com', '123', '1993-06-01', 'Nam'),
-('NV008', 'KD001', 'NS', 'CT', 'Nguyễn Văn F', '0123456789', 'Địa chỉ 8', 'nvf@gmail.com', '123', '1993-06-01', 'Nam'),
-('NV009', NULL, 'QTHT', NULL, 'Quản Trị Viên', '123456789', 'Địa chỉ 8', 'qtv@gmail.com', '123', '1993-06-01', 'Nam'),
-('NV06', 'KD001', 'QLBP', 'CT', 'Trần Văn A', '0123456789', 'Địa chỉ 6', 'tva@gmail.com', '123', '2023-07-08', 'Nam'),
-('NV10', 'KD001 ', 'NS', 'CT', 'Nguyễn Văn 10', '123456789', 'Địa chỉ 10', 'nv10@gmail.com', '202cb962ac59075b964b07152d234b70', '1999-01-01', ' Nam ');
-
--- --------------------------------------------------------
 
 --
 -- Cấu trúc bảng cho bảng `theodoikehoach`
 --
 
 CREATE TABLE `theodoikehoach` (
-  `id` int(11) NOT NULL,
+  `id` int(11) primary key auto_increment,
   `id_nguoidung` varchar(10) DEFAULT NULL,
   `id_chitieu` varchar(10) NOT NULL,
   `id_kehoachgiaoviec` varchar(10) NOT NULL,
   `chitieucandat` int(255) DEFAULT NULL,
   `chitieudatduoc` int(255) DEFAULT NULL,
-  `trangthai` varchar(25) DEFAULT NULL
+  `trangthai` varchar(25) DEFAULT NULL,
+  foreign key(id_nguoidung) references nguoidung(id_nguoidung),
+  foreign key(id_chitieu) references chitieu(id_chitieu),
+  foreign key(id_kehoachgiaoviec) references kehoachgiaoviec(id_kehoachgiaoviec)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -218,7 +252,7 @@ INSERT INTO `theodoikehoach` (`id`, `id_nguoidung`, `id_chitieu`, `id_kehoachgia
 --
 
 CREATE TABLE `tiendocongviec` (
-  `id_congviec` varchar(10) NOT NULL,
+  `id_congviec` varchar(10) primary key,
   `id_nguoidung` varchar(10) NOT NULL,
   `id_khuvuc` varchar(10) NOT NULL,
   `id_bophan` varchar(10) NOT NULL,
@@ -227,7 +261,11 @@ CREATE TABLE `tiendocongviec` (
   `trangthaicongviec` varchar(255) DEFAULT NULL,
   `thoigianbatdau` date NOT NULL,
   `thoigianketthucdukien` date NOT NULL,
-  `thoigianketthuc` date DEFAULT NULL
+  `thoigianketthuc` date DEFAULT NULL,
+  foreign key(id_nguoidung) references nguoidung(id_nguoidung),
+  foreign key(id_khuvuc) references khuvuc(id_khuvuc),
+  foreign key(id_bophan) references bophan(id_bophan),
+  foreign key(id_kehoachgiaoviec) references kehoachgiaoviec(id_kehoachgiaoviec)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -239,27 +277,7 @@ INSERT INTO `tiendocongviec` (`id_congviec`, `id_nguoidung`, `id_khuvuc`, `id_bo
 ('CV003', 'NV002', 'CT', 'KD001', 'KH001', 'Thu Hồi Công Nợ', 'Hoàn Thành', '2023-06-27', '2023-06-28', '2023-06-27'),
 ('CV004', 'NV008', 'CT', 'KD001', 'KH001', 'Thu Hồi Công Nợ', 'Hoàn Thành', '2023-06-20', '2023-07-01', '2023-06-27');
 
--- --------------------------------------------------------
 
---
--- Cấu trúc bảng cho bảng `vaitro`
---
-
-CREATE TABLE `vaitro` (
-  `id_vaitro` varchar(10) NOT NULL,
-  `tenvaitro` varchar(255) NOT NULL,
-  `mota` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `vaitro`
---
-
-INSERT INTO `vaitro` (`id_vaitro`, `tenvaitro`, `mota`) VALUES
-('NS', 'Nhân Sự', 'là nhân viên trong công ty'),
-('QLBP', 'Quản Lý Bộ Phận', 'là người quản lý bộ phận'),
-('QLKV', 'Quản Lý Khu Vực', 'là người quản lý khu vực'),
-('QTHT', 'Quản Tri Hệ thống', 'là quản trị hệ thống của công ty');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -268,73 +286,9 @@ INSERT INTO `vaitro` (`id_vaitro`, `tenvaitro`, `mota`) VALUES
 --
 -- Chỉ mục cho bảng `bophan`
 --
-ALTER TABLE `bophan`
-  ADD PRIMARY KEY (`id_bophan`),
-  ADD KEY `id_khuvuc` (`id_khuvuc`);
 
---
--- Chỉ mục cho bảng `chitieu`
---
-ALTER TABLE `chitieu`
-  ADD PRIMARY KEY (`id_chitieu`);
 
---
--- Chỉ mục cho bảng `kehoachgiaoviec`
---
-ALTER TABLE `kehoachgiaoviec`
-  ADD PRIMARY KEY (`id_kehoachgiaoviec`),
-  ADD KEY `id_bophan` (`id_bophan`),
-  ADD KEY `id_khuvuc` (`id_khuvuc`);
 
---
--- Chỉ mục cho bảng `ketquadanhgia`
---
-ALTER TABLE `ketquadanhgia`
-  ADD KEY `id_nguoidung` (`id_nguoidung`,`id_chitieu`),
-  ADD KEY `id_chitieu` (`id_chitieu`);
-
---
--- Chỉ mục cho bảng `khuvuc`
---
-ALTER TABLE `khuvuc`
-  ADD PRIMARY KEY (`id_khuvuc`);
-
---
--- Chỉ mục cho bảng `nguoidung`
---
-ALTER TABLE `nguoidung`
-  ADD PRIMARY KEY (`id_nguoidung`);
-
---
--- Chỉ mục cho bảng `theodoikehoach`
---
-ALTER TABLE `theodoikehoach`
-  ADD PRIMARY KEY (`id`);
-
---
--- Chỉ mục cho bảng `tiendocongviec`
---
-ALTER TABLE `tiendocongviec`
-  ADD PRIMARY KEY (`id_congviec`),
-  ADD KEY `id_nguoidung` (`id_nguoidung`,`id_kehoachgiaoviec`),
-  ADD KEY `id_kehoachgiaoviec` (`id_kehoachgiaoviec`);
-
---
--- Chỉ mục cho bảng `vaitro`
---
-ALTER TABLE `vaitro`
-  ADD PRIMARY KEY (`id_vaitro`);
-
---
--- AUTO_INCREMENT cho các bảng đã đổ
---
-
---
--- AUTO_INCREMENT cho bảng `theodoikehoach`
---
-ALTER TABLE `theodoikehoach`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -5,10 +5,12 @@ include "db/database.php";
 
 $sql = "SELECT * FROM khuvuc";
 $query = mysqli_query($ketnoi, $sql);
-
+if(isset($_SESSION['error'])) {
+  $loi = $_SESSION['error'];
+  echo "<script>alert('$loi');</script>";
+  unset($_SESSION['error']);
+}
 ?>
-
-
 
 <div class="p-4 sm:ml-64">
   <div class="p-4 mt-14">

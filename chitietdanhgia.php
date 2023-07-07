@@ -123,7 +123,7 @@ $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
 
                     while ($row2 = mysqli_fetch_array($result2)) {
                         $tenchitieu = $row2["tenchitieu"];
-                        $tongchitieuđatuoc = $row2["tongchitieuđatuoc"];
+                        $tongchitieuđatuoc = $row2["tongchitieuđatuoc"] ?? 0;
                         $tongchitieucandat = $row2["tongchitieucandat"];
                         $đatduoc = number_format($tongchitieuđatuoc, 0, '.', '.');
                         $candat = number_format($tongchitieucandat, 0, '.', '.');
@@ -267,7 +267,7 @@ $tenkhuvuc = $row_khuvuc["tenkhuvuc"];
                             $sql_nguoidung = "SELECT * FROM `nguoidung` WHERE `id_nguoidung` = '" . $id_nguoidung . "'";
                             $result_nguoidung = mysqli_query($ketnoi, $sql_nguoidung);
                             $row_nguoidung = mysqli_fetch_array($result_nguoidung);
-                            $tennguoidung = $row_nguoidung["tennguoidung"];
+                            $tennguoidung = $row_nguoidung["tennguoidung"] ?? '';
 
                             $sql_chitieu = "SELECT * FROM `chitieu` WHERE `id_chitieu` = '" . $id_chitieu . "'";
                             $result_chitieu = mysqli_query($ketnoi, $sql_chitieu);

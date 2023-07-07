@@ -420,7 +420,7 @@ if(!isset($_SESSION['id_vaitro'])) {
                </li>
                <?php } ?>
 
-               <?php if ($id_vt != "QTHT" && $id_vt != "QLKV"){ ?>
+               
                <li>
                 <button type="button" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-black hover:bg-gray-200" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                       <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-pencil" width="34" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -443,7 +443,7 @@ if(!isset($_SESSION['id_vaitro'])) {
                       </li>            
                 </ul>
              </li>
-             <?php } ?>
+             
      <!-- Tài KHoản -->
         <?php if ($id_vt == "QTHT"){ ?>
                <li class="pt-5">Tài khoản</li>
